@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 21:51:36 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/06/26 01:40:25 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/07/01 14:32:35 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,96 +19,111 @@ double		ft_check_angle(double angle)
 	return (angle);
 }
 
-double			ft_ray_size(t_rtv *rtv, t_coor ray_intersection, double angle)
+double			ft_ray_size(t_rtv *rtv, t_d_coor ray_intersection, double angle)
 {
-	double x = fabs((rtv->player.position.x - ray_intersection.x) / cos(angle));
-	double y = fabs((rtv->player.position.y - ray_intersection.y) / sin(angle));
-	return((x > y) ? y : x);
+	return((ray_intersection.x - rtv->player.position.x) * cos(angle) +
+		(ray_intersection.y - rtv->player.position.y) * sin(angle));
 }
 
-t_coor		ft_horizontal_intersection(t_rtv *rtv,double angle)
+double		ft_vertical_intersection(t_rtv *rtv, double angle)
 {
-	t_coor	position;
-	double	xstep;
-	double	ystep;
+	t_d_coor		position;
+	t_d_coor		step;
+	t_coor			map_coor;
 	double	inverse_tan;
-	double	angle_tan;
-	
+
 	inverse_tan = 1/tan(angle);
-	if(angle >  M_PI){ //looking up
-		position.y = (int)(rtv->player.position.y / BLOCK_SIZE) * BLOCK_SIZE - 0.000001;
+	if(angle >  M_PI)
+	{ //looking up
+		position.y = floor((rtv->player.position.y / BLOCK_SIZE) * BLOCK_SIZE) - 0.0000001;
 		position.x = ((position.y - rtv->player.position.y) * inverse_tan) + rtv->player.position.x;
-		ystep = -BLOCK_SIZE;
-		xstep = ystep * inverse_tan;
+		step.y = - BLOCK_SIZE;
+		step.x = step.y * inverse_tan;
 	}
 	if(angle < M_PI) //looking down
 	{
-		position.y = (int)((rtv->player.position.y / BLOCK_SIZE) * BLOCK_SIZE) + BLOCK_SIZE;
+		position.y = floor((rtv->player.position.y / BLOCK_SIZE) * BLOCK_SIZE) + BLOCK_SIZE;
 		position.x = ((position.y - rtv->player.position.y) * inverse_tan) + rtv->player.position.x;
-		ystep = BLOCK_SIZE;
-		xstep = ystep * inverse_tan;
+		step.y = BLOCK_SIZE;
+		step.x = step.y * inverse_tan;
 	}
-	double distV = 100000;
-	t_coor positionV;
-	if(angle == 0 || angle == PI_2)
-		positionV = rtv->player.position;
-	else
+	if(!(angle == 0 || angle == PI_2))
 	{
 		int i = -1;
-		while(++i < 8)
+		while(1)
 		{
-			int x = (int)(position.x / BLOCK_SIZE);
-			int y = (int)(position.y / BLOCK_SIZE);
-			if(x < 0 || y < 0 || x > 8 || y > 8 || map[y][x]){
-				positionV = position;
-				distV = ft_ray_size(rtv, position, angle);
-				break;
-			}
-			else
-			{
-				position.y += ystep;
-				position.x += xstep;			
-			}
-		}	
-	}
-	angle_tan = tan(angle);
-	if(angle >  M_PI_2 && angle < M_PI_2 * 3)
-	{ //looking left
-		position.x = (int)(rtv->player.position.x / BLOCK_SIZE) * BLOCK_SIZE - 1;
-		position.y = ((position.x - rtv->player.position.x) * angle_tan) + rtv->player.position.y;
-		xstep = -BLOCK_SIZE;
-		ystep = xstep * angle_tan;
-	}
-	if(angle <  M_PI_2 || angle > M_PI_2 * 3)
-	{ //looking right
-		position.x = (int)((rtv->player.position.x / BLOCK_SIZE) * BLOCK_SIZE) + BLOCK_SIZE;
-		position.y = ((position.x - rtv->player.position.x) * angle_tan) + rtv->player.position.y;
-		xstep = BLOCK_SIZE;
-		ystep = xstep * angle_tan;
-	}
-	double distH = 100000;
-	t_coor positionH;
-	if(angle == M_PI_2 || angle == 3 * M_PI / 2)
-		positionH = rtv->player.position;
-	else
-	{
-		int i = -1;
-		while(++i < 8)
-		{
-			int x = (int)(position.x / BLOCK_SIZE);
-			int y = (int)(position.y / BLOCK_SIZE);
-			if(x < 0 || y < 0 || x > 8 || y > 8 || map[y][x]){
-				positionH = position;
-				distH = ft_ray_size(rtv, position, angle);
-				break;
-			}
+			map_coor.x = (int)(position.x / BLOCK_SIZE);
+			map_coor.y = (int)(position.y / BLOCK_SIZE);
+			if(map_coor.x < 0 || map_coor.y < 0 || map_coor.x > 8 || map_coor.y > 8)
+				return(MAX_DIST);
+			else if(map[map_coor.y][map_coor.x])
+				return(ft_ray_size(rtv, position, angle));
 			else{
-				position.y += ystep;
-				position.x += xstep;
+				position.y += step.y;
+				position.x += step.x;
 			}			
 		}
 	}
-	return((distH <= distV) ? positionH : positionV);
+	return(MAX_DIST);
+}
+	
+double		ft_horizontal_intersection(t_rtv *rtv,double angle)
+{
+	t_d_coor		position;
+	t_d_coor	step;
+	t_coor		map_coor;
+	double		angle_tan;
+
+	angle_tan = tan(angle);
+	if(angle >  M_PI_2 && angle < M_PI_2 * 3)
+	{
+		position.x = floor((rtv->player.position.x / BLOCK_SIZE) * BLOCK_SIZE) - 0.0000001;
+		position.y = ((position.x - rtv->player.position.x) * angle_tan) + rtv->player.position.y;
+		step.x = -BLOCK_SIZE;
+		step.y = step.x * angle_tan;
+	}
+	if(angle <  M_PI_2 || angle > M_PI_2 * 3)
+	{
+		position.x = floor((rtv->player.position.x / BLOCK_SIZE) * BLOCK_SIZE) + BLOCK_SIZE;
+		position.y = ((position.x - rtv->player.position.x) * angle_tan) + rtv->player.position.y;
+		step.x = BLOCK_SIZE;
+		step.y = step.x * angle_tan;
+	}
+	if(!(angle == M_PI_2 || angle == 3 * M_PI / 2))
+	{
+		int i = -1;
+		while(1)
+		{
+			map_coor.x = (int)(position.x / BLOCK_SIZE);
+			map_coor.y = (int)(position.y / BLOCK_SIZE);
+			map_coor.y = (int)(position.y / BLOCK_SIZE);
+			if(map_coor.x < 0 || map_coor.y < 0 || map_coor.x > 8 || map_coor.y > 8)
+				return(MAX_DIST);
+			else if(map[map_coor.y][map_coor.x])
+				return(ft_ray_size(rtv, position, angle));
+			else{
+				position.y += step.y;
+				position.x += step.x;
+			}			
+		}
+	}
+	return(MAX_DIST);
+}
+
+int			ft_rgb_to_int(t_color color);
+
+void		ft_draw_line(t_rtv *rtv, t_color color)
+{
+	t_coor start;
+	int wall_size;
+	t_coor end;
+
+	wall_size =  WIN_WIDTH * BLOCK_SIZE /  rtv->distance;
+	start.x = rtv->column;
+	start.y = 0;
+	end = start;
+	end.y  = wall_size;
+	plot_line(rtv, ft_rgb_to_int(color),start, end);
 }
 
 void		ft_ray_shooter(t_rtv *rtv)
@@ -116,14 +131,29 @@ void		ft_ray_shooter(t_rtv *rtv)
 	t_coor first_ray;
 	double	step;
 	double	first_angle;
+	double		distence[2];
+	int wall_size;
+	t_coor start;
+	t_coor end;
 
-	step = FOV / RAY_NUMBER;
+	step = FOV / WIN_WIDTH;
 	first_angle = rtv->player.view_angle - (FOV / 2);
-	int i = -1;
-	while(++i < RAY_NUMBER)
+	rtv->column = 500-1;
+	while(++rtv->column < WIN_WIDTH * 2)
 	{
+		rtv->distance = 0;
 		first_angle = ft_check_angle(first_angle);
-		plot_line(rtv, 0xFF00FF, rtv->player.position, ft_horizontal_intersection(rtv,first_angle));
+		distence[0] = ft_horizontal_intersection(rtv,first_angle);
+		distence[1] = ft_vertical_intersection(rtv,first_angle);
+		if(distence[0] < distence[1])
+			rtv->color = (t_color){.8, 0, 0};
+		else
+			rtv->color = (t_color){1, 0, 0};
+		rtv->distance  =  ((distence[0] < distence[1]) ? distence[0] : distence[1]) * cos(rtv->player.view_angle - first_angle);
+		wall_size = (int)(WIN_WIDTH * BLOCK_SIZE / rtv->distance);
+		start = (t_coor){rtv->column, (WIN_WIDTH / 2) - wall_size/2};
+		end = (t_coor){rtv->column, (WIN_WIDTH / 2) + wall_size/2};
+		plot_line(rtv, ft_rgb_to_int(rtv->color),start, end);
 		first_angle += step;
 	}
 }

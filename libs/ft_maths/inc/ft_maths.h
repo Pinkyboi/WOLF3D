@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:24:45 by azarzor           #+#    #+#             */
-/*   Updated: 2020/06/25 21:12:14 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/07/01 13:03:18 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ typedef struct		s_coor
 	int	x;
 	int	y;
 }					t_coor;
+
+typedef struct		s_d_coor
+{
+	double	x;
+	double	y;
+}					t_d_coor;
 
 typedef struct		s_coor_d
 {
