@@ -31,7 +31,6 @@ void	print_map(t_game_object game_object)
 		printf("\n");
 	}
 }
-
 int	main(int argc, char **argv)
 {
 	int				fd;

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 21:51:36 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/07/01 14:32:35 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/07/02 02:05:33 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ double		ft_vertical_intersection(t_rtv *rtv, double angle)
 		{
 			map_coor.x = (int)(position.x / BLOCK_SIZE);
 			map_coor.y = (int)(position.y / BLOCK_SIZE);
-			if(map_coor.x < 0 || map_coor.y < 0 || map_coor.x > 8 || map_coor.y > 8)
+			if(map_coor.x < 0 || map_coor.y < 0 || map_coor.x > rtv->proportion.x || map_coor.y > rtv->proportion.y)
 				return(MAX_DIST);
-			else if(map[map_coor.y][map_coor.x])
+			else if(rtv->map[map_coor.y][map_coor.x].type == '1')
 				return(ft_ray_size(rtv, position, angle));
 			else{
 				position.y += step.y;
@@ -97,9 +97,9 @@ double		ft_horizontal_intersection(t_rtv *rtv,double angle)
 			map_coor.x = (int)(position.x / BLOCK_SIZE);
 			map_coor.y = (int)(position.y / BLOCK_SIZE);
 			map_coor.y = (int)(position.y / BLOCK_SIZE);
-			if(map_coor.x < 0 || map_coor.y < 0 || map_coor.x > 8 || map_coor.y > 8)
+			if(map_coor.x < 0 || map_coor.y < 0 || map_coor.x > rtv->proportion.x || map_coor.y > rtv->proportion.y)
 				return(MAX_DIST);
-			else if(map[map_coor.y][map_coor.x])
+			else if(rtv->map[map_coor.y][map_coor.x].type == '1')
 				return(ft_ray_size(rtv, position, angle));
 			else{
 				position.y += step.y;
