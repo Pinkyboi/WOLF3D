@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+#include <errno.h>
 
 void	print_map(t_game_object game_object)
 {

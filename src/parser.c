@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 21:51:36 by abenaiss          #+#    #+#             */
-/*   Updated: 2020/07/02 01:30:58 by abenaiss         ###   ########.fr       */
+/*   Updated: 2020/07/02 15:47:17 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static	t_map	*ft_lineup(char *str, t_map *tab, int *b, int y)
 	{
 		while (t[*b])
 			(*b)++;
+		(*b)--;
 	}
 	if (!(tab = (t_map *)malloc(sizeof(t_map) * (*b + 1))))
 		return (0);
@@ -66,6 +67,8 @@ t_map			**ft_read_matrice(const int fd, int *a, int *b)
 	int		i;
 	t_map	**t;
 
+	*a = 0;
+	*b = 0;
 	str = ft_total_join(fd, a);
 	tab = ft_strsplit(str, '\n');
 	t = (t_map **)malloc(sizeof(t_map *) * (*a + 1));
