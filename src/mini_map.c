@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-void		ft_draw_block(t_rtv *rtv,t_coor position, int size, int color)
+void		ft_draw_block(t_rtv *rtv,t_d_coor position, int size, int color)
 {
 	int i = -1;
 	while(++i < size)
@@ -33,9 +33,7 @@ void		ft_draw_map(t_rtv *rtv, int block_size)
 		rtv->row = 0;
 		while(++j <= rtv->map_dimentions.x){
 			if(rtv->map[i][j].type == '1')
-				ft_draw_block(rtv,(t_coor){rtv->row, rtv->column}, block_size, 0xFFFFFF);
-			if(rtv->map[i][j].type == 'P')
-				ft_draw_block(rtv,(t_coor){rtv->row, rtv->column}, block_size, 0xFF0000);
+				ft_draw_block(rtv,(t_d_coor){rtv->row, rtv->column}, block_size, 0xFFFFFF);
 			rtv->row += block_size;
 		}
 		rtv->column += block_size;
@@ -49,9 +47,8 @@ void		ft_draw_map(t_rtv *rtv, int block_size)
 
 void		ft_minimap(t_rtv *rtv)
 {
-	// t_coor position;
-	// ft_draw_map(rtv, BLOCK_SIZE);
-	// position = (t_coor){rtv->player.position.x / BLOCK_SIZE, rtv->player.position.y / BLOCK_SIZE};
-	
-	// ft_draw_block(rtv, (t_coor){position.x, position.y}, 2, 0xFF0000);
+	t_d_coor position;
+	ft_draw_map(rtv, 10);
+	position = (t_d_coor){(rtv->player.position.x / BLOCK_SIZE) * 10, (rtv->player.position.y / BLOCK_SIZE) * 10};
+	ft_draw_block(rtv, position, 10, 0xFF0000);
 }

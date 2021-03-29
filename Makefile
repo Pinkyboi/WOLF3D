@@ -43,7 +43,6 @@ HEADER_FILE = wolf3d.h
 
 INCLUDES = -I $(INC_DIR) -I $(LIBFT_DIR) -I ./mlx
 LIBRARIES = -L $(LIBFT_DIR) -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
-
 all: $(NAME)
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)

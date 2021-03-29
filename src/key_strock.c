@@ -17,13 +17,20 @@ void		ft_print_coordinate(t_coor position)
 	printf("(%d, %d)\n", position.x, position.y);
 }
 
+void		ft_print_d_coordinate(t_d_coor position)
+{
+	printf("(%f, %f)\n", position.x, position.y);
+}
+
 int 		ft_check_walls(t_rtv *rtv, int key)
 {
 	t_coor position;
+	t_coor back_position;
 
+		back_position = (t_coor){(int)rtv->player.position.x / BLOCK_SIZE, (int)rtv->player.position.y / BLOCK_SIZE};
 	if(key == UP)
-		position = (t_coor){(rtv->player.position.x + rtv->player.dx) / BLOCK_SIZE,
-			(rtv->player.position.y + rtv->player.dy) / BLOCK_SIZE};
+		position = (t_coor){((int)rtv->player.position.x + rtv->player.dx) / BLOCK_SIZE,
+			((int)rtv->player.position.y + rtv->player.dy) / BLOCK_SIZE};
 	if(key == DOWN)
 		position = (t_coor){(rtv->player.position.x - rtv->player.dx) / BLOCK_SIZE,
 			(rtv->player.position.y - rtv->player.dy) / BLOCK_SIZE};
@@ -35,7 +42,7 @@ int 		ft_check_walls(t_rtv *rtv, int key)
 		return (0);
 	if(rtv->map[position.y][position.x].type == '0')
 	{
-		rtv->map[rtv->player.position.y / BLOCK_SIZE][rtv->player.position.x / BLOCK_SIZE].type = '0';
+		rtv->map[back_position.y][back_position.x].type = '0';
 		rtv->map[position.y][position.x].type = 'P';
 	}
 	return (1);
@@ -57,16 +64,16 @@ void 		ft_movement(int key, t_rtv *rtv)
 	{
 		if(ft_check_walls(rtv, UP))
 		{
-			rtv->player.position.x += (int)rtv->player.dx;
-			rtv->player.position.y += (int)rtv->player.dy;
+			rtv->player.position.x += rtv->player.dx;
+			rtv->player.position.y += rtv->player.dy;
 		}
 	}
 	if(key == DOWN)
 	{
 		if(ft_check_walls(rtv, DOWN))
 		{
-			rtv->player.position.x -= (int)rtv->player.dx;
-			rtv->player.position.y -= (int)rtv->player.dy;
+			rtv->player.position.x -= rtv->player.dx;
+			rtv->player.position.y -= rtv->player.dy;
 		}
 	}	
 }
@@ -78,7 +85,8 @@ int			ft_key_stroke(int key, t_rtv *rtv)
 	if(key == RIGHT || key == LEFT || key== UP || key == DOWN)
 		ft_movement(key, rtv);
 	ft_ray_shooter(rtv);
-	ft_draw_map(rtv, 10);
+	// ft_draw_map(rtv, 10);
+	ft_minimap(rtv);
 	// ft_minimap(rtv);
 	// ft_draw_block(rtv, (t_coor){(int)(rtv->player.position.x * 10 / BLOCK_SIZE),
 	// 	(int)(rtv->player.position.y * 10 / BLOCK_SIZE)}, 10, 0xFF0000);
