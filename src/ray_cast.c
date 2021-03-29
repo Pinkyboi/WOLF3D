@@ -114,6 +114,17 @@ void line(t_rtv *rtv, t_coor pt0,t_coor pt1) {
   }
 }
 
+int			ft_get_textureX_coor(t_rtv *rtv)
+{
+	double wall_index;
+
+	t_d_coor end = ft_add_vector2D(rtv->player.position,
+		ft_scale_vector2D(rtv->player.current_ray, rtv->player.hit_infos.distance));
+	wall_index = (rtv->player.hit_infos.wall_type == 'V') ? end.y : end.x;
+	wall_index -= (int)wall_index;
+	int texture_index = wall_index * (double)rtv->texture_dimention.y;
+	return(texture_index);
+}
 
 void		ft_minimap(t_rtv *rtv);
 
@@ -137,10 +148,10 @@ void		ft_ray_shooter(t_rtv *rtv)
 	{
 		infos.distance = 0;
 		first_angle = ft_check_angle(first_angle);
-		t_d_coor vector = angleToVector2D(first_angle);
-		infos = ft_define_check_step(rtv, vector, rtv->player.position);
-		rtv->distance = infos.distance * (double)BLOCK_SIZE * cos(rtv->player.view_angle - first_angle);
-		double j  = (infos.wall_type == 'H') ? rtv->h_coor.x: rtv->v_coor.x;
+		rtv->player.current_ray = angleToVector2D(first_angle);
+		rtv->player.hit_infos = ft_define_check_step(rtv, rtv->player.current_ray, rtv->player.position);
+		rtv->distance = rtv->player.hit_infos.distance * (double)BLOCK_SIZE * cos(rtv->player.view_angle - first_angle);
+		double j  = ft_get_textureX_coor(rtv);
 
 		wall_size = (int)(WIN_WIDTH * BLOCK_SIZE / rtv->distance);
 		start = ((WIN_HEIGHT / 2) - wall_size/2) - 1;
@@ -150,15 +161,15 @@ void		ft_ray_shooter(t_rtv *rtv)
 		int color;
 		while(++start < end)
 		{
-			// if(infos.wall_type == 'H')
-			// 	color = ft_scale_color_int(rtv->texture[(int)((int)i * rtv->texture_dimention.x + (int)(j * stp1))], 1);
-			// else
-			// 	color = ft_scale_color_int(rtv->texture[(int)((int)i * rtv->texture_dimention.x + (int)(j * stp1))], .7);
-			
-			if(infos.wall_type == 'H')
-				color = ft_scale_color_int(1845646, 1);
+			if(rtv->player.hit_infos.wall_type == 'H')
+				color = ft_scale_color_int(rtv->texture[(int)((int)i * rtv->texture_dimention.x + (int)(j * stp1))], 1);
 			else
-				color = ft_scale_color_int(1845646, .7);
+				color = ft_scale_color_int(rtv->texture[(int)((int)i * rtv->texture_dimention.x + (int)(j * stp1))], .7);
+			
+			// if(infos.wall_type == 'H')
+			// 	color = ft_scale_color_int(1845646, 1);
+			// else
+			// 	color = ft_scale_color_int(1845646, .7);
 			ft_put_pixel(rtv,(t_coor){rtv->column ,start}, color);
 			i += stp;
 		}
