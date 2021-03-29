@@ -34,21 +34,15 @@ void		ft_draw_map(t_rtv *rtv, int block_size)
 		while(++j <= rtv->map_dimentions.x){
 			if(rtv->map[i][j].type == '1')
 				ft_draw_block(rtv,(t_d_coor){rtv->row, rtv->column}, block_size, 0xFFFFFF);
+			else if(rtv->map[i][j].type == 'P')
+				ft_draw_block(rtv,(t_d_coor){rtv->row, rtv->column}, block_size, 0xFF0000);
 			rtv->row += block_size;
 		}
 		rtv->column += block_size;
 	}
 }
 
-// void		ft_print_coordinate(t_coor position)
-// {
-// 	printf("(%d, %d)\n", position.x, position.y);
-// }
-
 void		ft_minimap(t_rtv *rtv)
 {
-	t_d_coor position;
 	ft_draw_map(rtv, 10);
-	position = (t_d_coor){(rtv->player.position.x / BLOCK_SIZE) * 10, (rtv->player.position.y / BLOCK_SIZE) * 10};
-	ft_draw_block(rtv, position, 10, 0xFF0000);
 }

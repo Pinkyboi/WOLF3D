@@ -132,7 +132,6 @@ typedef	struct			s_player
 	short				hp;
 	short				stamina;
 	char				*player_appearance;
-	
 }						t_player;
 
 typedef void			t_game_rendering(void);

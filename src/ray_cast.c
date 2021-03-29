@@ -138,8 +138,7 @@ void		ft_ray_shooter(t_rtv *rtv)
 		infos.distance = 0;
 		first_angle = ft_check_angle(first_angle);
 		t_d_coor vector = angleToVector2D(first_angle);
-		t_coor position = (t_coor){(rtv->player.position.x / 32) * 10, (rtv->player.position.y / 32.0) * 10};
-		infos = ft_define_check_step(rtv, vector, (t_d_coor){rtv->player.position.x/ (double)BLOCK_SIZE, rtv->player.position.y / (double)BLOCK_SIZE});
+		infos = ft_define_check_step(rtv, vector, rtv->player.position);
 		rtv->distance = infos.distance * (double)BLOCK_SIZE * cos(rtv->player.view_angle - first_angle);
 		double j  = (infos.wall_type == 'H') ? rtv->h_coor.x: rtv->v_coor.x;
 

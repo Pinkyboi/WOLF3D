@@ -47,7 +47,7 @@ void plot_line(t_rtv *rtv, int color, t_coor p1, t_coor p2)
 	ft_put_pixel(rtv, p1, color);
     if (p1.x == p2.x && p1.y == p2.y) break;
     	e2 = 2 * err;
-    if (e2 >= dy) { err += dy; p1.x += sx; } /* e_xy+e_x > 0 */
-    if (e2 <= dx) { err += dx; p1.y += sy; } /* e_xy+e_y < 0 */
+    if (e2 >= dy) { err += dy; p1.x += sx; }
+    if (e2 <= dx) { err += dx; p1.y += sy; }
   }
 }
