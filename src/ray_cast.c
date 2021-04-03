@@ -47,6 +47,7 @@ t_d_coor	ft_normalise_vector2D(t_d_coor vector){
 	
 	return(vector);
 }
+
 t_hit_infos	ft_define_check_step(t_rtv *rtv, t_d_coor ray, t_d_coor playerWorldPos){
 	t_coor		playerGridPos;
 	t_coor		gridStep;
@@ -159,19 +160,46 @@ void		ft_ray_shooter(t_rtv *rtv)
 		double stp = (double)rtv->texture_dimention.y / wall_size;
 		double i = 0;
 		int color;
+		int k = -1;
+		while(++k <= start)
+		{
+			double wall_ratio = abs(k - (WIN_HEIGHT / 2));
+			double distance = 32.0 / wall_ratio * WIN_WIDTH /cos(rtv->player.view_angle - first_angle) / 64.0;
+			t_d_coor texture_ratio;
+
+			texture_ratio.y = rtv->player.position.y + (distance * sin(first_angle));
+			texture_ratio.x = rtv->player.position.x + (distance * cos(first_angle));
+			texture_ratio.x -= (int)texture_ratio.x;
+			texture_ratio.y -= (int)texture_ratio.y;
+			texture_ratio.x *= rtv->texture_dimention.x;
+			texture_ratio.y *= rtv->texture_dimention.y;
+			color = ft_scale_color_int(rtv->texture[(int)((int)texture_ratio.y * rtv->texture_dimention.x + (int)texture_ratio.x)], 0.6);
+			ft_put_pixel(rtv,(t_coor){rtv->column ,k}, color);
+		}
 		while(++start < end)
 		{
 			if(rtv->player.hit_infos.wall_type == 'H')
 				color = ft_scale_color_int(rtv->texture[(int)((int)i * rtv->texture_dimention.x + (int)(j * stp1))], 1);
 			else
 				color = ft_scale_color_int(rtv->texture[(int)((int)i * rtv->texture_dimention.x + (int)(j * stp1))], .7);
-			
-			// if(infos.wall_type == 'H')
-			// 	color = ft_scale_color_int(1845646, 1);
-			// else
-			// 	color = ft_scale_color_int(1845646, .7);
 			ft_put_pixel(rtv,(t_coor){rtv->column ,start}, color);
 			i += stp;
+		}
+		start--;
+		while(++start < WIN_HEIGHT)
+		{
+			double wall_ratio = abs(start - (WIN_HEIGHT / 2));
+			double distance = 32.0 / wall_ratio * WIN_WIDTH /cos(rtv->player.view_angle - first_angle) / 64.0;
+			t_d_coor texture_ratio;
+
+			texture_ratio.y = rtv->player.position.y + (distance * sin(first_angle));
+			texture_ratio.x = rtv->player.position.x + (distance * cos(first_angle));
+			texture_ratio.x -= (int)texture_ratio.x;
+			texture_ratio.y -= (int)texture_ratio.y;
+			texture_ratio.x *= rtv->texture_dimention.x;
+			texture_ratio.y *= rtv->texture_dimention.y;
+			color = ft_scale_color_int(rtv->texture[(int)((int)texture_ratio.y * rtv->texture_dimention.x + (int)texture_ratio.x)], 0.6);
+			ft_put_pixel(rtv,(t_coor){rtv->column ,start}, color);
 		}
 		first_angle += step;
 	}
