@@ -28,10 +28,10 @@ int 		ft_check_walls(t_wolf *wolf, int key)
 	t_coor back_position;
 
 	back_position = (t_coor){wolf->player.position.x, wolf->player.position.y};
-	if(key == UP)
+	if(key == FOREWORD)
 		position = (t_coor){wolf->player.position.x + wolf->player.movement.x,
 			wolf->player.position.y + wolf->player.movement.y};
-	if(key == DOWN)
+	if(key == BACKWARD)
 		position = (t_coor){(wolf->player.position.x - wolf->player.movement.x),
 			(wolf->player.position.y - wolf->player.movement.y)};
 	if(position.x <= 0 || position.x >= wolf->map_dimentions.x)
@@ -63,9 +63,9 @@ void 		ft_movement(int key, t_wolf *wolf)
 		ft_angleToVector2D(wolf->player.view_angle),
 			wolf->player.step);
 	}
-	if(key == UP)
+	if(key == FOREWORD)
 	{
-		if(ft_check_walls(wolf, UP))
+		if(ft_check_walls(wolf, FOREWORD))
 		{
 			wolf->player.position = ft_add_vector2D(wolf->player.position,
 									wolf->player.movement);
@@ -73,9 +73,9 @@ void 		ft_movement(int key, t_wolf *wolf)
 										wolf->player.position.y};
 		}
 	}
-	if(key == DOWN)
+	if(key == BACKWARD)
 	{
-		if(ft_check_walls(wolf, DOWN))
+		if(ft_check_walls(wolf, BACKWARD))
 		{
 			wolf->player.position = ft_sub_vector2D(wolf->player.position,
 									wolf->player.movement);
@@ -85,6 +85,22 @@ void 		ft_movement(int key, t_wolf *wolf)
 	}	
 }
 
+void		ft_head_tilt(int key, t_wolf *wolf)
+{
+	if(key == UP && wolf->view.vertical_tilt < M_PI_4)
+	{
+		wolf->view.vertical_tilt += 0.1;
+		wolf->view.view_shift = tan(wolf->view.vertical_tilt) * wolf->view.view_plane_distance;
+		wolf->view.half_view_plane = wolf->view.half_view_plane_save  + wolf->view.view_shift;
+	}
+	if(key == DOWN && wolf->view.vertical_tilt > -M_PI_4)
+	{
+		wolf->view.vertical_tilt -= 0.1;
+		wolf->view.view_shift = tan(wolf->view.vertical_tilt) * wolf->view.view_plane_distance;
+		wolf->view.half_view_plane = wolf->view.half_view_plane_save  +  wolf->view.view_shift;
+	}
+
+}
 int			ft_key_hold(int key, t_wolf *wolf){
 	 
 	 if(key == 257){
@@ -111,9 +127,10 @@ int			ft_key_stroke(int key, t_wolf *wolf)
 			wolf->player.step);
 		wolf->player.is_running = 1;
 	}
-	if(key == RIGHT || key == LEFT || key== UP || key == DOWN)
+	if(key == RIGHT || key == LEFT || key== FOREWORD || key == BACKWARD)
 		ft_movement(key, wolf);
-
+	if(key == UP || key == DOWN)
+		ft_head_tilt(key, wolf);
 	ft_ray_shooter(wolf);
 	ft_minimap(wolf);
 	mlx_put_image_to_window(wolf->mlx.mlx_ptr,

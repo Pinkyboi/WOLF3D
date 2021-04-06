@@ -28,6 +28,7 @@ void		ft_ray_shooter(t_wolf *wolf)
 	wolf->column = -1;
 	double stp1 = (double)wolf->texture_dimention.x / (double)BLOCK_SIZE;
 	start = 0;
+
 	while(++wolf->column < WIN_WIDTH)
 	{
 		wolf->player.hit_infos.distance = 0;
@@ -37,8 +38,8 @@ void		ft_ray_shooter(t_wolf *wolf)
 
 		wolf->distance = wolf->player.hit_infos.distance * (double)BLOCK_SIZE * cos(wolf->player.view_angle - first_angle);
 		j  = ft_get_textureX_coor(wolf);
-		wall_size = (int)(WIN_WIDTH * BLOCK_SIZE / wolf->distance);
-		start = ((WIN_HEIGHT / 2) - wall_size/2) - 1 ;
+		wall_size = (int)(wolf->view.view_plane_distance * BLOCK_SIZE / wolf->distance);
+		start =  (wolf->view.half_view_plane - wall_size/2) - 1;
 		end  = start + wall_size;
 		double stp = (double)wolf->texture_dimention.y / wall_size;
 		
@@ -68,8 +69,8 @@ void ft_ceiling_or_floor(t_wolf *wolf, double first_angle, t_coor range)
 
 	while(range.x < range.y)
 	{
-		wall_ratio = abs(range.x - (WIN_HEIGHT / 2));
-		distance = 32.0 / wall_ratio * WIN_WIDTH /cos(wolf->player.view_angle - first_angle) / 64.0;
+		wall_ratio = abs(range.x - wolf->view.half_view_plane);
+		distance = wolf->player.height / wall_ratio * wolf->view.view_plane_distance /cos(wolf->player.view_angle - first_angle) / 64.0;
 		texture_ratio.y = wolf->player.position.y + (distance * sin(first_angle));
 		texture_ratio.x = wolf->player.position.x + (distance * cos(first_angle));
 		texture_ratio.x -= (int)texture_ratio.x;
