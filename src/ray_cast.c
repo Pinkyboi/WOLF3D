@@ -37,14 +37,13 @@ void		ft_ray_shooter(t_wolf *wolf)
 
 		wolf->distance = wolf->player.hit_infos.distance * (double)BLOCK_SIZE * cos(wolf->player.view_angle - first_angle);
 		j  = ft_get_textureX_coor(wolf);
-
 		wall_size = (int)(WIN_WIDTH * BLOCK_SIZE / wolf->distance);
-		start = ((WIN_HEIGHT / 2) - wall_size/2) - 1;
-		end  = (WIN_HEIGHT / 2) + wall_size/2;
+		start = ((WIN_HEIGHT / 2) - wall_size/2) - 1 ;
+		end  = start + wall_size;
 		double stp = (double)wolf->texture_dimention.y / wall_size;
 		
 		i = 0;
-		ft_ceiling_or_floor(wolf, first_angle, 0, start + 1);
+		ft_ceiling_or_floor(wolf, first_angle, (t_coor){0, start + 1});
 		while(++start < end)
 		{
 			if(wolf->player.hit_infos.wall_type == 'H')
@@ -54,22 +53,22 @@ void		ft_ray_shooter(t_wolf *wolf)
 			ft_put_pixel(wolf,(t_coor){wolf->column ,start}, color);
 			i += stp;
 		}
-		ft_ceiling_or_floor(wolf, first_angle, start, WIN_HEIGHT);
+		ft_ceiling_or_floor(wolf, first_angle, (t_coor){start, WIN_HEIGHT});
 		first_angle += step;
 	}
 }
 
 
-void ft_ceiling_or_floor(t_wolf *wolf, double first_angle, int start, int end)
+void ft_ceiling_or_floor(t_wolf *wolf, double first_angle, t_coor range)
 {
 	double wall_ratio;
 	double distance;
 	double color;
 	t_d_coor texture_ratio;
 
-	while(start < end)
+	while(range.x < range.y)
 	{
-		wall_ratio = abs(start - (WIN_HEIGHT / 2));
+		wall_ratio = abs(range.x - (WIN_HEIGHT / 2));
 		distance = 32.0 / wall_ratio * WIN_WIDTH /cos(wolf->player.view_angle - first_angle) / 64.0;
 		texture_ratio.y = wolf->player.position.y + (distance * sin(first_angle));
 		texture_ratio.x = wolf->player.position.x + (distance * cos(first_angle));
@@ -78,7 +77,7 @@ void ft_ceiling_or_floor(t_wolf *wolf, double first_angle, int start, int end)
 		texture_ratio.x *= wolf->texture_dimention.x;
 		texture_ratio.y *= wolf->texture_dimention.y;
 		color = ft_scale_color_int(wolf->texture[(int)((int)texture_ratio.y * wolf->texture_dimention.x + (int)texture_ratio.x)], 0.6);
-			ft_put_pixel(wolf,(t_coor){wolf->column ,start}, color);
-		start++;
+			ft_put_pixel(wolf,(t_coor){wolf->column ,range.x}, color);
+		range.x++;
 	}
 }

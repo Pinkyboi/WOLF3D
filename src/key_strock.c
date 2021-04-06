@@ -41,7 +41,7 @@ int 		ft_check_walls(t_wolf *wolf, int key)
 	if(wolf->map[position.y][position.x].type != '0' &&
 		wolf->map[position.y][position.x].type != 'P' )
 		return (0);
-	if(wolf->map[position.y][position.x].type != '0')
+	if(wolf->map[position.y][position.x].type != '1')
 	{
 		wolf->map[back_position.y][back_position.x].type = wolf->player.current_tile;
 		wolf->player.current_tile = wolf->map[position.y][position.x].type;
@@ -60,14 +60,15 @@ void 		ft_movement(int key, t_wolf *wolf)
 			wolf->player.view_angle += .1;
 		wolf->player.view_angle = ft_check_angle(wolf->player.view_angle);
 	wolf->player.movement = ft_scale_vector2D(
-		ft_angleToVector2D(wolf->player.view_angle), wolf->player.step);
+		ft_angleToVector2D(wolf->player.view_angle),
+			wolf->player.step);
 	}
 	if(key == UP)
 	{
 		if(ft_check_walls(wolf, UP))
 		{
 			wolf->player.position = ft_add_vector2D(wolf->player.position,
-				wolf->player.movement);
+									wolf->player.movement);
 			wolf->player.grid_position =(t_coor){wolf->player.position.x,
 										wolf->player.position.y};
 		}
@@ -77,22 +78,46 @@ void 		ft_movement(int key, t_wolf *wolf)
 		if(ft_check_walls(wolf, DOWN))
 		{
 			wolf->player.position = ft_sub_vector2D(wolf->player.position,
-				wolf->player.movement);
+									wolf->player.movement);
 			wolf->player.grid_position =(t_coor){wolf->player.position.x,
 										wolf->player.position.y};
 		}
 	}	
 }
 
+int			ft_key_hold(int key, t_wolf *wolf){
+	 
+	 if(key == 257){
+		wolf->player.step -= 0.6;
+		wolf->player.movement = ft_scale_vector2D(
+		ft_angleToVector2D(wolf->player.view_angle),
+			wolf->player.step);
+		wolf->player.is_running = 0;
+	 }
+	 	
+	return(0);
+}
+void		ft_jump(int key, t_wolf *wolf){
+
+}
 int			ft_key_stroke(int key, t_wolf *wolf)
 {
 	(key == EXIT) ? ft_exit(wolf) : 1;
 	ft_clear_mlx(&wolf->mlx, wolf);
+	if(key == 257 && !wolf->player.is_running){
+		wolf->player.step += .6;
+		wolf->player.movement = ft_scale_vector2D(
+		ft_angleToVector2D(wolf->player.view_angle),
+			wolf->player.step);
+		wolf->player.is_running = 1;
+	}
 	if(key == RIGHT || key == LEFT || key== UP || key == DOWN)
 		ft_movement(key, wolf);
+
 	ft_ray_shooter(wolf);
 	ft_minimap(wolf);
 	mlx_put_image_to_window(wolf->mlx.mlx_ptr,
 		wolf->mlx.win, wolf->mlx.img.img_ptr, 0, 0);
 	return (0);
 }
+
