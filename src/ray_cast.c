@@ -35,7 +35,6 @@ void		ft_ray_shooter(t_wolf *wolf)
 		first_angle = ft_check_angle(first_angle);
 		wolf->player.current_ray = ft_angleToVector2D(first_angle);
 		ft_define_check_step(wolf, wolf->player.current_ray);
-
 		wolf->distance = wolf->player.hit_infos.distance * (double)BLOCK_SIZE * cos(wolf->player.view_angle - first_angle);
 		j  = ft_get_textureX_coor(wolf);
 		wall_size = (int)(wolf->view.view_plane_distance * BLOCK_SIZE / wolf->distance);
@@ -51,6 +50,8 @@ void		ft_ray_shooter(t_wolf *wolf)
 				color = ft_scale_color_int(wolf->texture[(int)((int)i * wolf->texture_dimention.x + (int)(j * stp1))], 1);
 			else
 				color = ft_scale_color_int(wolf->texture[(int)((int)i * wolf->texture_dimention.x + (int)(j * stp1))], .7);
+
+			color = ft_scale_color_int(color, ft_clip_min_max(0, 1, 100 / wolf->distance));
 			ft_put_pixel(wolf,(t_coor){wolf->column ,start}, color);
 			i += stp;
 		}
@@ -77,8 +78,10 @@ void ft_ceiling_or_floor(t_wolf *wolf, double first_angle, t_coor range)
 		texture_ratio.y -= (int)texture_ratio.y;
 		texture_ratio.x *= wolf->texture_dimention.x;
 		texture_ratio.y *= wolf->texture_dimention.y;
-		color = ft_scale_color_int(wolf->texture[(int)((int)texture_ratio.y * wolf->texture_dimention.x + (int)texture_ratio.x)], 0.6);
-			ft_put_pixel(wolf,(t_coor){wolf->column ,range.x}, color);
+		color = ft_scale_color_int(wolf->texture[(int)((int)texture_ratio.y *
+		wolf->texture_dimention.x + (int)texture_ratio.x)], 0.6);
+		color = ft_scale_color_int(color, ft_clip_min_max(0, 1, 100 / (wolf->player.height / wall_ratio * wolf->view.view_plane_distance)));
+		ft_put_pixel(wolf,(t_coor){wolf->column ,range.x}, color);
 		range.x++;
 	}
 }

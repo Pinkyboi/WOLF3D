@@ -89,13 +89,13 @@ void		ft_head_tilt(int key, t_wolf *wolf)
 {
 	if(key == UP && wolf->view.vertical_tilt < M_PI_4)
 	{
-		wolf->view.vertical_tilt += 0.1;
+		wolf->view.vertical_tilt += 0.05;
 		wolf->view.view_shift = tan(wolf->view.vertical_tilt) * wolf->view.view_plane_distance;
 		wolf->view.half_view_plane = wolf->view.half_view_plane_save  + wolf->view.view_shift;
 	}
 	if(key == DOWN && wolf->view.vertical_tilt > -M_PI_4)
 	{
-		wolf->view.vertical_tilt -= 0.1;
+		wolf->view.vertical_tilt -= 0.05;
 		wolf->view.view_shift = tan(wolf->view.vertical_tilt) * wolf->view.view_plane_distance;
 		wolf->view.half_view_plane = wolf->view.half_view_plane_save  +  wolf->view.view_shift;
 	}
