@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/15 02:30:00 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/04/15 03:03:11 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef	struct s_wolf
 	t_block_list block_list;
 }				t_wolf;
 
+int		isdigit(int c);
+int		row_len(char **array);
 int		row_len(char **array);
 int		hex_to_int(char *number);
 int 	hex_to_color(char *color);
@@ -58,4 +60,8 @@ int		stock_hex(char *color);
 int		mini_brackets(char *string, char *bracket);
 char	*trim(char *string, char *filter);
 char	**parse_block_tuple(char *tuple);
+char    *read_file(int fd);
 void    error_print(char *error, char *position);
+void    check_if_alpha(char *string);
+void    check_if_number(char *string);
+void	free_array(char **array);
