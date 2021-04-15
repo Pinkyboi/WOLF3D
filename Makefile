@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#              #
-#    Updated: 2021/04/15 02:33:41 by abenaiss         ###   ########.fr        #
+#    Updated: 2021/04/15 02:43:35 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,15 +35,13 @@ LIBRARIES = -L $(LIBFT_DIR) -lft -L./mlx -lmlx -framework OpenGL -framework AppK
 
 all: $(NAME)
 
-$(NAME) : $(OBJS) $(LIBFT_DIR)
+$(NAME) : $(OBJS)
+	@make -C $(LIBFT_DIR)
 	@$(CC) $(INCLUDES) $(LIBRARIES) $(OBJS) -o $@
 $(OBJS) : $(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR) $(INCLUDES)
 $(OBJ_DIR) :
 	@mkdir $(OBJ_DIR)
-$(LIBFTL) :
-	make -C $(LIBFT_DIR)
-
 clean:
 	@rm -rf $(OBJ_DIR)
 	@make -C $(LIBFT_DIR) clean
