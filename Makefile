@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#              #
-#    Updated: 2021/04/15 02:25:59 by abenaiss         ###   ########.fr        #
+#    Updated: 2021/04/15 02:33:41 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ clean:
 	@rm -rf $(OBJ_DIR)
 	@make -C $(LIBFT_DIR) clean
 
-fclean:
+fclean: clean
 	@make -C $(LIBFT_DIR) fclean
 	@rm -rf $(NAME)
 
