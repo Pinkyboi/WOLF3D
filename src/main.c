@@ -103,5 +103,5 @@ int     main(int argc, char **argv)
 	data = read_file(fd);
 	int i = -1;
 	while(data[++i])
-		printf("%s\n", data[i]);
+		printf("%c\n", data[i]);
 }
