@@ -18,12 +18,14 @@ char    *read_file(int fd)
 	char    buffer[42069 + 1];
 	char    *content;
 
-	content = NULL;
+	content = malloc(1);
+	if(content == NULL)
+		exit(-1);
 	*content = '\0';
 	while(1)
 	{
 		read_index = read(fd, buffer, 42069);
-		if(errno || read_index == -1)
+		if(read_index == -1)
 			exit(-1);
 		if(!read_index)
 			break;

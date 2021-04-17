@@ -92,6 +92,44 @@ void parse_env_block(char *block_infos)
 		error_print("wrong argument format in:", block_infos);
 }
 
+
+char **fix_map(char **map)
+{
+	int i;
+	char **line;
+	int bigest_row;
+	int current_row;
+	
+	i = -1;
+	while(map[++i])
+	{
+		line = ft_strsplit(map[i], ' ');
+		int j = -1;
+		while(line[++j])
+			map[i][j] = line[j][0];
+		map[i][j] = '\0'; 
+		bigest_row = ((current_row = row_len(line)) 
+			> bigest_row)? current_row : bigest_row;
+		free_array(line);
+	}
+	return(map);
+}
+char **map_creator(char *data)
+{
+	char **map;
+	
+	data = trim(data, WHITE_SPACES);
+		map = fix_map(ft_strsplit(data, '\n'));
+	int i = -1; 
+	while(map[++i]){
+		int j = -1;
+		while(map[i][++j])
+			printf("%c ", map[i][j]);
+		printf("%c", '\n');
+	}
+	return(NULL);
+}
+
 int     main(int argc, char **argv)
 {
 	int fd;
@@ -101,7 +139,5 @@ int     main(int argc, char **argv)
 	if(fd < 0|| argc != 2)
 		exit(-1);
 	data = read_file(fd);
-	int i = -1;
-	while(data[++i])
-		printf("%c\n", data[i]);
+	map_creator(data);
 }

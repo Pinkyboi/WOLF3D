@@ -36,10 +36,9 @@ INCLUDES = -I $(INC_DIR) -I $(LIBFT_DIR) -I ./mlx
 LIBRARIES = -L $(LIBFT_DIR) -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
-
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
-	@$(CC) $(INCLUDES) $(LIBRARIES) $(OBJS) -o $@
+	$(CC) $(INCLUDES) $(LIBRARIES) $(OBJS) -o $@
 $(OBJS) : $(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR) $(INCLUDES)
 $(OBJ_DIR) :
