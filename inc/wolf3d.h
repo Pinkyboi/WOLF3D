@@ -31,24 +31,41 @@
 #define METHA_TAG "<metadata>::="
 #define MAP_TAG "<map>::="
 
-typedef struct s_tile
-{
-	char    block;
-	char    floor;
-	char    ceiling;
-}               t_tile;
 
-typedef struct s_block_list
+
+typedef struct	s_texture
+{
+	int 		*texture_data;
+	int			texture_width;
+	int			texture_height;
+}				t_texture;
+
+typedef	union	u_render
+{
+	t_texture	texture;
+	int			color;
+}				t_render;
+
+typedef struct	s_block_list
 {
 	char			type;
 	char			block_icon;
-    void			*texture_path;
+	t_render		render_data;		
+	void			*render_function;
 	struct s_block_list	*next;
 }				t_block_list;
 
+typedef struct s_tile
+{
+	t_block_list    *wall;
+	t_block_list    *floor;
+	t_block_list    *ceiling;
+}               t_tile;
+
 typedef	struct s_wolf
 {
-	t_block_list block_list;
+	t_block_list	*block_list;
+	t_tile			*map;
 }				t_wolf;
 
 int		isdigit(int c);
@@ -65,3 +82,7 @@ void    error_print(char *error, char *position);
 void    check_if_alpha(char *string);
 void    check_if_number(char *string);
 void	free_array(char **array);
+
+
+t_block_list	*create_block_node(char type, char icon, t_render render_data, void *function);
+t_block_list	*push_block(t_block_list *block_list, t_block_list *new_element);
