@@ -21,11 +21,12 @@ void	free_array(char **array)
 		free(array[i]);
 }
 
-int		row_len(char **array)
+int	row_len(char **array)
 {
-	int i;
+	int	i;
 
-	i = -1;
-	while (array[++i]);
+	i = 0;
+	while (array[i])
+		i++;
 	return (i);
 }

@@ -13,7 +13,7 @@
 NAME = wolf3d
 
 CC =gcc
-CFLAGS =-Wall -Wextra -Werror
+CFLAGS = 
 
 
 SRC_DIR =./src/

@@ -12,14 +12,14 @@
 
 #include "wolf3d.h"
 
-int     isdigit(int c)
+int	isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
 
-void    check_if_number(char *string)
+void	check_if_number(char *string)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ void    check_if_number(char *string)
 			error_print("wrong argument for number in: ", string);
 }
 
-void    check_if_alpha(char *string)
+void	check_if_alpha(char *string)
 {
 	int	i;
 

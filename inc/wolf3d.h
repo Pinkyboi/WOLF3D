@@ -30,59 +30,75 @@
 #define LEGAL_BRACKETS "()"
 #define METHA_TAG "<metadata>::="
 #define MAP_TAG "<map>::="
+#define	FILLER_ICON '@'
+#define FILLER_COLOR 0x444444
 
-
-
-typedef struct	s_texture
+typedef struct			s_coor
 {
-	int 		*texture_data;
-	int			texture_width;
-	int			texture_height;
-}				t_texture;
+	int					x;
+	int 				y;
+}						t_coor;
 
-typedef	union	u_render
-{
-	t_texture	texture;
-	int			color;
-}				t_render;
 
-typedef struct	s_block_list
+typedef struct			s_texture
 {
-	char			type;
-	char			block_icon;
-	t_render		render_data;		
-	void			*render_function;
+	int 				*texture_data;
+	int					texture_width;
+	int					texture_height;
+}						t_texture;
+
+typedef	union			u_render
+{
+	t_texture			texture;
+	int					color;
+}						t_render;
+
+typedef struct			s_block_list
+{
+	char				type;
+	char				block_icon;
+	t_render			render_data;		
+	void				*render_function;
 	struct s_block_list	*next;
 }				t_block_list;
 
-typedef struct s_tile
+typedef struct 			s_tile
 {
-	t_block_list    *wall;
-	t_block_list    *floor;
-	t_block_list    *ceiling;
-}               t_tile;
+	t_block_list    	*wall;
+	t_block_list    	*floor;
+	t_block_list    	*ceiling;
+}               		t_tile;
 
-typedef	struct s_wolf
+typedef	struct			s_wolf
 {
-	t_block_list	*block_list;
-	t_tile			*map;
-}				t_wolf;
+	t_block_list		*block_list;
+	t_tile				*map;
+}						t_wolf;
 
-int		isdigit(int c);
-int		row_len(char **array);
-int		row_len(char **array);
-int		hex_to_int(char *number);
-int 	hex_to_color(char *color);
-int		stock_hex(char *color);
-int		mini_brackets(char *string, char *bracket);
-char	*trim(char *string, char *filter);
-char	**parse_block_tuple(char *tuple);
-char    *read_file(int fd);
-void    error_print(char *error, char *position);
-void    check_if_alpha(char *string);
-void    check_if_number(char *string);
-void	free_array(char **array);
+int				isdigit(int c);
+int				row_len(char **array);
+int				row_len(char **array);
+int				hex_to_int(char *number);
+int 			hex_to_color(char *color);
+int				stock_hex(char *color);
+int				mini_brackets(char *string, char *bracket);
+char			*trim(char *string, char *filter);
+char			**parse_block_tuple(char *tuple);
+char			**parse_resolution(char *resolution_expression);
+char			**parse_argument_blocks(char *block_infos);
+char    		*read_file(int fd);
+void    		error_print(char *error, char *position);
+void    		check_if_alpha(char *string);
+void    		check_if_number(char *string);
+void			free_array(char **array);
+void 			insert_argument_block_infos(t_tile *map_tile, t_block_list *block_list, char *argument);
+void			insert_tuple_block_infos(t_tile *map_tile, t_block_list *block_list, char **args);
 
+
+t_coor			map_max_dimentions(char **map);
 
 t_block_list	*create_block_node(char type, char icon, t_render render_data, void *function);
 t_block_list	*push_block(t_block_list *block_list, t_block_list *new_element);
+
+t_tile			**create_raw_map(t_tile **map,t_block_list *block_list, t_coor dimentions);
+t_tile 			**create_map(char **map, t_block_list *block_list);

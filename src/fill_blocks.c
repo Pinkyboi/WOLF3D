@@ -12,31 +12,13 @@
 
 #include "wolf3d.h"
 
-char	**parse_block_tuple(char *tuple)
+t_block_list	*create_block_node(char type, char icon,
+	t_render render_data, void *function)
 {
-	int		i;
-	int		argument_number;
-	char	**splited_tuple;
-
-	if(mini_brackets(tuple, LEGAL_BRACKETS) != 1)
-		error_print("wrong tuple format in:", tuple);
-	splited_tuple = ft_strsplit(tuple, ',');
-	argument_number = row_len(splited_tuple);
-	if (argument_number != 2 && argument_number != 3)
-		error_print("wrong tuple format in:", tuple);
-	i = -1;
-	while (splited_tuple[++i])
-		splited_tuple[i] = trim(splited_tuple[i],
-			ft_strjoin(WHITE_SPACES, LEGAL_BRACKETS));
-	return (splited_tuple);
-}
-
-t_block_list	*create_block_node(char type, char icon, t_render render_data, void *function)
-{
-	t_block_list *node;
+	t_block_list	*node;
 
 	node = malloc(sizeof(t_block_list));
-	if(!node)
+	if (!node)
 		error_print("internal error during :", "memory allocation");
 	node->type = type;
 	node->block_icon = icon;
@@ -46,29 +28,50 @@ t_block_list	*create_block_node(char type, char icon, t_render render_data, void
 	return (node);
 }
 
-t_block_list	*push_block(t_block_list *block_list, t_block_list *new_element)
+t_block_list	*push_block(t_block_list *block_list,
+	t_block_list *new_element)
 {
-	t_block_list *head_save;
+	t_block_list	*head_save;
 
 	head_save = block_list;
-	if(!head_save)
+	if (!head_save)
 		head_save = new_element;
 	else
 	{
-		while(block_list)
+		while (block_list)
 		{
-			if(block_list->block_icon == new_element->block_icon)
+			if (block_list->block_icon == new_element->block_icon)
 			{
 				block_list->type = new_element->type;
 				block_list->render_data = new_element->render_data;
 				block_list->render_function = new_element->render_function;
 				return (head_save);
 			}
-			if(!block_list->next)
-				break;
+			if (!block_list->next)
+				break ;
 			block_list = block_list->next;
 		}
 		block_list->next = new_element;
 	}
 	return (head_save);
+}
+
+void	insert_argument_block_infos(t_tile *map_tile,
+	t_block_list *block_list, char *argument)
+{
+	t_block_list	*test_node;
+
+	if (ft_strlen(argument) != 1)
+		error_print("wrong argument for block icon in: ", argument);
+	if (*argument == '0')
+		return ;
+	test_node = search_for_block_node(block_list, *argument);
+	if (!test_node)
+		error_print("wrong argument for block icon in: ", argument);
+	if (test_node->type == 'w')
+		map_tile->wall = test_node;
+	if (test_node->type == 'f')
+		map_tile->floor = test_node;
+	if (test_node->type == 'c')
+		map_tile->ceiling = test_node;
 }

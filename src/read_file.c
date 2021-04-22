@@ -12,25 +12,25 @@
 
 #include "wolf3d.h"
 
-char    *read_file(int fd)
+char	*read_file(int fd)
 {
-	int     read_index;
-	char    buffer[42069 + 1];
-	char    *content;
+	int		read_index;
+	char	buffer[42069 + 1];
+	char	*content;
 
 	content = malloc(1);
-	if(content == NULL)
+	if (content == NULL)
 		exit(-1);
 	*content = '\0';
-	while(1)
+	while (1)
 	{
 		read_index = read(fd, buffer, 42069);
-		if(read_index == -1)
+		if (read_index == -1)
 			exit(-1);
-		if(!read_index)
-			break;
+		if (!read_index)
+			break ;
 		content = ft_strjoin(content, buffer);
 	}
 	close(fd);
-	return(content);
+	return (content);
 }

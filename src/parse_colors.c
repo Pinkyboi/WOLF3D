@@ -12,47 +12,48 @@
 
 #include "wolf3d.h"
 
-int		hex_to_int(char *number)
+int	hex_to_int(char *number)
 {
-	int rank;
-	int final_number;
-	int i;
-	int j;
+	int	rank;
+	int	final_number;
+	int	i;
+	int	j;
 
-	rank = ft_strlen(number) -1;
+	rank = ft_strlen(number) - 1;
 	final_number = 0;
 	i = -1;
-	while(number[++i])
+	while (number[++i])
 	{
-		j = -1;
-		if(!ft_strchr(HEX_FILTER, ft_tolower(number[i])))
-			return(-1);
-		while(++j < 16 && ft_tolower(number[i]) != HEX_FILTER[j]);
-		final_number += j * pow(16,  rank);
+		j = 0;
+		if (!ft_strchr(HEX_FILTER, ft_tolower(number[i])))
+			return (-1);
+		while (j < 16 && ft_tolower(number[i]) != HEX_FILTER[j])
+			j++;
+		final_number += j * pow(16, rank);
 		rank--;
 	}
-	return(final_number);
+	return (final_number);
 }
 
-int 	hex_to_color(char *color)
+int	hex_to_color(char *color)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (color[++i])
 	{
-		if(i >= 6 || !ft_strchr(HEX_FILTER, ft_tolower(color[i])))
-		 	error_print("wrong color format in:", color);
+		if (i >= 6 || !ft_strchr(HEX_FILTER, ft_tolower(color[i])))
+			error_print("wrong color format in:", color);
 	}
 	return (hex_to_int(color));
 }
 
-int		stock_hex(char *color)
+int	stock_hex(char *color)
 {
-	int color_int;
+	int	color_int;
 
 	color_int = 0;
-	if(color[0] == '#' && color[1])
+	if (color[0] == '#' && color[1])
 		color_int = hex_to_color(&color[1]);
-	return(color_int);
+	return (color_int);
 }
