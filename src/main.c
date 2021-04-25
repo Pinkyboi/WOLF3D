@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/15 03:08:32 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/04/25 22:23:13 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ int     main(int argc, char **argv)
 	t_coor		map_sizes;
 	t_tile		**map;
 	t_block_list *block_list;
+	t_block_list *block;
 
-	char **env = ft_strsplit("- (1, block)    : #FF00FF - (2, block)    : #FF00FF - (3, floor)    : #FF00FF - (4, ceiling)  : #FF00FF", '-');
+	char **env = ft_strsplit("-\t\n(1, wall):#FF00FF-(2,wall):#FF00FF-(3,floor):#FF00FF", '-');
+	block_list = push_block(NULL, create_block_node('w', FILLER_ICON,(t_render){.color = FILLER_COLOR},  NULL));
 	load_env_block_data(env, block_list);
 	fd = open(argv[1], O_RDONLY);
 	if(fd < 0|| argc != 2)

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/14 19:34:56 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/04/25 21:36:54 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,24 @@ t_block_list	*push_block(t_block_list *block_list,
 
 	head_save = block_list;
 	if (!head_save)
-		head_save = create_block_node('w', FILLER_ICON,(t_render){.color = FILLER_COLOR},  NULL);
-	while (block_list)
+		head_save = new_element;
+	else
 	{
-		if (block_list->block_icon == new_element->block_icon)
+		while (block_list)
 		{
-			block_list->type = new_element->type;
-			block_list->render_data = new_element->render_data;
-			block_list->render_function = new_element->render_function;
-			return (head_save);
+			if (block_list->block_icon == new_element->block_icon)
+			{
+				block_list->type = new_element->type;
+				block_list->render_data = new_element->render_data;
+				block_list->render_function = new_element->render_function;
+				return (head_save);
+			}
+			if (!block_list->next)
+				break ;
+			block_list = block_list->next;
 		}
-		if (!block_list->next)
-			break ;
-		block_list = block_list->next;
+		block_list->next = new_element;
 	}
-	block_list->next = new_element;
 	return (head_save);
 }
 
