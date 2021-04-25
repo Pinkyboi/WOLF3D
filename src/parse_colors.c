@@ -48,12 +48,14 @@ int	hex_to_color(char *color)
 	return (hex_to_int(color));
 }
 
-int	stock_hex(char *color)
+int	stock_hex(char *color, int *color_stock)
 {
 	int	color_int;
 
 	color_int = 0;
-	if (color[0] == '#' && color[1])
-		color_int = hex_to_color(&color[1]);
-	return (color_int);
+	if (color[0] == '#' && color[1]){
+		*color_stock = hex_to_color(&color[1]);
+		return (1);
+	}
+	return (0);
 }

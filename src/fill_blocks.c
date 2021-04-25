@@ -35,24 +35,21 @@ t_block_list	*push_block(t_block_list *block_list,
 
 	head_save = block_list;
 	if (!head_save)
-		head_save = new_element;
-	else
+		head_save = create_block_node('w', FILLER_ICON,(t_render){.color = FILLER_COLOR},  NULL);
+	while (block_list)
 	{
-		while (block_list)
+		if (block_list->block_icon == new_element->block_icon)
 		{
-			if (block_list->block_icon == new_element->block_icon)
-			{
-				block_list->type = new_element->type;
-				block_list->render_data = new_element->render_data;
-				block_list->render_function = new_element->render_function;
-				return (head_save);
-			}
-			if (!block_list->next)
-				break ;
-			block_list = block_list->next;
+			block_list->type = new_element->type;
+			block_list->render_data = new_element->render_data;
+			block_list->render_function = new_element->render_function;
+			return (head_save);
 		}
-		block_list->next = new_element;
+		if (!block_list->next)
+			break ;
+		block_list = block_list->next;
 	}
+	block_list->next = new_element;
 	return (head_save);
 }
 

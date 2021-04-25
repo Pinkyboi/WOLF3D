@@ -85,12 +85,9 @@ int     main(int argc, char **argv)
 	t_coor		map_sizes;
 	t_tile		**map;
 	t_block_list *block_list;
-	
-	block_list = push_block(NULL, create_block_node('w', FILLER_ICON,(t_render){.color = FILLER_COLOR},  NULL));
-	block_list = push_block(block_list, create_block_node('w', '1',(t_render){.color = 0xFF00},  NULL));
-	block_list = push_block(block_list, create_block_node('w', 'B',(t_render){.color = 0xFF0000}, NULL));
-	block_list = push_block(block_list, create_block_node('f', 'C',(t_render){.color = 0xFF0000}, NULL));
-	block_list = push_block(block_list, create_block_node('c', 'A',(t_render){.color = 0xFF0000}, NULL));
+
+	char **env = ft_strsplit("- (1, block)    : #FF00FF - (2, block)    : #FF00FF - (3, floor)    : #FF00FF - (4, ceiling)  : #FF00FF", '-');
+	load_env_block_data(env, block_list);
 	fd = open(argv[1], O_RDONLY);
 	if(fd < 0|| argc != 2)
 		exit(-1);

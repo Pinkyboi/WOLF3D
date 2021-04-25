@@ -27,6 +27,9 @@ FILES_NAME =main.c\
 			read_file.c\
 			array_utils.c\
 			type_tests.c\
+			map_creation.c\
+			parse_argment.c\
+			parse_methadata.c\
 
 OBJS = $(addprefix $(OBJ_DIR), $(FILES_NAME:.c=.o))
 SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))

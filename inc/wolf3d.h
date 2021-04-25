@@ -29,6 +29,11 @@
 #define MAX_COLOR_VALUE 16777215
 #define LEGAL_BRACKETS "()"
 #define METHA_TAG "<metadata>::="
+#define RENDER_TAG "<render>::="
+#define WINDOW_TAG "<window>::="
+#define PLAYER_TAG "<player>::="
+#define MONSTER_TAG "<monster>::="
+#define ENV_TAG "<env>::="
 #define MAP_TAG "<map>::="
 #define	FILLER_ICON '@'
 #define FILLER_COLOR 0x444444
@@ -39,6 +44,11 @@ typedef struct			s_coor
 	int 				y;
 }						t_coor;
 
+typedef struct			s_tag_element
+{
+	char				*tag_name;
+	void				*function;	
+}						t_tag_element;
 
 typedef struct			s_texture
 {
@@ -69,10 +79,21 @@ typedef struct 			s_tile
 	t_block_list    	*ceiling;
 }               		t_tile;
 
+typedef struct			s_mlx_img
+{
+	void				*mlx_ptr;
+	void				*mlx_img;
+	void				*img_ptr;
+	int					size_l;
+	int					bpp;
+	int					endian;
+}						t_mlx_img;
+
 typedef	struct			s_wolf
 {
 	t_block_list		*block_list;
 	t_tile				*map;
+	t_mlx_img			mlx;
 }						t_wolf;
 
 int				isdigit(int c);
@@ -80,7 +101,7 @@ int				row_len(char **array);
 int				row_len(char **array);
 int				hex_to_int(char *number);
 int 			hex_to_color(char *color);
-int				stock_hex(char *color);
+int				stock_hex(char *color, int *color_stock);
 int				mini_brackets(char *string, char *bracket);
 char			*trim(char *string, char *filter);
 char			**parse_block_tuple(char *tuple);
@@ -93,12 +114,13 @@ void    		check_if_number(char *string);
 void			free_array(char **array);
 void 			insert_argument_block_infos(t_tile *map_tile, t_block_list *block_list, char *argument);
 void			insert_tuple_block_infos(t_tile *map_tile, t_block_list *block_list, char **args);
-
+void			load_env_block_data(char **data, t_block_list *block_list);
 
 t_coor			map_max_dimentions(char **map);
 
 t_block_list	*create_block_node(char type, char icon, t_render render_data, void *function);
 t_block_list	*push_block(t_block_list *block_list, t_block_list *new_element);
+t_block_list	*search_for_block_node(t_block_list *block_list, char icon);
 
 t_tile			**create_raw_map(t_tile **map,t_block_list *block_list, t_coor dimentions);
 t_tile 			**create_map(char **map, t_block_list *block_list);
