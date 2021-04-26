@@ -30,6 +30,7 @@ FILES_NAME =main.c\
 			map_creation.c\
 			parse_argment.c\
 			parse_methadata.c\
+			parse_env_data.c\
 
 OBJS = $(addprefix $(OBJ_DIR), $(FILES_NAME:.c=.o))
 SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))

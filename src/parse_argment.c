@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_argment.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 15:43:53 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/25 22:10:21 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/04/22 15:43:54 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,11 @@ char	**parse_resolution(char *resolution_expression)
 char	**parse_argument_blocks(char *block_infos)
 {
 	char	**block_terms;
-	char	*dummy;
 	int		argument_number;
-	int		i;
 
 	block_terms = ft_strsplit(block_infos, ':');
 	argument_number = row_len(block_terms);
 	if (argument_number != 2)
 		error_print("wrong argument format in:", block_infos);
-	i = -1;
-	while(block_terms[++i]){
-		dummy = malloc(ft_strlen(block_terms[i]) + 1);
-		dummy = ft_strcpy(dummy, block_terms[i]);
-		block_terms[i] = trim(dummy, WHITE_SPACES);
-	}
 	return (block_terms);
 }

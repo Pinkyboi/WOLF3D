@@ -22,8 +22,8 @@ t_block_list	*create_block_node(char type, char icon,
 		error_print("internal error during :", "memory allocation");
 	node->type = type;
 	node->block_icon = icon;
-	node->render_data = render_data;
-	node->render_function = function;
+	node->render.render_data = render_data;
+	node->render.render_function = function;
 	node->next = NULL;
 	return (node);
 }
@@ -43,8 +43,7 @@ t_block_list	*push_block(t_block_list *block_list,
 			if (block_list->block_icon == new_element->block_icon)
 			{
 				block_list->type = new_element->type;
-				block_list->render_data = new_element->render_data;
-				block_list->render_function = new_element->render_function;
+				block_list->render = new_element->render;
 				return (head_save);
 			}
 			if (!block_list->next)

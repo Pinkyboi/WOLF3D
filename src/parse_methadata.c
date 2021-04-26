@@ -12,67 +12,102 @@
 
 #include "wolf3d.h"
 
-int	load_texture(char *path, t_texture *texture_data)
+int	number_of_tag(char *string, char *tag)
 {
-	t_mlx_img	mlx;
-
-	mlx.mlx_ptr = mlx_init();
-	mlx.mlx_img = mlx_xpm_file_to_image (mlx.mlx_ptr,
-			"./textures/wood.xpm", &(texture_data->texture_width),
-			&(texture_data->texture_height));
-	if (!mlx.mlx_img)
-		error_print("error in texture path: ", path);
-	texture_data->texture_data = (int *)mlx_get_data_addr(mlx.mlx_img,
-			&mlx.bpp, &mlx.size_l, &mlx.endian);
-	return (1);
-}
-
-void	parse_block(char **data, t_block_list *block_list)
-{
-	char		block_type;
-	char		block_icon;
-	char		**tuple;
-	void		*render_function;
-	t_render	render;
-
-	int i = -1;
-	while(data[++i])
-		printf("2--%s- \n", data[i]);
-	printf("\n");
-	tuple = parse_block_tuple(data[0]);
-	if (ft_strlen(tuple[0]) == 1 && ft_isalnum(*tuple[0]))
-	{
-		if (!ft_strcmp(tuple[1], "wall") || !ft_strcmp(tuple[1], "floor")
-			|| !ft_strcmp(tuple[1], "ceiling"))
-			block_type = *tuple[1];
-		else
-			error_print("unknown block type in: ", tuple[1]);
-	}
-	else
-		error_print("block symbole should be alphanumeric: ", tuple[1]);
-	if (stock_hex(data[1], &render.color))
-		render_function = NULL;
-	else if (load_texture(data[1], &render.texture))
-		render_function = NULL;
-	block_list = push_block(block_list, create_block_node(block_type, *tuple[0],
-				render, render_function));
-	
-}
-
-void	load_env_block_data(char **data, t_block_list *block_list)
-{
-	int		i;
-	int		j;
-	char	**current_argument;
+	int	i;
+	int	j;
+	int	tag_number;
 
 	i = -1;
-	while (data[++i])
+	tag_number = 0;
+	while (string[++i])
 	{
-		j = -1;
-		printf("1--%s\n", data[i]);
-		current_argument = parse_argument_blocks(data[i]);
-		parse_block(current_argument, block_list);
-		free_array(current_argument);
-		free(data[i]);
+		if (string[i] == *tag)
+		{
+			j = -1;
+			while (string[i] == tag[++j])
+				i++;
+			if (!tag[j])
+				tag_number++; 
+		}
 	}
+	return (tag_number);
+}
+
+char	*braket_content(char *string, int max_braket, char *tag)
+{
+	int 	i;
+	int		open_braket;
+	char	*content;
+
+	if(*string == '{')
+	{
+		i = -1;
+		open_braket = 0;
+		while(string[++i])
+		{
+			if (string[i] == '{')
+				open_braket++;
+			if (string[i] == '}')
+				open_braket--;
+			if (open_braket < 0)
+				error_print("missed braket in :", tag);
+			if (!open_braket)
+				break;
+		}
+		content = malloc(sizeof(char) * (i - 1));
+		content = ft_strncpy(content, &string[1], (i - 2));
+		if(max_braket > 0 && mini_brackets(content, "{}") != max_braket)
+			error_print("wrong braket number in :", tag);
+		return (content);
+	}
+	return (NULL);
+}
+
+char	*extract_content(char *string, char *tag)
+{
+	int i;
+	int	argument_index;
+	char *string_tester;
+	char *current_tag;
+
+	i = 0;
+	while (string[i] != '-')
+		i++;
+	current_tag = ft_strncpy(current_tag, string, i);
+	if(ft_strcmp(tag, current_tag))
+	{
+		i++;
+		while(ft_strchr(WHITE_SPACES, string[i]))
+			i++;
+		if(string[i] == '{')
+		{
+			string_tester = braket_content(string, 1, tag);
+			if(string_tester)
+				return (string_tester);
+		}
+	}
+	return (NULL);
+}
+char	**get_tag_content(char *string, char *tag, int number_of_tag)
+{
+	char 	**content;
+	char	*current_tag;
+	int		i;
+	int		content_index;
+
+	i = -1;
+	content_index = 0;
+	content = (char **)malloc(sizeof(char *) * (number_of_tag + 1));
+	content[number_of_tag] = NULL;
+	while(string[++i])
+	{
+		if(string[i] == '<')
+		{
+			content[content_index] = extract_content(&string[i], tag);
+			if (content[content_index])
+				content_index++;
+		}
+	}
+	return (content);
 }

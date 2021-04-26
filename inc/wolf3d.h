@@ -63,12 +63,17 @@ typedef	union			u_render
 	int					color;
 }						t_render;
 
+typedef struct			s_render_tools
+{
+	t_render			render_data;		
+	void				*render_function;
+}						t_render_tools;
+
 typedef struct			s_block_list
 {
 	char				type;
 	char				block_icon;
-	t_render			render_data;		
-	void				*render_function;
+	t_render_tools		render;
 	struct s_block_list	*next;
 }				t_block_list;
 
