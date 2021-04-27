@@ -88,22 +88,23 @@ int     main(int argc, char **argv)
 	t_block_list *block;
 
 	char **env = ft_strsplit("-\t\n(1, wall):#FF00FF-(2,wall):#FF00FF-(3,floor):#FF00FF", '-');
-	block_list = push_block(NULL, create_block_node('w', FILLER_ICON,(t_render){.color = FILLER_COLOR},  NULL));
-	load_env_block_data(env, block_list);
+	// block_list = push_block(NULL, create_block_node('w', FILLER_ICON,(t_render){.color = FILLER_COLOR},  NULL));
+	// load_env_block_data(env, block_list);
 	fd = open(argv[1], O_RDONLY);
 	if(fd < 0|| argc != 2)
 		exit(-1);
 	data = read_file(fd);
-	data = trim(data, WHITE_SPACES);
-	map_sizes = map_max_dimentions(ft_strsplit(data, '\n'));
-	map = create_map(ft_strsplit(data, '\n'), block_list);
-	int i = -1;
-	while(++i < map_sizes.y + 2){
-		int j = -1;
-		while(++j < map_sizes.x + 2){
-			printf("%c ", (map[i][j].wall) ? map[i][j].wall->block_icon : '0');
-		}
-		printf("\n");
-	}
-	printf("(%d, %d)\n", map_sizes.x, map_sizes.y);
+	load_game_elements(data);
+	// data = trim(data, WHITE_SPACES);
+	// map_sizes = map_max_dimentions(ft_strsplit(data, '\n'));
+	// map = create_map(ft_strsplit(data, '\n'), block_list);
+	// int i = -1;
+	// while(++i < map_sizes.y + 2){
+	// 	int j = -1;
+	// 	while(++j < map_sizes.x + 2){
+	// 		printf("%c ", (map[i][j].wall) ? map[i][j].wall->block_icon : '0');
+	// 	}
+	// 	printf("\n");
+	// }
+	// printf("(%d, %d)\n", map_sizes.x, map_sizes.y);
 }

@@ -1,41 +1,41 @@
-<metadata>::={
-    <render>::={
-        - type          : basic
-        - N             : path
-        - S             : path
-        - E             : 0xFF0000
-        - W             : 0x000FF
-    }
-    <window>::={
-        - resolution    : 1920 x 1080
-        - name          : WOLF
-    }
-    <player>::={
-        - health        : 100
-        - stamina       : 69
-        - position      : (1,2)
-    }
-    <monster>::={
-        - size          : 32
-        - name          : 
-        - health        : 100
-        - position      : (1,2)
-        - visual        : path
-    }
-    <monster>::={
-        - size          : 32
-        - health        : 100
-        - position      : (1,2)
-        - visual        : path
-    }
-    <env>::={
-        - (1, block)    : path
-        - (2, block)    : path
-        - (3, floor)    : path
-        - (4, ceiling)  : path
-    }
+<render>{
+    - type          : basic
+    - N             : path
+    - S             : path
+    - E             : 0xFF0000
+    - W             : 0x000FF
 }
-<map>::={
+<window>
+{
+    - resolution    : 1920 x 1080
+    - name          : WOLF
+}
+<player>{
+    - health        : 100
+    - stamina       : 69
+    - position      : (1,2)
+}
+<monster>{
+    - size          : 32
+    - name          : 
+    - health        : 100
+    - position      : (1,2)
+    - visual        : path     
+}
+<monster>{
+    - size          : 32
+    - health        : 100
+    - position      : (1,2)
+    - visual        : path
+}
+<env>{
+    - (1, block)    : path
+    - (2, block)    : path
+    - (3, floor)    : path
+    - (4, ceiling)  : path
+}
+
+<map>{
 1 1 0 0 0 0 0 0 0 0 0 0 1 0 1 1 1 1 1 1 1
 1 1 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1
 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1

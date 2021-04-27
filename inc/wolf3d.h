@@ -28,13 +28,13 @@
 #define WHITE_SPACES " \n\t\r\v\f"
 #define MAX_COLOR_VALUE 16777215
 #define LEGAL_BRACKETS "()"
-#define METHA_TAG "<metadata>::="
-#define RENDER_TAG "<render>::="
-#define WINDOW_TAG "<window>::="
-#define PLAYER_TAG "<player>::="
-#define MONSTER_TAG "<monster>::="
-#define ENV_TAG "<env>::="
-#define MAP_TAG "<map>::="
+#define RENDER_TAG "<render>"
+#define WINDOW_TAG "<window>"
+#define PLAYER_TAG "<player>"
+#define MONSTER_TAG "<monster>"
+#define ENV_TAG "<env>"
+#define MAP_TAG "<map>"
+#define END_TOKEN "endl"
 #define	FILLER_ICON '@'
 #define FILLER_COLOR 0x444444
 
@@ -84,6 +84,12 @@ typedef struct 			s_tile
 	t_block_list    	*ceiling;
 }               		t_tile;
 
+typedef struct			s_tag_recognition
+{
+	char				*tag_name;
+	void				*tag_parse_function;
+}						t_tag_recognition;
+
 typedef struct			s_mlx_img
 {
 	void				*mlx_ptr;
@@ -120,6 +126,10 @@ void			free_array(char **array);
 void 			insert_argument_block_infos(t_tile *map_tile, t_block_list *block_list, char *argument);
 void			insert_tuple_block_infos(t_tile *map_tile, t_block_list *block_list, char **args);
 void			load_env_block_data(char **data, t_block_list *block_list);
+
+
+void			load_game_elements(char *string);
+
 
 t_coor			map_max_dimentions(char **map);
 
