@@ -12,15 +12,7 @@
 
 #include "wolf3d.h"
 
-void	insert_tuple_block_infos(t_tile *map_tile, t_block_list
-	*block_list, char **args)
-{
-	int	i;
 
-	i = -1;
-	while (args[++i])
-		insert_argument_block_infos(map_tile, block_list, args[i]);
-}
 
 void	select_tile(t_tile *map_tile, t_block_list *block_list, char *line)
 {
@@ -100,4 +92,14 @@ t_tile 	**create_map(char **map, t_block_list *block_list)
 		free_array(line);
 	}
 	return (final_map);
+}
+
+void	load_map_data(t_game_object *game_object, char *agrument_block)
+{
+	char	**raw_map;
+
+	raw_map = ft_strsplit(agrument_block, '\n');
+	game_object->map.map_dimentions = map_max_dimentions(raw_map);
+	game_object->map.map_grid = create_map(raw_map, game_object->block_list);
+	free_array(raw_map);
 }

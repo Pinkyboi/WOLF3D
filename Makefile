@@ -31,6 +31,9 @@ FILES_NAME =main.c\
 			parse_argment.c\
 			parse_methadata.c\
 			parse_env_data.c\
+			parse_tuple.c\
+			parsing_utils.c\
+			main_elements_constructor.c\
 
 OBJS = $(addprefix $(OBJ_DIR), $(FILES_NAME:.c=.o))
 SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))

@@ -53,7 +53,8 @@ int	stock_hex(char *color, int *color_stock)
 	int	color_int;
 
 	color_int = 0;
-	if (color[0] == '#' && color[1]){
+	if (color[0] == '#' && color[1])
+	{
 		*color_stock = hex_to_color(&color[1]);
 		return (1);
 	}

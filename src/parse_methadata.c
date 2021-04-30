@@ -12,18 +12,17 @@
 
 #include "wolf3d.h"
 
-void	parse_render(char	*string)
-{
-	printf("1----\n%s\n----\n\n", trim(string, WHITE_SPACES));
+void	load_filler_data(t_game_object *game_object, char *agrument_block){
+
 }
 
+
 const t_tag_recognition	g_tag_dico[] = {
-	{RENDER_TAG, &parse_render},
-	{WINDOW_TAG, &parse_render},
-	{PLAYER_TAG, &parse_render},
-	{MONSTER_TAG, &parse_render},
-	{ENV_TAG, &parse_render},
-	{MAP_TAG, &parse_render},
+	{RENDER_TAG, &load_render_data},
+	{PLAYER_TAG, &load_player_data},
+	{MONSTER_TAG, &load_filler_data},
+	{ENV_TAG, &load_env_block_data},
+	{MAP_TAG, &load_map_data},
 	{NULL, NULL}
 };
 
@@ -37,7 +36,7 @@ char	*ft_strnclone(char *string, int size)
 	return (clone);
 }
 
-int	braket_content(char *string, char *tag, void *parsing_function)
+int	braket_content(int index, char *string, char *tag, t_game_object *game_object)
 {
 	int		i;
 	int		open_braket;
@@ -50,61 +49,58 @@ int	braket_content(char *string, char *tag, void *parsing_function)
 		if (string[i] == '{')
 			open_braket++;
 		if (!open_braket && string[i] == '}')
-			error_print("missing braket in :", tag);
+			error_print("Missing braket in : ", tag);
 		if (string[i] == '}')
 			open_braket--;
 		if (!open_braket)
 			break ;
 	}
-	content = malloc(sizeof(char) * (i - 1));
-	content[i - 2] = '\0';
-	content = ft_strncpy(content, &string[1], (i - 2));
-	if (mini_brackets(content, "{}") != 0)
-		error_print("wrong braket number in :", tag);
-	parse_render(content);
+	content = ft_strnclone(string, i + 1);
+	if (mini_brackets(content, "{}") != 1)
+		error_print("Wrong braket number in: ", tag);
+	g_tag_dico[index].parsing_function(game_object, trim(content,
+				WHITE_SPACE_AND_CURLY_BRACKETS));
 	return (i);
 }
 
-void	*get_parsing_function(char *tag)
+int	get_parsing_function(char *tag)
 {
 	int	i;
 
 	i = -1;
 	while (g_tag_dico[++i].tag_name)
 		if (!ft_strcmp(g_tag_dico[i].tag_name, tag))
-			return (g_tag_dico[i].tag_parse_function);
-	error_print("unknown tag :", tag);
-	return (NULL);
+			return (i);
+	error_print("unknown tag : ", tag);
+	return (-1);
 }
 
-
-
-int	extract_content(char *string)
+int	extract_content(char *string, t_game_object *game_object)
 {
 	int		j;
+	int		index;
 	char	*current_tag;
-	int		jump;
-	void	*parsing_function;
+	int		jump;;
 
 	j = 0;
 	jump = 0;
 	while (string[++j] && string[j] != '>')
-		if (ft_strchr(" <{}:-", string[j]))
+		if (ft_strchr("<{}:;-", string[j]))
 			error_print("FATAL ERROR : ", "unclosed tag");
 	current_tag = ft_strnclone(string, j + 1);
-	parsing_function = get_parsing_function(current_tag);
+	index = get_parsing_function(current_tag);
 	j++;
 	while (ft_strchr(WHITE_SPACES, string[j]))
 		j++;
 	if (string[j] == '{')
-		jump = braket_content(&string[j], current_tag, parsing_function);
+		jump = braket_content(index, &string[j], current_tag, game_object);
 	else
 		error_print("missing braket in : ", current_tag);
 	free(current_tag);
-	return (jump);
+	return (jump + j);
 }
 
-void	load_game_elements(char *string)
+void	load_game_elements(char *string, t_game_object *game_object)
 {
 	int		i;
 	char	token;
@@ -112,16 +108,12 @@ void	load_game_elements(char *string)
 	i = -1;
 	while (string[++i])
 	{
-		if (string[i] == '<')
-			i += extract_content(&string[i]);
-		// else if (!ft_strchr(WHITE_SPACES, string[i]))
-		// {
-		// 	token = string[i];
-		// 	printf("%s\n", &string[i]);
-		// 	exit(0);
-		// 	error_print("trailing character : ", &token);
-		// }
-
+		if(ft_strchr(WHITE_SPACES, string[i]))
+			continue;
+		else if(string[i] == '<')
+			i += extract_content(&string[i], game_object);
+		else
+			error_print("FATAL ERROR : ", "unknown trailing character");
 	}	
 	free(string);
 }
