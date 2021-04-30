@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 14:33:51 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/25 21:50:19 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/04/30 22:43:28 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	load_filler_data(t_game_object *game_object, char *agrument_block){
 const t_tag_recognition	g_tag_dico[] = {
 	{RENDER_TAG, &load_render_data},
 	{PLAYER_TAG, &load_player_data},
-	{MONSTER_TAG, &load_filler_data},
 	{ENV_TAG, &load_env_block_data},
 	{MAP_TAG, &load_map_data},
+	// {MONSTER_TAG, &load_filler_data},
 	{NULL, NULL}
 };
 
@@ -71,7 +71,7 @@ int	get_parsing_function(char *tag)
 	while (g_tag_dico[++i].tag_name)
 		if (!ft_strcmp(g_tag_dico[i].tag_name, tag))
 			return (i);
-	error_print("unknown tag : ", tag);
+	error_print("Unknown tag : ", tag);
 	return (-1);
 }
 
