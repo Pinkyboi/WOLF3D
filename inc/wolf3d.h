@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/30 23:10:11 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/04/25 21:22:11 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,15 +180,17 @@ int				hex_to_int(char *number);
 int 			hex_to_color(char *color);
 int				stock_hex(char *color, int *color_stock);
 int				mini_brackets(char *string, char *bracket);
-int  			parse_counters(char *counter, int min, int max);
 
 char			*trim(char *string, char *filter);
 char			*ft_strnclone(char *string, int size);
 char    		*read_file(int fd);
 
+int  			parse_counters(char *counter, int min, int max);
 char			**parse_block_tuple(char *tuple);
-t_coor			parse_resolution(char *resolution_expression);
 char			**parse_argument_blocks(char *block_infos, char *tag);
+t_coor			parse_resolution(char *resolution_expression);
+t_coor  		parse_coordinate(char *tuple);
+t_game_rendering	*parse_render_type(char *render_type);
 
 void    		error_print(char *error, char *position);
 void    		check_if_alpha(char *string);
@@ -206,7 +208,6 @@ void			load_render_data(t_game_object *game_object, char *agrument_block);
 void			safe_trim(char *line, char *filter);
 
 t_coor			map_max_dimentions(char **map);
-t_coor			parse_coordinate(char *tuple);
 
 t_render_tools	parse_render(char *render_argument);
 
@@ -214,15 +215,16 @@ t_block_list	*create_block_node(char type, char icon, t_render render_data, void
 t_block_list	*push_block(t_block_list *block_list, t_block_list *new_element);
 t_block_list	*search_for_block_node(t_block_list *block_list, char icon);
 
-t_argument_list	*create_agument_node(char *argument_name, char *argument_value);
-t_argument_list *create_argument_list(char *argument_block, t_argument_list *argument_list, char *tag);
-t_argument_list *search_for_argument_node(t_argument_list *argument_list, char *argument_name);
-t_argument_list	*push_argument(t_argument_list *argument_list, t_argument_list *new_element);
-void	free_argument_list(t_argument_list *argument_list);
-
 t_tile			**create_raw_map(t_tile **map,t_block_list *block_list, t_coor dimentions);
 t_tile 			**create_map(char **map, t_block_list *block_list);
 
-double		ft_clip_min(int min, double value);
-double		ft_clip_max(int max, double value);
-double		ft_clip_min_max(int min, int max, double value);
+double			ft_clip_min(int min, double value);
+double			ft_clip_max(int max, double value);
+double			ft_clip_min_max(int min, int max, double value);
+
+t_argument_list	*create_agument_node(char *argument_name, char *argument_value);
+void			free_argument_list(t_argument_list *argument_list);
+t_argument_list	*create_argument_list(char *argument_block, t_argument_list *argument_list, char *tag);
+t_argument_list *search_for_argument_node(t_argument_list *argument_list, char *argument_name);
+t_argument_list	*push_argument(t_argument_list *argument_list,
+				t_argument_list *new_element);

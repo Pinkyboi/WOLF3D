@@ -26,8 +26,6 @@ char	**parse_block_tuple(char *tuple)
 			WHITE_SPACE_AND_LEGAL_BRACKETS);
 	if (argument_number != 2)
 		error_print("Wrong tuple format in:", tuple);
-
-	
 	return (splited_tuple);
 }
 

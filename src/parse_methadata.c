@@ -6,23 +6,17 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 14:33:51 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/30 22:43:28 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/04/25 21:50:19 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-
-void	load_filler_data(t_game_object *game_object, char *agrument_block){
-
-}
-
 
 const t_tag_recognition	g_tag_dico[] = {
 	{RENDER_TAG, &load_render_data},
 	{PLAYER_TAG, &load_player_data},
 	{ENV_TAG, &load_env_block_data},
 	{MAP_TAG, &load_map_data},
-	// {MONSTER_TAG, &load_filler_data},
 	{NULL, NULL}
 };
 
@@ -36,7 +30,8 @@ char	*ft_strnclone(char *string, int size)
 	return (clone);
 }
 
-int	braket_content(int index, char *string, char *tag, t_game_object *game_object)
+int	braket_content(int index, char *string, char *tag,
+	t_game_object *game_object)
 {
 	int		i;
 	int		open_braket;
@@ -71,7 +66,7 @@ int	get_parsing_function(char *tag)
 	while (g_tag_dico[++i].tag_name)
 		if (!ft_strcmp(g_tag_dico[i].tag_name, tag))
 			return (i);
-	error_print("Unknown tag : ", tag);
+	error_print("unknown tag : ", tag);
 	return (-1);
 }
 
@@ -80,7 +75,7 @@ int	extract_content(char *string, t_game_object *game_object)
 	int		j;
 	int		index;
 	char	*current_tag;
-	int		jump;;
+	int		jump;
 
 	j = 0;
 	jump = 0;
@@ -103,14 +98,13 @@ int	extract_content(char *string, t_game_object *game_object)
 void	load_game_elements(char *string, t_game_object *game_object)
 {
 	int		i;
-	char	token;
 
 	i = -1;
 	while (string[++i])
 	{
-		if(ft_strchr(WHITE_SPACES, string[i]))
-			continue;
-		else if(string[i] == '<')
+		if (ft_strchr(WHITE_SPACES, string[i]))
+			continue ;
+		else if (string[i] == '<')
 			i += extract_content(&string[i], game_object);
 		else
 			error_print("FATAL ERROR : ", "unknown trailing character");

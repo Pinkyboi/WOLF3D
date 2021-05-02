@@ -49,7 +49,7 @@ t_render_tools	parse_render(char *render_argument)
 		render_tools.render_function = NULL;
 	else if (load_texture(render_argument, &render_tools.render_data.texture))
 		render_tools.render_function = NULL;
-	return(render_tools);
+	return (render_tools);
 }
 
 void	parse_block(char **data, t_block_list *block_list)
@@ -60,9 +60,11 @@ void	parse_block(char **data, t_block_list *block_list)
 	t_render_tools	render_tools;
 
 	tuple = parse_block_tuple(data[0]);
+	block_icon = '1';
+	block_type = 'w';
 	if (ft_strlen(tuple[0]) == 1 && ft_isalnum(*tuple[0]))
 	{
-		if(*tuple[0] == '0')
+		if (*tuple[0] == '0')
 			error_print("This block symbol is reserved for void : ", tuple[1]);
 		block_icon = *tuple[0];
 		if (!ft_strcmp(tuple[1], "wall") || !ft_strcmp(tuple[1], "floor")
@@ -75,13 +77,13 @@ void	parse_block(char **data, t_block_list *block_list)
 		error_print("block symbole should be alphanumeric: ", tuple[0]);
 	render_tools = parse_render(data[1]);
 	block_list = push_block(block_list, create_block_node(block_type,
-				block_icon, render_tools.render_data, render_tools.render_function));
+				block_icon, render_tools.render_data,
+				render_tools.render_function));
 }
 
 void	load_env_block_data(t_game_object *game_object, char *agrument_block)
 {
 	int		i;
-	int		j;
 	char	**current_argument;
 	char	**arguments_data;
 

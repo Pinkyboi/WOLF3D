@@ -34,14 +34,14 @@ t_coor	parse_resolution(char *resolution_expression)
 	return (resolution);
 }
 
-void safe_trim(char *line, char *filter)
+void	safe_trim(char *line, char *filter)
 {
 	char	*trimmed_line;
 
 	trimmed_line = ft_strdup(line);
 	trimmed_line = trim(trimmed_line, filter);
 	line = ft_strcpy(line, trimmed_line);
-	free(trimmed_line);	
+	free(trimmed_line);
 }
 
 char	**parse_argument_blocks(char *block_infos, char *tag)

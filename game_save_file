@@ -6,14 +6,13 @@
     E             : #FF00FF;
     W             : #FF00FF;
 }
-
 <player>{
     health        : 100;
     stamina       : 69;
     position      : (10,10);
 }
 <env>{
-    (1,     wall)    :       #FF000F;
+    (1,wall)    :       #FF000F;
     (2, wall)    : #FF000F;
     (3, floor)    : #FF000F;
     (4, ceiling)  : #FF000F;

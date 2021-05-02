@@ -12,8 +12,6 @@
 
 #include "wolf3d.h"
 
-
-
 void	select_tile(t_tile *map_tile, t_block_list *block_list, char *line)
 {
 	if (*line == '(')
@@ -78,6 +76,7 @@ t_tile 	**create_map(char **map, t_block_list *block_list)
 	t_tile	**final_map;
 	char	**line;
 
+	final_map = NULL;
 	max_dimentions = map_max_dimentions(map);
 	final_map = create_raw_map(final_map, block_list,
 			(t_coor){max_dimentions.x + 2, max_dimentions.y + 2});
