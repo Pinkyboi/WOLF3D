@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures.c                                         :+:      :+:    :+:   */
+/*   clip.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/05 14:26:35 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/05 14:26:36 by abenaiss         ###   ########.fr       */
+/*   Created: 2021/05/02 13:53:05 by abenaiss          #+#    #+#             */
+/*   Updated: 2021/05/02 13:53:06 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-int			ft_get_textureX_coor(t_wolf *wolf)
+double	ft_clip_min(int min, double value)
 {
-	double wall_index;
+	if (value >= min)
+		return (value);
+	return (min);
+}
 
-	t_d_coor end = ft_add_vector2D(wolf->player.position,
-		ft_scale_vector2D(wolf->player.current_ray, wolf->player.hit_infos.distance));
-	wall_index = (wolf->player.hit_infos.wall_type == 'V') ? end.y : end.x;
-	wall_index -= (int)wall_index;
-	int texture_index = wall_index * (double)wolf->texture_dimention.y;
-	return(texture_index);
+double	ft_clip_max(int max, double value)
+{
+	if (value <= max)
+		return (value);
+	return (max);
+}
+
+double	ft_clip_min_max(int min, int max, double value)
+{
+	return (ft_clip_max(max, ft_clip_min(min, value)));
 }

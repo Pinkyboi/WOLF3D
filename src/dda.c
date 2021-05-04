@@ -5,121 +5,68 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/05 13:15:21 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/05 13:15:22 by abenaiss         ###   ########.fr       */
+/*   Created: 2021/05/03 14:55:21 by abenaiss          #+#    #+#             */
+/*   Updated: 2021/05/03 14:55:23 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "wolf3d.h"
 
-void    ft_setup_dda(t_wolf *wolf, t_d_coor *rayStep, t_d_coor *rayDistance, t_coor *gridStep)
+void	ft_setup_dda(t_game_object *game_object, t_d_coor *rayStep,
+	t_d_coor *rayDistance, t_coor *gridStep)
 {
-	t_d_coor ray;
+	t_d_coor	ray;
 
-	ray = wolf->player.current_ray;
-	ray = ft_normalise_vector2D(ray);
-	*rayStep = (t_d_coor){(!ray.x) ? 0 :
-		sqrtf(1 + FT_SQR(ray.y / ray.x)), (!ray.y) ? 0 :
-		sqrtf(1 + FT_SQR(ray.x / ray.y))};
-	if(ray.x < 0)
-	{
-		gridStep->x = -1;
-		rayDistance->x = (wolf->player.position.x  - (float)wolf->player.grid_position.x) * rayStep->x;
-	}
+	ray = ft_normalise_vector2D(game_object->ray_data.current_ray);
+	ft_get_right_step(ray, rayStep);
+	if (ray.x < 0)
+		rayDistance->x = (game_object->player.world_position.x
+				- (float)game_object->player.grid_position.x) * rayStep->x;
 	else
-	{
-		gridStep->x = 1;
-		rayDistance->x = ((float)(wolf->player.grid_position.x + 1.0) - wolf->player.position.x) * rayStep->x;
-	}
-	if(ray.y < 0)
-	{
-		gridStep->y = -1;
-		rayDistance->y = (wolf->player.position.y  - (float)wolf->player.grid_position.y) * rayStep->y;
-	}
+		rayDistance->x = ((game_object->player.grid_position.x + 1.0)
+				- game_object->player.world_position.x) * rayStep->x;
+	if (ray.y < 0)
+		rayDistance->y = (game_object->player.world_position.y
+				- (float)game_object->player.grid_position.y) * rayStep->y;
 	else
+		rayDistance->y = ((game_object->player.grid_position.y + 1.0)
+				- game_object->player.world_position.y) * rayStep->y;
+	*gridStep = ft_get_sign(ray);
+}
+
+void	ft_dda(t_game_object *game_object, t_d_coor *rayStep,
+	t_d_coor *rayDistance, t_coor *gridStep)
+{
+	t_coor		ray_grid_position;
+
+	ray_grid_position = game_object->player.grid_position;
+	while (game_object->ray_data.hit_distance < MAX_DIST)
 	{
-		gridStep->y = 1;
-		rayDistance->y = ((float)(wolf->player.grid_position.y + 1.0) - wolf->player.position.y) * rayStep->y;
+		if (rayDistance->x < rayDistance->y)
+		{
+			ray_grid_position.x += gridStep->x;
+			game_object->ray_data.hit_distance = rayDistance->x;
+			game_object->ray_data.hit_type = 'V';
+			rayDistance->x += rayStep->x;
+		}
+		else
+		{
+			ray_grid_position.y += gridStep->y;
+			game_object->ray_data.hit_distance = rayDistance->y;
+			game_object->ray_data.hit_type = 'H';
+			rayDistance->y += rayStep->y;
+		}
+		if (is_block_solid(game_object, ray_grid_position))
+			break ;
 	}
 }
 
-void	ft_define_check_step(t_wolf *wolf, t_d_coor ray){
-	t_coor		playerGridPos;
+void	ft_define_check_step(t_game_object *game_object)
+{
 	t_coor		gridStep;
 	t_d_coor	rayStep;
 	t_d_coor	rayDistance;
 
-	playerGridPos = (t_coor){wolf->player.position.x, wolf->player.position.y};
-	ft_setup_dda(wolf, &rayStep, &rayDistance, &gridStep);
-	while(wolf->player.hit_infos.distance < MAX_DIST){
-		if(rayDistance.x < rayDistance.y){
-			playerGridPos.x += gridStep.x;
-			wolf->player.hit_infos.distance = rayDistance.x;
-			wolf->player.hit_infos.wall_type = 'V';
-			rayDistance.x += rayStep.x;
-		}
-		else
-		{
-			playerGridPos.y += gridStep.y;
-			wolf->player.hit_infos.distance = rayDistance.y;
-			wolf->player.hit_infos.wall_type = 'H';
-			rayDistance.y += rayStep.y;
-		}
-		if(playerGridPos.x >= 0 && playerGridPos.x <= wolf->map_dimentions.x &&
-			playerGridPos.y >= 0 && playerGridPos.y <= wolf->map_dimentions.y)
-			if(wolf->map[playerGridPos.y][playerGridPos.x].type == '1')
-				break;
-	}
-}
-t_hit_infos	ft_define_check_step_1(t_wolf *wolf, t_d_coor ray, t_d_coor playerWorldPos){
-	t_coor		playerGridPos;
-	t_coor		gridStep;
-	t_d_coor	rayStep;
-	t_d_coor	rayDistance;
-	t_hit_infos	hitInfos;
-
-	playerGridPos = (t_coor){playerWorldPos.x, playerWorldPos.y};
-	ray = ft_normalise_vector2D(ray);
-	rayStep = (t_d_coor){(ray.x == 0.0) ? 0 : sqrtf(1 + FT_SQR(ray.y / ray.x)), (ray.y == 0.0) ? 0 : sqrtf(1 + FT_SQR(ray.x / ray.y))};
-	if(ray.x < 0)
-	{
-		gridStep.x = -1;
-		rayDistance.x = (playerWorldPos.x  - (float)playerGridPos.x) * rayStep.x;
-	}
-	else
-	{
-		gridStep.x = 1;
-		rayDistance.x = ((float)(playerGridPos.x + 1.0) - playerWorldPos.x) * rayStep.x;
-	}
-	if(ray.y < 0)
-	{
-		gridStep.y = -1;
-		rayDistance.y = (playerWorldPos.y  - (float)playerGridPos.y) * rayStep.y;
-	}
-	else
-	{
-		gridStep.y = 1;
-		rayDistance.y = ((float)(playerGridPos.y + 1.0) - playerWorldPos.y) * rayStep.y;
-	}
-	while(hitInfos.distance < MAX_DIST){
-		if(rayDistance.x < rayDistance.y){
-			playerGridPos.x += gridStep.x;
-			hitInfos.distance = rayDistance.x;
-			hitInfos.wall_type = 'V';
-			rayDistance.x += rayStep.x;
-		}
-		else
-		{
-			playerGridPos.y += gridStep.y;
-			hitInfos.distance = rayDistance.y;
-			hitInfos.wall_type = 'H';
-			rayDistance.y += rayStep.y;
-		}
-		if(playerGridPos.x >= 0 && playerGridPos.x <= wolf->map_dimentions.x &&
-			playerGridPos.y >= 0 && playerGridPos.y <= wolf->map_dimentions.y)
-			if(wolf->map[playerGridPos.y][playerGridPos.x].type == '1')
-				break;
-	}
-	return(hitInfos);
+	ft_setup_dda(game_object, &rayStep, &rayDistance, &gridStep);
+	ft_dda(game_object, &rayStep, &rayDistance, &gridStep);
 }

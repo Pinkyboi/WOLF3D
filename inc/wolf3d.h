@@ -3,84 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   wolf3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/25 21:22:11 by abenaiss         ###   ########.fr       */
+/*   Created: 2021/05/03 14:49:07 by abenaiss          #+#    #+#             */
+/*   Updated: 2021/05/03 14:49:08 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "libft.h"
-#include "mlx.h"
-#include <math.h>
-#include <limits.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include "wolf3d_parser.h"
 
-#define ALPHA "qwertyuiopasdfghjklzxcvbnm"
-#define ALPHA_NUM "0123456789qwertyuiopasdfghjklzxcvbnm"
-#define NUM_FILTER "1234567890"
-#define HEX_FILTER "0123456789abcdef"
-#define WHITE_SPACES " \n\t\r\v\f"
-#define MAX_COLOR_VALUE 16777215
-#define LEGAL_BRACKETS "()"
-#define WHITE_SPACE_AND_LEGAL_BRACKETS " \n\t\r\v\f()"
-#define CURLY_BRACKETS "{}"
-#define WHITE_SPACE_AND_CURLY_BRACKETS " \n\t\r\v\f{}"
-#define ARGUMENT_DELIMITER ';'
+# define FT_SQR(X) ((X) * (X))
+# define FT_RAD(X) (((X) * M_PI) / 180)
 
-#define RENDER_TAG "<render>"
-#define WINDOW_TAG "<window>"
-#define PLAYER_TAG "<player>"
-#define MONSTER_TAG "<monster>"
-#define ENV_TAG "<env>"
-#define MAP_TAG "<map>"
-#define END_TOKEN "endl"
+# define MAX_DIST 100
 
-#define NORTH_COLOR "#72147E"
-#define SOUTH_COLOR "#F21170"
-#define EAST_COLOR "#FA9905"
-#define WEST_COLOR "#FF5200"
+# define PI_2 6.2831853072
+# define PLAYER_FOV FT_RAD(45)
 
-#define	MAX_HP 100
-#define MIN_HP 1
-#define MAX_STAMINA 100
-#define MIN_STAMINA 1
 
-#define FILLER_COLOR 0x444444
-#define	FILLER_ICON '@'
+# define EXIT 53
+# define FOREWORD 13
+# define BACKWARD 1
+# define UP 12
+# define LEFT 0
+# define RIGHT 2
+# define DOWN 14
+# define KEY_R 15
+# define KEY_T 17
+# define SAVE 36
 
-typedef struct			s_coor
-{
-	int					x;
-	int 				y;
-}						t_coor;
-
-typedef struct			s_tag_element
-{
-	char				*tag_name;
-	void				*function;	
-}						t_tag_element;
-
-typedef struct			s_texture
-{
-	int 				*texture_data;
-	int					texture_width;
-	int					texture_height;
-}						t_texture;
-
-typedef	union			u_render
-{
-	t_texture			texture;
-	int					color;
-}						t_render;
-
-typedef struct			s_render_tools
+#define RENDER game_object->render_data
+#define	BLOCK_SIZE 64
+#define FOV 1
+typedef struct			s_color
 {
 	t_render			render_data;		
 	void				*render_function;
@@ -108,122 +63,43 @@ typedef struct 			s_tile
 	t_block_list    	*ceiling;
 }               		t_tile;
 
+double	ft_clip_min(int min, double value);
+double	ft_clip_max(int max, double value);
+double	ft_clip_min_max(int min, int max, double value);
 
-typedef struct			s_mlx_img
-{
-	void				*mlx_ptr;
-	void				*mlx_img;
-	void				*img_ptr;
-	int					size_l;
-	int					bpp;
-	int					endian;
-}						t_mlx_img;
+int		t_rgb_to_int(t_color color);
+int		ft_scale_color_int(int color, double scalar);
 
-typedef struct			s_map
-{
-	t_coor				map_dimentions;
-	t_tile				**map_grid;
-}						t_map;
-
-typedef	struct			s_player
-{
-	t_coor				grid_postion;
-	t_coor				world_postion;
-	short				hp;
-	short				stamina;
-	char				*player_appearance;
-}						t_player;
-
-typedef void			t_game_rendering(void);
-
-typedef struct			s_render_recognition
-{
-	char				*render_type;
-	t_game_rendering	*rendering_function;
-}						t_render_recognition;
-
-typedef	struct			s_render_data
-{
-	t_game_rendering	*render_function;
-	char				*widnow_name;
-	t_coor				window_resolution;
-	t_render_tools		north_wall;
-	t_render_tools		south_wall;
-	t_render_tools		east_wall;
-	t_render_tools		west_wall;
-	t_mlx_img			mlx;
-}						t_render_data;
-
-typedef	struct			s_game_object
-{
-	t_block_list		*block_list;
-	t_argument_list		*current_arguments;
-	t_render_data		render_data;
-	t_map				map;
-	t_player			player;
-}						t_game_object;
-
-typedef void			t_block_parsing_function(t_game_object *game_object, char *agrument_block);
-
-typedef struct			s_tag_recognition
-{
-	char						*tag_name;
-	t_block_parsing_function	*parsing_function;
-}						t_tag_recognition;
+t_color	ft_scale_color(t_color color, double scalar);
+t_color		ft_int_to_rgb(int color);
 
 
-int				isdigit(int c);
-int				row_len(char **array);
-int				row_len(char **array);
-int				hex_to_int(char *number);
-int 			hex_to_color(char *color);
-int				stock_hex(char *color, int *color_stock);
-int				mini_brackets(char *string, char *bracket);
+double  	ft_ray_size(t_game_object *gamet_game_object, t_d_coor ray_intersection, double angle);
+t_d_coor    ft_add_vector2D(t_d_coor vector2D, t_d_coor second_vector2D);
+t_d_coor    ft_sub_vector2D(t_d_coor vector2D, t_d_coor second_vector2D);
+t_d_coor    ft_scale_vector2D(t_d_coor vector2D, double scale);
+t_d_coor    ft_normalise_vector2D(t_d_coor vector);
 
-char			*trim(char *string, char *filter);
-char			*ft_strnclone(char *string, int size);
-char    		*read_file(int fd);
+t_coor		ft_get_sign(t_d_coor coor);
+void		ft_get_right_step(t_d_coor ray, t_d_coor *rayStep);
+short		is_block_solid(t_game_object *game_object, t_coor grid_position);
 
-int  			parse_counters(char *counter, int min, int max);
-char			**parse_block_tuple(char *tuple);
-char			**parse_argument_blocks(char *block_infos, char *tag);
-t_coor			parse_resolution(char *resolution_expression);
-t_coor  		parse_coordinate(char *tuple);
-t_game_rendering	*parse_render_type(char *render_type);
+double		ft_check_angle(double angle);
+t_d_coor	ft_angleToVector2D(double alpha);
 
-void    		error_print(char *error, char *position);
-void    		check_if_alpha(char *string);
-void    		check_if_number(char *string);
-void			free_array(char **array);
-void 			insert_argument_block_infos(t_tile *map_tile, t_block_list *block_list, char *argument);
-void			insert_tuple_block_infos(t_tile *map_tile, t_block_list *block_list, char **args);
 
-void			load_env_block_data(t_game_object *game_object, char *agrument_block);
-void			load_game_elements(char *string, t_game_object *game_object);
-void			load_map_data(t_game_object *game_object, char *agrument_block);
-void			load_player_data(t_game_object *game_object, char *agrument_block);
-void			load_render_data(t_game_object *game_object, char *agrument_block);
+void	ft_define_check_step(t_game_object *game_object);
+void	ft_dda(t_game_object *game_object, t_d_coor *rayStep,
+	t_d_coor *rayDistance, t_coor *gridStep);
+void	ft_setup_dda(t_game_object *game_object, t_d_coor *rayStep,
+	t_d_coor *rayDistance, t_coor *gridStep);
+t_coor	ft_get_sign(t_d_coor coor);
+void	ft_get_right_step(t_d_coor ray, t_d_coor *rayStep);
+short	is_block_solid(t_game_object *game_object, t_coor grid_position);
 
-void			safe_trim(char *line, char *filter);
 
-t_coor			map_max_dimentions(char **map);
+int			ft_key_stroke(int key, t_game_object *game_object);
+int			ft_exit(t_game_object *game_object);
 
-t_render_tools	parse_render(char *render_argument);
-
-t_block_list	*create_block_node(char type, char icon, t_render render_data, void *function);
-t_block_list	*push_block(t_block_list *block_list, t_block_list *new_element);
-t_block_list	*search_for_block_node(t_block_list *block_list, char icon);
-
-t_tile			**create_raw_map(t_tile **map,t_block_list *block_list, t_coor dimentions);
-t_tile 			**create_map(char **map, t_block_list *block_list);
-
-double			ft_clip_min(int min, double value);
-double			ft_clip_max(int max, double value);
-double			ft_clip_min_max(int min, int max, double value);
-
-t_argument_list	*create_agument_node(char *argument_name, char *argument_value);
-void			free_argument_list(t_argument_list *argument_list);
-t_argument_list	*create_argument_list(char *argument_block, t_argument_list *argument_list, char *tag);
-t_argument_list *search_for_argument_node(t_argument_list *argument_list, char *argument_name);
-t_argument_list	*push_argument(t_argument_list *argument_list,
-				t_argument_list *new_element);
+void		ft_ray_shooter(t_game_object *game_object);
+void 		ft_movement(int key, t_game_object *game_object);

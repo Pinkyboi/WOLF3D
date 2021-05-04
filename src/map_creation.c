@@ -37,7 +37,7 @@ t_coor	map_max_dimentions(char **map)
 			biggest_width = width;
 		free_array(line);
 	}
-	return ((t_coor){biggest_width, height});
+	return ((t_coor){biggest_width + 2, height + 2});
 }
 
 t_tile	**create_raw_map(t_tile **map, t_block_list *block_list,
@@ -79,9 +79,9 @@ t_tile 	**create_map(char **map, t_block_list *block_list)
 	final_map = NULL;
 	max_dimentions = map_max_dimentions(map);
 	final_map = create_raw_map(final_map, block_list,
-			(t_coor){max_dimentions.x + 2, max_dimentions.y + 2});
+				max_dimentions);
 	index.y = -1;
-	while (++index.y < max_dimentions.y)
+	while (++index.y < max_dimentions.y - 2)
 	{
 		index.x = -1;
 		line = ft_strsplit(map[index.y], ' ');
@@ -99,6 +99,7 @@ void	load_map_data(t_game_object *game_object, char *agrument_block)
 
 	raw_map = ft_strsplit(agrument_block, '\n');
 	game_object->map.map_dimentions = map_max_dimentions(raw_map);
-	game_object->map.map_grid = create_map(raw_map, game_object->block_list);
+	game_object->map.map_grid = create_map(raw_map,
+			game_object->parser.block_list);
 	free_array(raw_map);
 }

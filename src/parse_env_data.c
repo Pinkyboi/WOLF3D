@@ -28,16 +28,16 @@ t_block_list	*search_for_block_node(t_block_list *block_list, char icon)
 
 int	load_texture(char *path, t_texture *texture_data)
 {
-	t_mlx_img	mlx;
+	t_mlx	mlx;
 
 	mlx.mlx_ptr = mlx_init();
-	mlx.mlx_img = mlx_xpm_file_to_image (mlx.mlx_ptr,
+	mlx.mlx_img.img_ptr = mlx_xpm_file_to_image (mlx.mlx_ptr,
 			path, &(texture_data->texture_width),
 			&(texture_data->texture_height));
-	if (!mlx.mlx_img)
+	if (!mlx.mlx_img.img_ptr)
 		error_print("error in texture path: ", path);
-	texture_data->texture_data = (int *)mlx_get_data_addr(mlx.mlx_img,
-			&mlx.bpp, &mlx.size_l, &mlx.endian);
+	texture_data->texture_data = (int *)mlx_get_data_addr(mlx.mlx_img.img_ptr,
+			&mlx.mlx_img.bpp, &mlx.mlx_img.size_l, &mlx.mlx_img.endian);
 	return (1);
 }
 
@@ -92,7 +92,7 @@ void	load_env_block_data(t_game_object *game_object, char *agrument_block)
 	while (arguments_data[++i])
 	{
 		current_argument = parse_argument_blocks(arguments_data[i], "<env>");
-		parse_block(current_argument, game_object->block_list);
+		parse_block(current_argument, game_object->parser.block_list);
 		free_array(current_argument);
 		free(arguments_data[i]);
 	}

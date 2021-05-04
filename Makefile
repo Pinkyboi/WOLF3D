@@ -13,7 +13,8 @@
 NAME = wolf3d
 
 CC =gcc
-CFLAGS = -g -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror
+CFLAGS = 
 
 
 SRC_DIR =./src/
@@ -35,7 +36,13 @@ FILES_NAME =main.c\
 			parsing_utils.c\
 			gameobject_constructor.c\
 			argument_list.c\
-			clip.c\
+			clip_values.c\
+			colors.c\
+			dda.c\
+			dda_helper.c\
+			vector2D.c\
+			angles.c\
+			manage_mlx.c\
 
 OBJS = $(addprefix $(OBJ_DIR), $(FILES_NAME:.c=.o))
 SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))
@@ -43,6 +50,7 @@ HEADER_FILE = wolf3d.h
 
 INCLUDES = -I $(INC_DIR) -I $(LIBFT_DIR) -I ./mlx
 LIBRARIES = -L $(LIBFT_DIR) -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
+
 all: $(NAME)
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)

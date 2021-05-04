@@ -14,7 +14,7 @@
 
 void	error_print(char *error, char *position)
 {
-	ft_putstr_fd(ft_strjoin(error, position), 1);
+	ft_putendl_fd(ft_strjoin(error, position), 1);
 	exit(-1);
 }
 
