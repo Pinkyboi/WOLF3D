@@ -35,7 +35,15 @@
 #define RENDER game_object->render_data
 #define	BLOCK_SIZE 64
 #define FOV 1
+
 typedef struct			s_color
+{
+	int r;
+	int g;
+	int b;
+}						t_color;
+
+typedef struct			s_render_tools
 {
 	t_render			render_data;		
 	void				*render_function;
