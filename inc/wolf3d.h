@@ -111,3 +111,10 @@ int			ft_exit(t_game_object *game_object);
 
 void		ft_ray_shooter(t_game_object *game_object);
 void 		ft_movement(int key, t_game_object *game_object);
+
+int 		ft_check_walls(t_game_object *game_object, int key);
+
+void		ft_draw_hard_line(int start, int end, int color, t_game_object *game_object);
+
+void		color_wall(t_game_object *game_object, t_render data);
+void		texture_wall(t_game_object *game_object, t_render data);

@@ -46,9 +46,9 @@ t_render_tools	parse_render(char *render_argument)
 	t_render_tools	render_tools;
 
 	if (stock_hex(render_argument, &render_tools.render_data.color))
-		render_tools.render_function = NULL;
+		render_tools.render_function = &color_wall;
 	else if (load_texture(render_argument, &render_tools.render_data.texture))
-		render_tools.render_function = NULL;
+		render_tools.render_function = &texture_wall;
 	return (render_tools);
 }
 

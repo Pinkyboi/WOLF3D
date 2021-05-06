@@ -38,6 +38,7 @@ void	load_screen_data(t_game_object *game_object)
 	game_object->render_data.view_data.vertical_tilt = 0;
 
 }
+
 void	load_render_data(t_game_object *game_object, char *agrument_block)
 {
 	game_object->parser.current_arguments = create_argument_list(agrument_block,
@@ -50,7 +51,7 @@ void	load_render_data(t_game_object *game_object, char *agrument_block)
 				NORTH_COLOR, game_object->parser.current_arguments));
 	game_object->render_data.south_wall = parse_render(get_argument("S",
 				SOUTH_COLOR, game_object->parser.current_arguments));
-	game_object->render_data.south_wall = parse_render(get_argument("E",
+	game_object->render_data.east_wall = parse_render(get_argument("E",
 				EAST_COLOR, game_object->parser.current_arguments));
 	game_object->render_data.west_wall = parse_render(get_argument("W",
 				WEST_COLOR, game_object->parser.current_arguments));
@@ -73,7 +74,7 @@ void	load_player_data(t_game_object *game_object, char *agrument_block)
 	game_object->player.stamina = parse_counters(get_argument("stamina", "100",
 				game_object->parser.current_arguments),
 			MIN_STAMINA, MAX_STAMINA);
-	game_object->player.orientation = PLAYER_FOV;
-	game_object->player.step = 0.8;
+	game_object->player.orientation = 0.0;
+	game_object->player.step = 0.4;
 	free_argument_list(game_object->parser.current_arguments);
 }

@@ -86,10 +86,29 @@ typedef	union			u_render
 	int					color;
 }						t_render;
 
+typedef struct			s_mlx_img
+{
+	void				*img_ptr;
+	int					*img_data;
+	int					size_l;
+	int					bpp;
+	int					endian;
+}						t_mlx_img;
+
+typedef struct			s_mlx
+{
+	void				*mlx_ptr;
+	void				*mlx_win;
+	t_mlx_img			mlx_img;
+}						t_mlx;
+
+typedef struct s_game_object 	t_game_object;
+typedef void			t_block_render_function(t_game_object *game_object,t_render data);
+
 typedef struct			s_render_tools
 {
-	t_render			render_data;		
-	void				*render_function;
+	t_render				render_data;		
+	t_block_render_function	*render_function;
 }						t_render_tools;
 
 typedef struct			s_block_list
@@ -114,21 +133,7 @@ typedef struct 			s_tile
 	t_block_list    	*ceiling;
 }               		t_tile;
 
-typedef struct			s_mlx_img
-{
-	void				*img_ptr;
-	int					*img_data;
-	int					size_l;
-	int					bpp;
-	int					endian;
-}						t_mlx_img;
 
-typedef struct			s_mlx
-{
-	void				*mlx_ptr;
-	void				*mlx_win;
-	t_mlx_img			mlx_img;
-}						t_mlx;
 
 typedef struct			s_map
 {
@@ -192,7 +197,7 @@ typedef struct 			s_ray_data
 	t_d_coor			current_ray;
 }						t_ray_data;
 
-typedef	struct			s_game_object
+struct s_game_object
 {
 	t_wolf3d_parser		parser;
 	t_render_data		render_data;
@@ -200,7 +205,8 @@ typedef	struct			s_game_object
 	t_player			player;
 	t_ray_data			ray_data;
 	t_coor				drawing_index;
-}						t_game_object;
+	t_block_list		*current_block;
+};
 
 typedef void			t_block_parsing_function(t_game_object *game_object, char *agrument_block);
 
@@ -243,6 +249,9 @@ void			load_map_data(t_game_object *game_object, char *agrument_block);
 void			load_player_data(t_game_object *game_object, char *agrument_block);
 void			load_render_data(t_game_object *game_object, char *agrument_block);
 
+
+
+
 void			safe_trim(char *line, char *filter);
 
 t_coor			map_max_dimentions(char **map);
@@ -263,3 +272,4 @@ t_argument_list	*create_argument_list(char *argument_block, t_argument_list *arg
 t_argument_list *search_for_argument_node(t_argument_list *argument_list, char *argument_name);
 t_argument_list	*push_argument(t_argument_list *argument_list,
 				t_argument_list *new_element);
+			

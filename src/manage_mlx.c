@@ -25,14 +25,14 @@ void 		ft_movement(int key, t_game_object *game_object)
 		ft_angleToVector2D(game_object->player.orientation),
 			game_object->player.step);
 	}
-	if(key == FOREWORD)
+	if(key == FOREWORD && ft_check_walls(game_object, key))
 	{
 		game_object->player.world_position = ft_add_vector2D(game_object->player.world_position,
 									game_object->player.movement);
-		game_object->player.grid_position =(t_coor){game_object->player.world_position.x,
+		game_object->player.grid_position = (t_coor){game_object->player.world_position.x,
 										game_object->player.world_position.y};
 	}
-	if(key == BACKWARD)
+	if(key == BACKWARD && ft_check_walls(game_object, key))
 	{
 		game_object->player.world_position = ft_sub_vector2D(game_object->player.world_position,
 									game_object->player.movement);

@@ -33,6 +33,90 @@ void	print_map(t_game_object game_object)
 	}
 }
 
+
+
+void		ft_put_pixel(t_game_object *game_object, t_coor position,int color)
+{
+	t_coor resolution;
+
+	resolution = game_object->render_data.window_resolution;
+	if (position.x >= 0 && position.x < resolution.x &&
+		position.y >= 0 && position.y < resolution.y)
+		game_object->render_data.mlx.mlx_img.img_data[
+			(int)(position.y * resolution.x + position.x)] = color;
+}
+
+void		ft_draw_hard_line(int start, int end, int color, t_game_object *game_object)
+{
+	start = ft_clip_min_max(0, game_object->render_data.window_resolution.y, start);
+	end = ft_clip_min_max(0, game_object->render_data.window_resolution.y, end);
+	while(++start < end)
+	{
+		ft_put_pixel(game_object,
+			(t_coor){game_object->drawing_index.x ,start}, color);
+	}	
+}
+
+void		ft_basic_render(t_game_object *game_object)
+{
+	if (game_object->ray_data.hit_type == 'H')
+		if(game_object->ray_data.current_ray.y > 0)
+			game_object->render_data.south_wall.render_function(game_object,
+				game_object->render_data.south_wall.render_data);
+		else
+			game_object->render_data.north_wall.render_function(game_object,
+				game_object->render_data.north_wall.render_data);
+	else
+		if (game_object->ray_data.current_ray.x > 0)
+			game_object->render_data.east_wall.render_function(game_object,
+				game_object->render_data.east_wall.render_data);
+		else
+			game_object->render_data.west_wall.render_function(game_object,
+				game_object->render_data.west_wall.render_data);
+}
+
+short	block_solid(t_game_object *game_object, t_coor grid_position)
+{
+	t_render_tools render_tool;
+
+	if (grid_position.x < 0 || grid_position.y <= 0)
+		return (1);
+	if (grid_position.x > game_object->map.map_dimentions.x
+		|| grid_position.y > game_object->map.map_dimentions.y)
+		return (1);
+	if (game_object->map.map_grid[grid_position.y][grid_position.x].wall)
+		return (1);
+	return (0);
+}
+
+
+int 		ft_check_walls(t_game_object *game_object, int key)
+{
+	t_d_coor world_position;
+	t_d_coor edge;
+	t_coor 	grid_position;
+
+	world_position = game_object->player.world_position;
+	if(key == FOREWORD)
+		world_position = (t_d_coor){world_position.x +
+			game_object->player.movement.x,
+			world_position.y + game_object->player.movement.y};
+	if(key == BACKWARD)
+		world_position = (t_d_coor){world_position.x -
+			game_object->player.movement.x,
+			world_position.y - game_object->player.movement.y};
+	edge = ft_add_vector2D(world_position,
+		ft_scale_vector2D(ft_normalise_vector2D(game_object->player.movement), 0.5));
+	grid_position = (t_coor){world_position.x ,world_position.y};
+	if(!block_solid(game_object, (t_coor){edge.x, edge.y}))
+	{
+		game_object->player.world_position = world_position;
+		game_object->player.grid_position = grid_position;
+		return (1);
+	}
+	return(0);
+}
+
 int			ft_get_textureX_coor(t_game_object *game_object, t_texture texture)
 {
 	double wall_index;
@@ -42,53 +126,72 @@ int			ft_get_textureX_coor(t_game_object *game_object, t_texture texture)
 			game_object->ray_data.hit_distance));
 	wall_index = (game_object->ray_data.hit_type == 'V') ? end.y : end.x;
 	wall_index -= (int)wall_index;
-	int texture_index = wall_index * (double)texture.texture_height;
+	int texture_index = wall_index * (double)texture.texture_width;
 	return(texture_index);
 }
 
-void		ft_put_pixel(int *data, t_coor resolution,t_coor position,int color)
+void		texture_wall(t_game_object *game_object, t_render data)
 {
-	if (position.x >= 0 && position.x < resolution.x &&
-		position.y >= 0 && position.y < resolution.y)
-		data[
-			(int)(position.y * resolution.x + position.x)] = color;
+	int 	wall_size;
+	int 	start;
+	int 	end;
+	t_coor	step;
+	int		i;
+	int 	color;
+
+	i = 0;
+	wall_size = (int)(game_object->render_data.view_data.view_plane_distance *
+			BLOCK_SIZE / game_object->ray_data.straight_distance);
+	start =  (game_object->render_data.view_data.half_view_plane - wall_size / 2) - 1;
+	end  = start + wall_size;
+	step.y = data.texture.texture_height / wall_size;
+	step.x = ft_get_textureX_coor(game_object, data.texture) % BLOCK_SIZE;
+	while(++start < end)
+	{
+		color = ft_scale_color_int(data.texture.texture_data[(int)((int)i *
+				data.texture.texture_width + (int)(step.x))], 1);
+		ft_put_pixel(game_object,
+			(t_coor){game_object->drawing_index.x ,start}, color);
+		i += step.y;
+	}
+}
+
+void		color_wall(t_game_object *game_object, t_render data)
+{
+	int 	wall_size;
+	int 	start;
+	int 	end;
+
+	wall_size = (int)(game_object->render_data.view_data.view_plane_distance *
+			BLOCK_SIZE / game_object->ray_data.straight_distance);
+	start =  (game_object->render_data.view_data.half_view_plane - wall_size / 2) - 1;
+	end  = start + wall_size;
+	ft_draw_hard_line(start, end, data.color, game_object);
 }
 
 void		ft_ray_shooter(t_game_object *game_object)
 {
 	double	step;
 	double	first_angle;
-	int 	wall_size;
-	int 	start;
-	int 	end;
-	int		color;
+	t_render render_data;
 
 	step = PLAYER_FOV / game_object->render_data.window_resolution.x;
 	first_angle = game_object->player.orientation - (PLAYER_FOV / 2);
 	game_object->drawing_index.x = -1;
-	start = 0;
 	while(++game_object->drawing_index.x < game_object->render_data.window_resolution.x)
 	{
 		game_object->ray_data.hit_distance = 0;
+		game_object->current_block = NULL;
 		first_angle = ft_check_angle(first_angle);
 		game_object->ray_data.current_ray = ft_angleToVector2D(first_angle);
 		ft_define_check_step(game_object);
+		render_data = game_object->current_block->render.render_data;
 		game_object->ray_data.straight_distance = game_object->ray_data.hit_distance *
 			(double)BLOCK_SIZE * cos(game_object->player.orientation - first_angle);
-		wall_size = (int)(game_object->render_data.view_data.view_plane_distance *
-			BLOCK_SIZE / game_object->ray_data.straight_distance);
-		start =  (game_object->render_data.view_data.half_view_plane  - wall_size/2) - 1;
-		end  = start + wall_size;
-		while(++start < end)
-		{
-			if(game_object->ray_data.hit_type == 'H')
-				color = ft_scale_color_int(0xFF00FF, 1);
-			else
-				color = ft_scale_color_int(0xFF00FF, .7);
-			ft_put_pixel(game_object->render_data.mlx.mlx_img.img_data,
-				game_object->render_data.window_resolution,
-				(t_coor){game_object->drawing_index.x ,start}, color);
-		}
+		if(game_object->current_block)
+			game_object->current_block->render.render_function(game_object, render_data);
+		// else
+			// ft_basic_render(game_object);
 		first_angle += step;
 	}
 }
@@ -125,7 +228,7 @@ int	main(int argc, char **argv)
 	game_object = malloc(sizeof(t_game_object));
 	game_object->parser.block_list = push_block(NULL,
 			create_block_node('w', FILLER_ICON,
-				(t_render){.color = FILLER_COLOR}, NULL));
+				(t_render){.color = FILLER_COLOR}, &color_wall));
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0 || argc != 2)
 		exit(-1);
