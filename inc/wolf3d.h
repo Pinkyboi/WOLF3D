@@ -113,7 +113,7 @@ int			ft_exit(t_game_object *game_object);
 void		ft_ray_shooter(t_game_object *game_object);
 void 		ft_movement(int key, t_game_object *game_object);
 
-int 		ft_check_walls(t_game_object *game_object, int key);
+void 		ft_check_walls(t_game_object *game_object, int key);
 
 void		ft_draw_hard_line(int start, int end, int color, t_game_object *game_object);
 
@@ -123,3 +123,7 @@ void		texture_wall(t_game_object *game_object, t_render data);
 void		ft_put_pixel(t_game_object *game_object, t_coor position, int color);
 
 void		ft_ray_shooter(t_game_object *game_object);
+
+void		ft_textured_render(t_game_object *game_object);
+void		ft_basic_render(t_game_object *game_object);
+void	ft_floor_rand_ceilings(t_game_object *game_object, t_coor range, char type);

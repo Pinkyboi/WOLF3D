@@ -79,7 +79,7 @@ t_tile 	**create_map(char **map, t_block_list *block_list)
 	final_map = NULL;
 	max_dimentions = map_max_dimentions(map);
 	final_map = create_raw_map(final_map, block_list,
-				max_dimentions);
+			max_dimentions);
 	index.y = -1;
 	while (++index.y < max_dimentions.y - 2)
 	{

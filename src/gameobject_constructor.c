@@ -25,7 +25,7 @@ char	*get_argument(char *argument_name, char *default_value,
 
 void	load_screen_data(t_game_object *game_object)
 {
-	t_coor resolution;
+	t_coor	resolution;
 
 	resolution = parse_resolution(get_argument("resolution", "1000 x 1000",
 				game_object->parser.current_arguments));
@@ -36,7 +36,6 @@ void	load_screen_data(t_game_object *game_object)
 		= game_object->render_data.view_data.half_view_plane;
 	game_object->render_data.view_data.view_shift = 0;
 	game_object->render_data.view_data.vertical_tilt = 0;
-
 }
 
 void	load_render_data(t_game_object *game_object, char *agrument_block)
@@ -66,9 +65,11 @@ void	load_player_data(t_game_object *game_object, char *agrument_block)
 			agrument_block, NULL, PLAYER_TAG);
 	position = parse_coordinate(get_argument("position", "(0,0)",
 				game_object->parser.current_arguments));
-	game_object->player.grid_position = (t_coor){position.x + 1, position.y + 1};
-	game_object->player.world_position.x = game_object->player.grid_position.x;
-	game_object->player.world_position.y = game_object->player.grid_position.y;
+	game_object->player.grid_position = (t_coor){position.x+1, position.y+1};
+	game_object->player.world_position.x = .5
+		+ game_object->player.grid_position.x;
+	game_object->player.world_position.y = .5
+		+ game_object->player.grid_position.y;
 	game_object->player.hp = parse_counters(get_argument("health",
 				"100", game_object->parser.current_arguments), MIN_HP, MAX_HP);
 	game_object->player.stamina = parse_counters(get_argument("stamina", "100",
@@ -77,7 +78,8 @@ void	load_player_data(t_game_object *game_object, char *agrument_block)
 	game_object->player.orientation = 0.0;
 	game_object->player.step = 0.4;
 	game_object->player.movement = ft_scale_vector2D(
-		ft_angleToVector2D(game_object->player.orientation),
+			ft_angleToVector2D(game_object->player.orientation),
 			game_object->player.step);
+	game_object->player.height = (double)BLOCK_SIZE / 2.0;
 	free_argument_list(game_object->parser.current_arguments);
 }

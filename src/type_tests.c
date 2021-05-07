@@ -13,8 +13,8 @@
 #include "wolf3d.h"
 
 const t_render_recognition	g_render_dico[] = {
-	{"Basic", NULL},
-	{"Textured", NULL},
+	{"Basic", &ft_basic_render},
+	{"Textured", &ft_textured_render},
 	{"Dim", NULL},
 	{"Neon", NULL},
 	{NULL, NULL}
@@ -31,7 +31,7 @@ t_game_rendering	*parse_render_type(char *render_type)
 			return (g_render_dico[i].rendering_function);
 	}
 	error_print("The only valide renders types are : ",
-		"(Basic, Textured, Dim, Bloody)");
+		"(Basic, Textured, Dim, Neon)");
 	return (NULL);
 }
 

@@ -76,6 +76,7 @@ typedef struct			s_tag_element
 typedef struct			s_texture
 {
 	int 				*texture_data;
+	t_d_coor			coordinates;
 	int					texture_width;
 	int					texture_height;
 }						t_texture;
@@ -151,9 +152,10 @@ typedef	struct			s_player
 	double				orientation;
 	t_d_coor			movement;
 	double				step;
+	double				height;
 }						t_player;
 
-typedef void			t_game_rendering(void);
+typedef void			t_game_rendering(t_game_object *game_object);
 
 typedef struct			s_render_recognition
 {
