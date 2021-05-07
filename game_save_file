@@ -1,41 +1,43 @@
 <render>{
-    resolution    : 1000 x 1000;
-    type          : Basic;
+    resolution    : 600 x 600;
+    type          : Textured;
 }
 <player>{
     health        : 100;
     stamina       : 69;
-    position      : (4, 0);
+    position      : (4, 8);
 }
 <env>{
-    (1,wall)    : ./textures/luigi.xpm;
-    (2, wall)    : #947BD3;
-    (4, wall)    : ./textures/stalin.xpm;
+    (1,wall)    : ./textures/wood.xpm;
+    (2, wall)    : ./textures/wood.xpm;
+    (B, ceiling)    : ./textures/wood.xpm;
+    (A, floor)    : ./textures/wood.xpm;
+    (4, wall)    : #EDD382;
 }
 
 <map>{
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 2 1 1 1 1 1 1
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 2 1 1 1 1 1 1
-    1 1 0 0 0 4 4 4 4 0 0 0 0 0 2 1 1 1 1 1 1
-    1 1 0 0 0 4 0 0 4 0 0 0 0 0 2 1 1 1 1 1 1 
-    1 1 0 0 0 4 0 0 4 0 0 0 0 0 4 2 2 2 0 2 1
-    1 1 0 0 0 4 4 4 4 0 0 0 0 0 0 0 0 0 0 2 1
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 4 2 2 2 0 2 1
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 2 1 1 1 1 1 1
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 2 1 1 1 1 1 1
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 2 1 1 1 1 1 1
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1
-    1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1
-    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-    1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1 
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 4 2 2 2 (A,B) 2 1
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 2 1
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 4 2 2 2 (A,B) 2 1
+    1 1 (A,B) (A,B) (A,B) (A,B) A A A (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1
+    1 1 (A,B) (A,B) (A,B) (A,B) A (A,B) A (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1
+    1 1 (A,B) (A,B) (A,B) (A,B) A A A (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1 
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1
+    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1
+    (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 
+    (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B)
+    (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1
+    (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B)
+    (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1
+    (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf3d.h                                           :+:      :+:    :+:   */
+/*   wolf3d_parser.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/25 21:22:11 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/07 22:37:49 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ typedef struct 			s_ray_data
 	double				straight_distance;
 	char				hit_type;
 	t_d_coor			current_ray;
+	double				angle;
 }						t_ray_data;
 
 struct s_game_object

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/07 00:00:38 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/07 22:27:13 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	ft_draw_texture_line(t_coor edges, int wall_size,
 	int			color;
 
 	texture_index = 0;
-	step.y = (double)data.texture.texture_height / wall_size;
+	step.y = (double)data.texture.texture_height / (wall_size + 1);
 	step.x = ft_get_textureX_coor(game_object, data.texture);
-	while (++edges.x < edges.y)
+	while (edges.x <= edges.y)
 	{
 		color = data.texture.texture_data[(int)((int)texture_index
 				* data.texture.texture_width + (int)(step.x))];
@@ -54,6 +54,7 @@ void	ft_draw_texture_line(t_coor edges, int wall_size,
 		ft_put_pixel(game_object,
 			(t_coor){game_object->drawing_index.x, edges.x}, color);
 		texture_index += step.y;
+		edges.x++;
 	}
 }
 
@@ -65,10 +66,14 @@ void	texture_wall(t_game_object *game_object, t_render data)
 
 	wall_size = (int)(game_object->render_data.view_data.view_plane_distance
 			* BLOCK_SIZE / game_object->ray_data.straight_distance);
-	start = -1
-		+ (game_object->render_data.view_data.half_view_plane - wall_size / 2);
+	start = (game_object->render_data.view_data.half_view_plane - wall_size / 2);
+	start = ft_clip_min_max(0,
+			game_object->render_data.window_resolution.y, start);
 	end = start + wall_size;
-	//ft_floor_rand_ceilings(game_object,(t_coor){0, start}, 'C');
-	//ft_floor_rand_ceilings(game_object,(t_coor){end, game_object->render_data.window_resolution.y}, 'F');
+	end = ft_clip_min_max(0,
+			game_object->render_data.window_resolution.y, end);
+
+	ft_floor_rand_ceilings(game_object,(t_coor){0, start}, 'C');
+	ft_floor_rand_ceilings(game_object,(t_coor){end, game_object->render_data.window_resolution.y}, 'F');
 	ft_draw_texture_line((t_coor){start, end}, wall_size, game_object, data);
 }

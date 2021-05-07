@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/07 00:04:38 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/07 20:58:45 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	main(int argc, char **argv)
 	data = read_file(fd);
 
 	load_game_elements(data, game_object);
-	printf("(%d, %d)\n", game_object->player.grid_position.x, game_object->player.grid_position.y);
 	if (is_position_valid(game_object, game_object->player.grid_position))
 		error_print("FATAL ERROR : ",
 			"the player is on a block or out of the map boundaries");

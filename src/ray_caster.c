@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/07 00:04:55 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/07 22:40:44 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_ray_shooter(t_game_object *game_object)
 		game_object->ray_data.straight_distance *= (double)BLOCK_SIZE;
 		game_object->ray_data.straight_distance
 			*= cos(game_object->player.orientation - first_angle);
+    game_object->ray_data.angle = first_angle;
 		game_object->render_data.render_function(game_object);
 		first_angle += step;
 	}
@@ -92,18 +93,20 @@ int	color_pixel(t_game_object *game_object, t_render data)
 	return (ft_scale_color_int(data.color, 0.7));
 }
 
-int	get_tile_position(t_game_object *game_object, double distance, t_d_coor ray, char type)
+int	get_tile_position(t_game_object *game_object, double distance, double angle, char type)
 {
 	t_d_coor texture_ratio;
 	t_coor	tile_coor;
 	t_block_list *block;
 
-	texture_ratio.y = game_object->player.world_position.y + (distance * ray.y);
-	texture_ratio.x = game_object->player.world_position.x + (distance * ray.x);
-	tile_coor = (t_coor){(int)texture_ratio.x, (int)texture_ratio.y};
-	block = get_floor_ceiling(tile_coor,game_object,type);
+	texture_ratio.y = game_object->player.world_position.y + (distance * sin(angle));
+	texture_ratio.x = game_object->player.world_position.x + (distance * cos(angle));
+	tile_coor = (t_coor){(int)texture_ratio.x ,(int)texture_ratio.y};
+    
+    block = get_floor_ceiling(tile_coor,game_object,type);
 	if(block)
-	{	if(block->render.render_function == &texture_wall)
+	{
+        if(block->render.render_function == &texture_wall)
 		{
 			texture_ratio.x -= tile_coor.x;
 			texture_ratio.y -= tile_coor.y;
@@ -115,6 +118,7 @@ int	get_tile_position(t_game_object *game_object, double distance, t_d_coor ray,
 		else
 			return (color_pixel(game_object, block->render.render_data));
 	}
+        
 	return (-1);
 }
 
@@ -125,16 +129,16 @@ void	ft_floor_rand_ceilings(t_game_object *game_object, t_coor range, char type)
 	double 	distance;
 	int		color;
 
-	while(range.x < range.y)
+	while(range.x <= range.y)
 	{
-		wall_ratio = abs(range.x - game_object->render_data.view_data.half_view_plane);
-		angle = acos(game_object->ray_data.current_ray.x);
-		distance = game_object->player.height / wall_ratio;
-		distance *= game_object->render_data.view_data.view_plane_distance;
-		distance /= cos(game_object->player.orientation - angle) / (double)BLOCK_SIZE;
-		color = get_tile_position(game_object,distance,
-				game_object->ray_data.current_ray,type);
-		if (color != -1)
+		wall_ratio = abs(range.x
+            - game_object->render_data.view_data.half_view_plane);
+		angle = game_object->ray_data.angle;
+		distance = game_object->player.height / wall_ratio
+        * game_object->render_data.view_data.view_plane_distance
+        / cos(game_object->player.orientation - angle) / (double)BLOCK_SIZE;
+		color = get_tile_position(game_object,distance,angle,type);
+        if (color != -1)
 			ft_put_pixel(game_object,
 				(t_coor){game_object->drawing_index.x, range.x}, color);
 		range.x++;
