@@ -3,42 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   manage_mlx.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 14:30:21 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/04 14:30:29 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/06 23:57:45 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-void 		ft_movement(int key, t_game_object *game_object)
+void		ft_put_pixel(t_game_object *game_object, t_coor position, int color)
 {
-	if(key == RIGHT || key == LEFT)
-	{
-		if(key == LEFT)
-			game_object->player.orientation -= .1;
-		if(key == RIGHT)
-			game_object->player.orientation += .1;
-		game_object->player.orientation = ft_check_angle(game_object->player.orientation);
-		game_object->player.movement = ft_scale_vector2D(
-		ft_angleToVector2D(game_object->player.orientation),
-			game_object->player.step);
-	}
-	if(key == FOREWORD && ft_check_walls(game_object, key))
-	{
-		game_object->player.world_position = ft_add_vector2D(game_object->player.world_position,
-									game_object->player.movement);
-		game_object->player.grid_position = (t_coor){game_object->player.world_position.x,
-										game_object->player.world_position.y};
-	}
-	if(key == BACKWARD && ft_check_walls(game_object, key))
-	{
-		game_object->player.world_position = ft_sub_vector2D(game_object->player.world_position,
-									game_object->player.movement);
-		game_object->player.grid_position =(t_coor){game_object->player.world_position.x,
-										game_object->player.world_position.y};
-	}	
+	t_coor resolution;
+
+	resolution = game_object->render_data.window_resolution;
+	if (position.x >= 0 && position.x < resolution.x &&
+		position.y >= 0 && position.y < resolution.y)
+		game_object->render_data.mlx.mlx_img.img_data[
+			(int)(position.y * resolution.x + position.x)] = color;
 }
 
 int			ft_exit(t_game_object *game_object)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_elements_constructor.c                        :+:      :+:    :+:   */
+/*   gameobject_constructor.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 13:35:15 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/29 13:35:23 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/06 23:56:02 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,8 @@ void	load_player_data(t_game_object *game_object, char *agrument_block)
 			MIN_STAMINA, MAX_STAMINA);
 	game_object->player.orientation = 0.0;
 	game_object->player.step = 0.4;
+	game_object->player.movement = ft_scale_vector2D(
+		ft_angleToVector2D(game_object->player.orientation),
+			game_object->player.step);
 	free_argument_list(game_object->parser.current_arguments);
 }

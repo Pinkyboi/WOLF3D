@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 14:49:07 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/03 14:49:08 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/07 00:05:03 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define SAVE 36
 
 #define RENDER game_object->render_data
-#define	BLOCK_SIZE 64
+#define	BLOCK_SIZE 32
 #define FOV 1
 
 typedef struct			s_color
@@ -91,6 +91,7 @@ t_d_coor    ft_normalise_vector2D(t_d_coor vector);
 t_coor		ft_get_sign(t_d_coor coor);
 void		ft_get_right_step(t_d_coor ray, t_d_coor *rayStep);
 short		is_block_solid(t_game_object *game_object, t_coor grid_position);
+short	is_position_valid(t_game_object *game_object, t_coor grid_position);
 
 double		ft_check_angle(double angle);
 t_d_coor	ft_angleToVector2D(double alpha);
@@ -118,3 +119,7 @@ void		ft_draw_hard_line(int start, int end, int color, t_game_object *game_objec
 
 void		color_wall(t_game_object *game_object, t_render data);
 void		texture_wall(t_game_object *game_object, t_render data);
+
+void		ft_put_pixel(t_game_object *game_object, t_coor position, int color);
+
+void		ft_ray_shooter(t_game_object *game_object);
