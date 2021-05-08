@@ -151,6 +151,7 @@ typedef	struct			s_player
 	int					*player_appearance;
 	double				orientation;
 	t_d_coor			movement;
+	short				is_running;
 	double				step;
 	double				height;
 }						t_player;
@@ -166,7 +167,7 @@ typedef struct			s_render_recognition
 typedef struct			s_view
 {
 	int					view_plane_distance;
-	int					vertical_tilt;
+	double				vertical_tilt;
 	int					view_shift;
 	int					half_view_plane;
 	int					half_view_plane_save;

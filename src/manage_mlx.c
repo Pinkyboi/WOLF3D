@@ -29,6 +29,22 @@ int	ft_exit(t_game_object *game_object)
 	exit(0);
 }
 
+int	key_release(int key)
+{
+	if (get_movement_key(key) == 1)
+		change_key_state(key, 0);
+	return (0);
+}
+
+int	ft_key_stroke(int key, t_game_object *game_object)
+{
+	if (get_movement_key(key) == 0)
+		change_key_state(key, 1);
+	if (key == EXIT)
+		ft_exit(game_object);
+	return (0);
+}
+
 void	ft_clear_mlx(t_game_object *game_object)
 {
 	t_mlx	*mlx;
@@ -43,20 +59,4 @@ void	ft_clear_mlx(t_game_object *game_object)
 	mlx->mlx_img.img_data = (int *)
 		mlx_get_data_addr(mlx->mlx_img.img_ptr, &mlx->mlx_img.bpp,
 			&mlx->mlx_img.size_l, &mlx->mlx_img.endian);
-}
-
-int	ft_key_stroke(int key, t_game_object *game_object)
-{
-	if (key == EXIT)
-		ft_exit(game_object);
-	if (key == RIGHT || key == LEFT || key == FOREWORD || key == BACKWARD)
-	{
-		ft_clear_mlx(game_object);
-		ft_movement(key, game_object);
-		ft_ray_shooter(game_object);
-		mlx_put_image_to_window(game_object->render_data.mlx.mlx_ptr,
-			game_object->render_data.mlx.mlx_win,
-			game_object->render_data.mlx.mlx_img.img_ptr, 0, 0);
-	}
-	return (0);
 }

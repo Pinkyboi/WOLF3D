@@ -18,19 +18,20 @@
 # define MAX_DIST 100
 
 # define PI_2 6.2831853072
-# define PLAYER_FOV FT_RAD(45)
+# define PLAYER_FOV FT_RAD(60)
 
 
 # define EXIT 53
 # define FOREWORD 13
 # define BACKWARD 1
-# define UP 12
+# define UP 14
 # define LEFT 0
 # define RIGHT 2
-# define DOWN 14
+# define DOWN 12
 # define KEY_R 15
 # define KEY_T 17
 # define SAVE 36
+# define SHIFT 257
 
 #define RENDER game_object->render_data
 #define	BLOCK_SIZE 32
@@ -43,33 +44,11 @@ typedef struct			s_color
 	int b;
 }						t_color;
 
-typedef struct			s_render_tools
+typedef struct			s_is_pressed
 {
-	t_render			render_data;		
-	void				*render_function;
-}						t_render_tools;
-
-typedef struct			s_block_list
-{
-	char				type;
-	char				block_icon;
-	t_render_tools		render;
-	struct s_block_list	*next;
-}				t_block_list;
-
-typedef struct			s_argument_list
-{
-	char				*argument_name;
-	char				*argument_value;
-	struct s_argument_list	*next;
-}				t_argument_list;
-
-typedef struct 			s_tile
-{
-	t_block_list    	*wall;
-	t_block_list    	*floor;
-	t_block_list    	*ceiling;
-}               		t_tile;
+	int					key;
+	short				state;
+}						t_is_pressed;
 
 double	ft_clip_min(int min, double value);
 double	ft_clip_max(int max, double value);
@@ -107,13 +86,14 @@ void	ft_get_right_step(t_d_coor ray, t_d_coor *rayStep);
 short	is_block_solid(t_game_object *game_object, t_coor grid_position);
 
 
-int			ft_key_stroke(int key, t_game_object *game_object);
+int			ft_key_stroke(int key,t_game_object *game_object);
 int			ft_exit(t_game_object *game_object);
 
 void		ft_ray_shooter(t_game_object *game_object);
-void 		ft_movement(int key, t_game_object *game_object);
+void 		ft_movement(t_game_object *game_object);
+void		ft_run(t_game_object *game_object);
 
-void 		ft_check_walls(t_game_object *game_object, int key);
+void 		ft_check_walls(t_game_object *game_object);
 
 void		ft_draw_hard_line(int start, int end, int color, t_game_object *game_object);
 
@@ -126,4 +106,15 @@ void		ft_ray_shooter(t_game_object *game_object);
 
 void		ft_textured_render(t_game_object *game_object);
 void		ft_basic_render(t_game_object *game_object);
-void	ft_floor_rand_ceilings(t_game_object *game_object, t_coor range, char type);
+void	tile_render(t_game_object *game_object, t_coor range, char type);
+
+void	ft_clear_mlx(t_game_object *game_object);
+int		ft_exit(t_game_object *game_object);
+void		ft_head_tilt(t_game_object *game_object);
+
+short	any_key_pressed(void);
+int	key_release(int key);
+short	get_movement_key(int key);
+void	change_key_state(int key, short state);
+
+int	frame_loop(void *arg);

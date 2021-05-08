@@ -66,14 +66,11 @@ void	texture_wall(t_game_object *game_object, t_render data)
 
 	wall_size = (int)(game_object->render_data.view_data.view_plane_distance
 			* BLOCK_SIZE / game_object->ray_data.straight_distance);
-	start = (game_object->render_data.view_data.half_view_plane - wall_size / 2);
-	start = ft_clip_min_max(0,
-			game_object->render_data.window_resolution.y, start);
+	start = game_object->render_data.view_data.half_view_plane
+		- (wall_size / 2);
 	end = start + wall_size;
-	end = ft_clip_min_max(0,
-			game_object->render_data.window_resolution.y, end);
-
-	ft_floor_rand_ceilings(game_object,(t_coor){0, start}, 'C');
-	ft_floor_rand_ceilings(game_object,(t_coor){end, game_object->render_data.window_resolution.y}, 'F');
+	tile_render(game_object, (t_coor){0, start}, 'C');
+	tile_render(game_object, (t_coor){end,
+		game_object->render_data.window_resolution.y}, 'F');
 	ft_draw_texture_line((t_coor){start, end}, wall_size, game_object, data);
 }

@@ -14,7 +14,6 @@
 
 void	ft_basic_render(t_game_object *game_object)
 {
-	
 	if (game_object->ray_data.hit_type == 'H')
 	{
 		if (game_object->ray_data.current_ray.y > 0)
@@ -61,7 +60,8 @@ void	color_wall(t_game_object *game_object, t_render data)
 	start = (game_object->render_data.view_data.half_view_plane
 			- (wall_size / 2));
 	end = start + wall_size;
-	ft_floor_rand_ceilings(game_object,(t_coor){0, start}, 'C');
-	ft_floor_rand_ceilings(game_object,(t_coor){end, game_object->render_data.window_resolution.y}, 'F');
+	tile_render(game_object, (t_coor){0, start}, 'C');
+	tile_render(game_object,
+		(t_coor){end, game_object->render_data.window_resolution.y}, 'F');
 	ft_draw_hard_line(start, end, data.color, game_object);
 }

@@ -65,7 +65,8 @@ void	load_player_data(t_game_object *game_object, char *agrument_block)
 			agrument_block, NULL, PLAYER_TAG);
 	position = parse_coordinate(get_argument("position", "(0,0)",
 				game_object->parser.current_arguments));
-	game_object->player.grid_position = (t_coor){position.x+1, position.y+1};
+	game_object->player.grid_position
+		= (t_coor){position.x + 1, position.y + 1};
 	game_object->player.world_position.x = .5
 		+ game_object->player.grid_position.x;
 	game_object->player.world_position.y = .5
