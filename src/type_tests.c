@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/15 03:04:28 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/14 18:31:51 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 const t_render_recognition	g_render_dico[] = {
 	{"Basic", &ft_basic_render},
 	{"Textured", &ft_textured_render},
-	{"Dim", NULL},
+	{"Dim", &ft_textured_render},
 	{"Neon", NULL},
 	{NULL, NULL}
 };

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 13:35:15 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/07 22:40:09 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/20 21:23:40 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void	load_render_data(t_game_object *game_object, char *agrument_block)
 			get_argument("type", "Basic",
 				game_object->parser.current_arguments));
 	load_screen_data(game_object);
-	game_object->render_data.north_wall = parse_render(get_argument("N",
+	game_object->render_data.north_wall = parse_render(get_argument("North",
 				NORTH_COLOR, game_object->parser.current_arguments));
-	game_object->render_data.south_wall = parse_render(get_argument("S",
+	game_object->render_data.south_wall = parse_render(get_argument("South",
 				SOUTH_COLOR, game_object->parser.current_arguments));
-	game_object->render_data.east_wall = parse_render(get_argument("E",
+	game_object->render_data.east_wall = parse_render(get_argument("East",
 				EAST_COLOR, game_object->parser.current_arguments));
-	game_object->render_data.west_wall = parse_render(get_argument("W",
+	game_object->render_data.west_wall = parse_render(get_argument("West",
 				WEST_COLOR, game_object->parser.current_arguments));
 	free_argument_list(game_object->parser.current_arguments);
 }
@@ -76,11 +76,14 @@ void	load_player_data(t_game_object *game_object, char *agrument_block)
 	game_object->player.stamina = parse_counters(get_argument("stamina", "100",
 				game_object->parser.current_arguments),
 			MIN_STAMINA, MAX_STAMINA);
-	game_object->player.orientation = 0.0;
+	game_object->player.orientation = 0;
 	game_object->player.step = 0.4;
 	game_object->player.movement = ft_scale_vector2D(
 			ft_angleToVector2D(game_object->player.orientation),
 			game_object->player.step);
 	game_object->player.height = (double)BLOCK_SIZE / 2.0;
+	game_object->player.view_distance = parse_counters(get_argument("view_distance", "0",
+				game_object->parser.current_arguments),
+			0, INT32_MAX);
 	free_argument_list(game_object->parser.current_arguments);
 }

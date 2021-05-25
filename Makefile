@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#              #
-#    Updated: 2021/05/07 00:05:30 by abenaiss         ###   ########.fr        #
+#    Updated: 2021/05/10 03:17:14 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ FILES_NAME =main.c\
 			ray_caster.c\
 			texture_tiles.c\
 			key_state.c\
+			mini_map.c\
 
 OBJS = $(addprefix $(OBJ_DIR), $(FILES_NAME:.c=.o))
 SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))

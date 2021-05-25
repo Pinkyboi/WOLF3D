@@ -1,43 +1,50 @@
 <render>{
-    resolution    : 1000 x 1000;
+    resolution    : 800 x 800;
     type          : Textured;
 }
+
 <player>{
     health        : 100;
     stamina       : 69;
-    position      : (4, 8);
+    position      : (1, 3);
+    view_distance : 100;
 }
 <env>{
     (1,wall)    : ./textures/wood.xpm;
-    (2, wall)    : ./textures/wood.xpm;
-    (B, ceiling)    : ./textures/wood.xpm;
-    (A, floor)    : ./textures/wood.xpm;
+    (2,floor)    : ./textures/wood.xpm;
+    (3,ceiling)    : ./textures/wood.xpm;
+    (5, wall) : #FFD700;
+    (b, floor)    : #138510;
     (4, wall)    : #EDD382;
 }
 
 <map>{
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1 
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 4 2 2 2 (A,B) 2 1
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 2 1
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 4 2 2 2 (A,B) 2 1
-    1 1 (A,B) (A,B) (A,B) (A,B) A A A (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1
-    1 1 (A,B) (A,B) (A,B) (A,B) A A A (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1
-    1 1 (A,B) (A,B) (A,B) (A,B) A A A (A,B) (A,B) (A,B) (A,B) (A,B) 2 1 1 1 1 1 1
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1 
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1
-    1 1 (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1 1 1 1 1 1 1
-    (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 
-    (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B)
-    (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1
-    (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B)
-    (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1
-    (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) (A,B) 1
-    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 b b b b b b b b b b b b b b
+    1 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
+    1 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
+    1 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
+    1 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
+    1 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
+    1 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
+    1 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
+    1 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
+    1 1 1 1 1 1 (2,3) (2,3) (2,3) 1 1 1 1 b 1 1 1 b b b b b b b b b b b b b b
+    1 b b b b 5 b b b 5 b b b b b 1 b b b b b b 1 b b b b b b b b b b b b b b
+    1 b b b b b b b b b b b b b b 1 b b b b b b 1 b b b b b b b b b b b b b b
+    1 b b b b b b b b b b b b b b 1 1 1 1 1 b b 1 1 1 1 1 1 1 1 1 1 1 1 1
+    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
+    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
+    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
+    1 b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b 1
+    1 b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b 1
+    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
+    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
+    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
+    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
+    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
+    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
+    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
+    1 b b b b b b b b b b b b b b 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 b b b b b b b b b b b b b b 1
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 }

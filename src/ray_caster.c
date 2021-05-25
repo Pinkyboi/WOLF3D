@@ -6,11 +6,24 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/07 22:40:44 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/17 12:12:45 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+void	ft_neon_render(t_game_object *game_object)
+{
+	t_render		render_data;
+	t_block_list	*current_block;
+
+	current_block = game_object->current_block;
+	if (game_object->current_block)
+	{
+		render_data = game_object->current_block->render.render_data;
+		current_block->render.render_function(game_object, render_data);
+	}
+}
 
 void	ft_textured_render(t_game_object *game_object)
 {

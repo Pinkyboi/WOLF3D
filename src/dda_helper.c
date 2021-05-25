@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 15:40:06 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/06 23:49:20 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/10 11:15:24 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ short	is_position_valid(t_game_object *game_object, t_coor grid_position)
 
 	if (grid_position.x < 0 || grid_position.y < 0)
 		return (-1);
-	if (grid_position.x > game_object->map.map_dimentions.x
-		|| grid_position.y > game_object->map.map_dimentions.y)
+	if (grid_position.x >= game_object->map.map_dimentions.x
+		|| grid_position.y >= game_object->map.map_dimentions.y)
 		return (-1);
 	if (game_object->map.map_grid[grid_position.y][grid_position.x].wall)
 		return (1);

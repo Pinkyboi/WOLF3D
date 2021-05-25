@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/07 22:27:13 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/20 20:27:18 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_get_textureX_coor(t_game_object *game_object, t_texture texture)
 }
 
 void	ft_draw_texture_line(t_coor edges, int wall_size,
-	t_game_object *game_object, t_render data)
+	t_game_object *game_object, t_render data, double shade)
 {
 	t_d_coor	step;
 	double		texture_index;
@@ -49,8 +49,7 @@ void	ft_draw_texture_line(t_coor edges, int wall_size,
 	{
 		color = data.texture.texture_data[(int)((int)texture_index
 				* data.texture.texture_width + (int)(step.x))];
-		if (game_object->ray_data.hit_type == 'V')
-			color = ft_scale_color_int(color, 0.8);
+		color = ft_scale_color_int(color, shade);
 		ft_put_pixel(game_object,
 			(t_coor){game_object->drawing_index.x, edges.x}, color);
 		texture_index += step.y;
@@ -63,14 +62,21 @@ void	texture_wall(t_game_object *game_object, t_render data)
 	int		start;
 	int		end;
 	double	wall_size;
-
+	double 	shade;
+	
 	wall_size = (int)(game_object->render_data.view_data.view_plane_distance
 			* BLOCK_SIZE / game_object->ray_data.straight_distance);
 	start = game_object->render_data.view_data.half_view_plane
 		- (wall_size / 2);
 	end = start + wall_size;
+	shade = 1;
+	if (game_object->ray_data.hit_type == 'V')
+		shade = 0.8;
+	if (game_object->player.view_distance > 0)
+		shade = ft_clip_min_max(0, 1, game_object->player.view_distance
+			/ game_object->ray_data.straight_distance);
 	tile_render(game_object, (t_coor){0, start}, 'C');
 	tile_render(game_object, (t_coor){end,
 		game_object->render_data.window_resolution.y}, 'F');
-	ft_draw_texture_line((t_coor){start, end}, wall_size, game_object, data);
+	ft_draw_texture_line((t_coor){start, end}, wall_size, game_object, data, shade);
 }

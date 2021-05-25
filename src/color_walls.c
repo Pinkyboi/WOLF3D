@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/07 22:09:58 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/20 20:27:39 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ void	ft_basic_render(t_game_object *game_object)
 }
 
 void	ft_draw_hard_line(int start, int end, int color,
-	t_game_object *game_object)
+	t_game_object *game_object, double shade)
 {
+
 	start = ft_clip_min_max(0,
 			game_object->render_data.window_resolution.y, start);
 	end = ft_clip_min_max(0,
 			game_object->render_data.window_resolution.y, end);
+	color = ft_scale_color_int(color, shade);
 	while (start <= end)
 	{
 		ft_put_pixel(game_object,
@@ -52,6 +54,7 @@ void	ft_draw_hard_line(int start, int end, int color,
 void	color_wall(t_game_object *game_object, t_render data)
 {
 	double	wall_size;
+	double	shade;
 	int		start;
 	int		end;
 
@@ -60,8 +63,14 @@ void	color_wall(t_game_object *game_object, t_render data)
 	start = (game_object->render_data.view_data.half_view_plane
 			- (wall_size / 2));
 	end = start + wall_size;
+	shade = 1;
+	if (game_object->ray_data.hit_type == 'V')
+		shade = 0.8;
+	if (game_object->player.view_distance > 0)
+		shade = ft_clip_min_max(0, 1, game_object->player.view_distance
+			/ game_object->ray_data.straight_distance);
 	tile_render(game_object, (t_coor){0, start}, 'C');
 	tile_render(game_object,
 		(t_coor){end, game_object->render_data.window_resolution.y}, 'F');
-	ft_draw_hard_line(start, end, data.color, game_object);
+	ft_draw_hard_line(start, end, data.color, game_object, shade);
 }

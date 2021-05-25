@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 14:49:07 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/07 00:05:03 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/14 19:11:23 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void		ft_run(t_game_object *game_object);
 
 void 		ft_check_walls(t_game_object *game_object);
 
-void		ft_draw_hard_line(int start, int end, int color, t_game_object *game_object);
+void	ft_draw_hard_line(int start, int end, int color,
+	t_game_object *game_object, double shade);
 
 void		color_wall(t_game_object *game_object, t_render data);
 void		texture_wall(t_game_object *game_object, t_render data);
@@ -118,3 +119,5 @@ short	get_movement_key(int key);
 void	change_key_state(int key, short state);
 
 int	frame_loop(void *arg);
+void draw_disk(t_game_object *game_object, int radius, int color, t_d_coor center);
+void print_mini_map(t_game_object *game_object, int radius, int block_size, t_d_coor center);

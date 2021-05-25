@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/07 22:37:49 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/05/20 20:25:40 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ typedef	struct			s_player
 	short				is_running;
 	double				step;
 	double				height;
+	double				view_distance;
 }						t_player;
 
 typedef void			t_game_rendering(t_game_object *game_object);
