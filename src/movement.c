@@ -35,7 +35,7 @@ void	ft_check_walls(t_game_object *game_object)
 		world_position = ft_add_vector2D(game_object->player.world_position,
 				game_object->player.movement);
 		edge = ft_add_vector2D(game_object->player.world_position,
-				ft_scale_vector2D(game_object->player.movement, 1.25));
+				ft_scale_vector2D(game_object->player.movement, 1.4));
 		ft_check_next_position(game_object,
 			(t_coor){edge.x, edge.y}, world_position);
 	}
@@ -44,7 +44,7 @@ void	ft_check_walls(t_game_object *game_object)
 		world_position = ft_sub_vector2D(game_object->player.world_position,
 				game_object->player.movement);
 		edge = ft_add_vector2D(game_object->player.world_position,
-				ft_scale_vector2D(game_object->player.movement, -1.25));
+				ft_scale_vector2D(game_object->player.movement, -1.4));
 		ft_check_next_position(game_object,
 			(t_coor){edge.x, edge.y}, world_position);
 	}

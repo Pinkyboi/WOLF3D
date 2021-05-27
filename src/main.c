@@ -48,7 +48,7 @@ int	frame_loop(void *arg)
 		ft_movement(game_object);
 		ft_head_tilt(game_object);
 		ft_ray_shooter(game_object);
-		// print_mini_map(game_object, 8, 10, (t_d_coor){100, 100});
+		print_mini_map(game_object, 8, 10, (t_d_coor){100, 100});
 		mlx_put_image_to_window(game_object->render_data.mlx.mlx_ptr,
 			game_object->render_data.mlx.mlx_win,
 			game_object->render_data.mlx.mlx_img.img_ptr, 0, 0);
