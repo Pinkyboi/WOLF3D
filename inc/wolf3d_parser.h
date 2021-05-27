@@ -46,6 +46,7 @@
 #define SOUTH_COLOR "#F21170"
 #define EAST_COLOR "#FA9905"
 #define WEST_COLOR "#FF5200"
+#define SKY_COLOR "#87CEEB"
 
 #define	MAX_HP 100
 #define MIN_HP 1
@@ -175,6 +176,14 @@ typedef struct			s_view
 	int					horizontal_step;
 }						t_view;
 
+typedef struct			s_skybox
+{
+	t_render_tools		sky;
+	double				texture_step;
+	double				win_per_rad;
+	double				tex_per_rad;
+}						t_skybox;
+
 typedef	struct			s_render_data
 {
 	t_game_rendering	*render_function;
@@ -184,6 +193,7 @@ typedef	struct			s_render_data
 	t_render_tools		south_wall;
 	t_render_tools		east_wall;
 	t_render_tools		west_wall;
+	t_skybox			skybox;
 	t_mlx				mlx;
 }						t_render_data;
 
@@ -253,7 +263,7 @@ void			load_game_elements(char *string, t_game_object *game_object);
 void			load_map_data(t_game_object *game_object, char *agrument_block);
 void			load_player_data(t_game_object *game_object, char *agrument_block);
 void			load_render_data(t_game_object *game_object, char *agrument_block);
-
+int				load_texture(char *path, t_texture *texture_data);
 
 
 
@@ -262,6 +272,8 @@ void			safe_trim(char *line, char *filter);
 t_coor			map_max_dimentions(char **map);
 
 t_render_tools	parse_render(char *render_argument);
+t_render_tools	parse_sky_render(char *render_argument, t_game_object *game_object);
+
 
 t_block_list	*create_block_node(char type, char icon, t_render render_data, void *function);
 t_block_list	*push_block(t_block_list *block_list, t_block_list *new_element);

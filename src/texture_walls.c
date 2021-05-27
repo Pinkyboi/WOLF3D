@@ -35,7 +35,7 @@ int	ft_get_textureX_coor(t_game_object *game_object, t_texture texture)
 	return (texture_index);
 }
 
-void	ft_draw_texture_line(t_coor edges, int wall_size,
+void	ft_draw_texture_line(t_coor edges,
 	t_game_object *game_object, t_render data, double shade)
 {
 	t_d_coor	step;
@@ -43,7 +43,7 @@ void	ft_draw_texture_line(t_coor edges, int wall_size,
 	int			color;
 
 	texture_index = 0;
-	step.y = (double)data.texture.texture_height / (wall_size + 1);
+	step.y = (double)data.texture.texture_height / (edges.y - edges.x + 1);
 	step.x = ft_get_textureX_coor(game_object, data.texture);
 	while (edges.x <= edges.y)
 	{
@@ -62,8 +62,8 @@ void	texture_wall(t_game_object *game_object, t_render data)
 	int		start;
 	int		end;
 	double	wall_size;
-	double 	shade;
-	
+	double	shade;
+
 	wall_size = (int)(game_object->render_data.view_data.view_plane_distance
 			* BLOCK_SIZE / game_object->ray_data.straight_distance);
 	start = game_object->render_data.view_data.half_view_plane
@@ -74,9 +74,10 @@ void	texture_wall(t_game_object *game_object, t_render data)
 		shade = 0.8;
 	if (game_object->player.view_distance > 0)
 		shade = ft_clip_min_max(0, 1, game_object->player.view_distance
-			/ game_object->ray_data.straight_distance);
+				/ game_object->ray_data.straight_distance);
 	tile_render(game_object, (t_coor){0, start}, 'C');
 	tile_render(game_object, (t_coor){end,
 		game_object->render_data.window_resolution.y}, 'F');
-	ft_draw_texture_line((t_coor){start, end}, wall_size, game_object, data, shade);
+	ft_draw_texture_line((t_coor){start, end},
+		game_object, data, shade);
 }

@@ -35,8 +35,12 @@
 
 #define RENDER game_object->render_data
 #define	BLOCK_SIZE 32
-#define FOV 1
 
+#define T_DISTANCE tile_arg.x
+#define T_ANGLE tile_arg.y
+
+#define WALL_SIZE wall_arg.x
+#define WALL_SHADE wall_arg.y
 typedef struct			s_color
 {
 	int r;
@@ -95,7 +99,7 @@ void		ft_run(t_game_object *game_object);
 
 void 		ft_check_walls(t_game_object *game_object);
 
-void	ft_draw_hard_line(int start, int end, int color,
+void	ft_draw_hard_line(t_coor edge, int color,
 	t_game_object *game_object, double shade);
 
 void		color_wall(t_game_object *game_object, t_render data);

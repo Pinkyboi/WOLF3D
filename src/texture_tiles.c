@@ -56,16 +56,16 @@ t_block_list	*get_tile_data(t_coor tile_coor,
 }
 
 int	get_tile_position(t_game_object *game_object,
-		double distance, double angle, char type, double shade)
+		t_d_coor tile_arg, char type, double shade)
 {
 	t_d_coor		texture_ratio;
 	t_coor			tile_coor;
 	t_block_list	*block;
 
 	texture_ratio.y = game_object->player.world_position.y
-		+ (distance * sin(angle));
+		+ (T_DISTANCE * sin(T_ANGLE));
 	texture_ratio.x = game_object->player.world_position.x
-		+ (distance * cos(angle));
+		+ (T_DISTANCE * cos(T_ANGLE));
 	tile_coor = (t_coor){(int)texture_ratio.x, (int)texture_ratio.y};
 	block = get_tile_data(tile_coor, game_object, type);
 	if (block)
@@ -77,10 +77,10 @@ int	get_tile_position(t_game_object *game_object,
 			texture_ratio.x *= block->render.render_data.texture.texture_width;
 			texture_ratio.y *= block->render.render_data.texture.texture_height;
 			block->render.render_data.texture.coordinates = texture_ratio;
-			return (texture_pixel(game_object, block->render.render_data, shade));
+			return (texture_pixel(game_object,
+					block->render.render_data, shade));
 		}
-		else
-			return (color_pixel(game_object, block->render.render_data, shade));
+		return (color_pixel(game_object, block->render.render_data, shade));
 	}	
 	return (-1);
 }
@@ -104,8 +104,9 @@ void	tile_render(t_game_object *game_object, t_coor range, char type)
 		shade = 1;
 		if (game_object->player.view_distance > 0)
 			shade = ft_clip_min_max(0, 1, game_object->player.view_distance
-				/ (distance * (double)BLOCK_SIZE));
-		color = get_tile_position(game_object, distance, angle, type, shade);
+					/ (distance * (double)BLOCK_SIZE));
+		color = get_tile_position(game_object,
+				(t_d_coor){distance, angle}, type, shade);
 		if (color != -1)
 			ft_put_pixel(game_object,
 				(t_coor){game_object->drawing_index.x, range.x}, color);

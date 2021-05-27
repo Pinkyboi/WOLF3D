@@ -1,13 +1,13 @@
 <render>{
     resolution    : 800 x 800;
     type          : Textured;
+    sky            : ./textures/sky-old.xpm;
 }
 
 <player>{
     health        : 100;
     stamina       : 69;
     position      : (1, 3);
-    view_distance : 100;
 }
 <env>{
     (1,wall)    : ./textures/wood.xpm;

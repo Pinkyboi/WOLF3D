@@ -54,7 +54,20 @@ void	load_render_data(t_game_object *game_object, char *agrument_block)
 				EAST_COLOR, game_object->parser.current_arguments));
 	game_object->render_data.west_wall = parse_render(get_argument("West",
 				WEST_COLOR, game_object->parser.current_arguments));
+	game_object->render_data.skybox.sky = parse_sky_render(get_argument("sky",
+				SKY_COLOR, game_object->parser.current_arguments),
+			game_object);
 	free_argument_list(game_object->parser.current_arguments);
+}
+
+void	default_player_arg(t_game_object *game_object)
+{
+	game_object->player.orientation = 0;
+	game_object->player.step = 0.4;
+	game_object->player.movement = ft_scale_vector2D(
+			ft_angleToVector2D(game_object->player.orientation),
+			game_object->player.step);
+	game_object->player.height = (double)BLOCK_SIZE / 2.0;
 }
 
 void	load_player_data(t_game_object *game_object, char *agrument_block)
@@ -63,6 +76,7 @@ void	load_player_data(t_game_object *game_object, char *agrument_block)
 
 	game_object->parser.current_arguments = create_argument_list(
 			agrument_block, NULL, PLAYER_TAG);
+	default_player_arg(game_object);
 	position = parse_coordinate(get_argument("position", "(0,0)",
 				game_object->parser.current_arguments));
 	game_object->player.grid_position
@@ -76,14 +90,8 @@ void	load_player_data(t_game_object *game_object, char *agrument_block)
 	game_object->player.stamina = parse_counters(get_argument("stamina", "100",
 				game_object->parser.current_arguments),
 			MIN_STAMINA, MAX_STAMINA);
-	game_object->player.orientation = 0;
-	game_object->player.step = 0.4;
-	game_object->player.movement = ft_scale_vector2D(
-			ft_angleToVector2D(game_object->player.orientation),
-			game_object->player.step);
-	game_object->player.height = (double)BLOCK_SIZE / 2.0;
-	game_object->player.view_distance = parse_counters(get_argument("view_distance", "0",
-				game_object->parser.current_arguments),
-			0, INT32_MAX);
+	game_object->player.view_distance
+		= parse_counters(get_argument("view_distance", "0",
+				game_object->parser.current_arguments), 0, INT32_MAX);
 	free_argument_list(game_object->parser.current_arguments);
 }

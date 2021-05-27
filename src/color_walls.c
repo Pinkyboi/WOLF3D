@@ -34,20 +34,19 @@ void	ft_basic_render(t_game_object *game_object)
 	}
 }
 
-void	ft_draw_hard_line(int start, int end, int color,
+void	ft_draw_hard_line(t_coor edge, int color,
 	t_game_object *game_object, double shade)
 {
-
-	start = ft_clip_min_max(0,
-			game_object->render_data.window_resolution.y, start);
-	end = ft_clip_min_max(0,
-			game_object->render_data.window_resolution.y, end);
+	edge.x = ft_clip_min_max(0,
+			game_object->render_data.window_resolution.y, edge.x);
+	edge.y = ft_clip_min_max(0,
+			game_object->render_data.window_resolution.y, edge.y);
 	color = ft_scale_color_int(color, shade);
-	while (start <= end)
+	while (edge.x <= edge.y)
 	{
 		ft_put_pixel(game_object,
-			(t_coor){game_object->drawing_index.x, start}, color);
-		start++;
+			(t_coor){game_object->drawing_index.x, edge.x}, color);
+		edge.x++;
 	}	
 }
 
@@ -68,9 +67,9 @@ void	color_wall(t_game_object *game_object, t_render data)
 		shade = 0.8;
 	if (game_object->player.view_distance > 0)
 		shade = ft_clip_min_max(0, 1, game_object->player.view_distance
-			/ game_object->ray_data.straight_distance);
+				/ game_object->ray_data.straight_distance);
 	tile_render(game_object, (t_coor){0, start}, 'C');
 	tile_render(game_object,
 		(t_coor){end, game_object->render_data.window_resolution.y}, 'F');
-	ft_draw_hard_line(start, end, data.color, game_object, shade);
+	ft_draw_hard_line((t_coor){start, end}, data.color, game_object, shade);
 }
