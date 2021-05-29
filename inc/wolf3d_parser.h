@@ -212,6 +212,16 @@ typedef struct 			s_ray_data
 	double				angle;
 }						t_ray_data;
 
+typedef struct			s_mini_map
+{
+	t_d_coor			center_position;
+	int					total_radius;
+	int					ring_size;
+	int					radius;
+	int 				block_size;
+	int					player_size;
+}						t_mini_map;
+
 struct s_game_object
 {
 	t_wolf3d_parser		parser;
@@ -219,6 +229,7 @@ struct s_game_object
 	t_map				map;
 	t_player			player;
 	t_ray_data			ray_data;
+	t_mini_map			min_map;
 	t_coor				drawing_index;
 	t_block_list		*current_block;
 };
@@ -289,4 +300,5 @@ t_argument_list	*create_argument_list(char *argument_block, t_argument_list *arg
 t_argument_list *search_for_argument_node(t_argument_list *argument_list, char *argument_name);
 t_argument_list	*push_argument(t_argument_list *argument_list,
 				t_argument_list *new_element);
+void	calculate_map_props(t_game_object *game_object);
 			

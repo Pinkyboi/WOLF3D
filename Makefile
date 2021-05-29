@@ -51,6 +51,9 @@ FILES_NAME =main.c\
 			key_state.c\
 			mini_map.c\
 			sky_render.c\
+			ui_constructor.c\
+			mini_map_tools.c\
+			bresenham.c\
 
 OBJS = $(addprefix $(OBJ_DIR), $(FILES_NAME:.c=.o))
 SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))

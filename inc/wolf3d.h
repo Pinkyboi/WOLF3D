@@ -41,6 +41,13 @@
 
 #define WALL_SIZE wall_arg.x
 #define WALL_SHADE wall_arg.y
+
+
+#define MAP_RING_COLOR 0x202020
+#define MAP_VOID_COLOR 0
+#define MAP_BLOCK_COLOR 0xFFFFFF
+#define MAP_PLAYER_COLOR 0xFF0000
+
 typedef struct			s_color
 {
 	int r;
@@ -124,4 +131,13 @@ void	change_key_state(int key, short state);
 
 int	frame_loop(void *arg);
 void draw_disk(t_game_object *game_object, int radius, int color, t_d_coor center);
-void print_mini_map(t_game_object *game_object, int radius, int block_size, t_d_coor center);
+void print_mini_map(t_game_object *game_object, t_d_coor center);
+
+t_color	ft_scale_color(t_color color, double scalar);
+t_color	ft_add_colors(t_color first, t_color second);
+int	ft_rgb_to_int(t_color color);
+void	ft_bresenham(t_game_object *game_object, int color,
+	t_coor start, t_coor end);
+double	ft_size_vector2D(t_d_coor vector2D);
+void	ft_print_fov(t_game_object *game_object, t_d_coor center,
+	int ray_number, int size);

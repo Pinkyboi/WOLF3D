@@ -74,9 +74,9 @@ void	ft_movement(t_game_object *game_object)
 	if (get_movement_key(LEFT) == 1 || get_movement_key(RIGHT) == 1)
 	{
 		if (get_movement_key(LEFT) == 1)
-			game_object->player.orientation -= .1;
+			game_object->player.orientation -= 0.08;
 		if (get_movement_key(RIGHT) == 1)
-			game_object->player.orientation += .1;
+			game_object->player.orientation += 0.08;
 		game_object->player.orientation = ft_check_angle(
 				game_object->player.orientation);
 		game_object->player.movement = ft_scale_vector2D(

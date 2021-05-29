@@ -36,6 +36,7 @@ void	load_screen_data(t_game_object *game_object)
 		= game_object->render_data.view_data.half_view_plane;
 	game_object->render_data.view_data.view_shift = 0;
 	game_object->render_data.view_data.vertical_tilt = 0;
+	calculate_map_props(game_object);
 }
 
 void	load_render_data(t_game_object *game_object, char *agrument_block)

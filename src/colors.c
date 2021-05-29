@@ -31,6 +31,16 @@ t_color	ft_scale_color(t_color color, double scalar)
 	return ((t_color){color.r * scalar, color.g * scalar, color.b * scalar});
 }
 
+t_color	ft_add_colors(t_color first, t_color second)
+{
+	t_color	result;
+
+	result.r = first.r + second.r;
+	result.g = first.g + second.g;
+	result.b = first.b + second.b;
+	return (result);
+}
+
 int	ft_scale_color_int(int color, double scalar)
 {
 	t_color	scaled_color;

@@ -20,13 +20,14 @@ void	ft_init_win(t_game_object *game_object)
 	resolution = game_object->render_data.window_resolution;
 	mlx.mlx_ptr = mlx_init();
 	mlx.mlx_img.img_ptr = mlx_new_image(mlx.mlx_ptr,
-			resolution.x, resolution.x);
+			resolution.x, resolution.y);
 	mlx.mlx_img.img_data = (int *)mlx_get_data_addr(mlx.mlx_img.img_ptr,
 			&mlx.mlx_img.bpp, &mlx.mlx_img.size_l, &mlx.mlx_img.endian);
 	mlx.mlx_win = mlx_new_window(mlx.mlx_ptr, resolution.x,
 			resolution.y, "WOLF3D");
 	game_object->render_data.mlx = mlx;
 	ft_ray_shooter(game_object);
+	print_mini_map(game_object, game_object->min_map.center_position);
 	mlx_put_image_to_window(mlx.mlx_ptr,
 		mlx.mlx_win, mlx.mlx_img.img_ptr, 0, 0);
 	mlx_hook(mlx.mlx_win, 2, 0, &ft_key_stroke, game_object);
@@ -48,7 +49,7 @@ int	frame_loop(void *arg)
 		ft_movement(game_object);
 		ft_head_tilt(game_object);
 		ft_ray_shooter(game_object);
-		print_mini_map(game_object, 8, 10, (t_d_coor){100, 100});
+		print_mini_map(game_object, game_object->min_map.center_position);
 		mlx_put_image_to_window(game_object->render_data.mlx.mlx_ptr,
 			game_object->render_data.mlx.mlx_win,
 			game_object->render_data.mlx.mlx_img.img_ptr, 0, 0);
