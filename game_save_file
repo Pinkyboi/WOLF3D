@@ -1,6 +1,7 @@
 <render>{
     resolution    : 800 x 800;
-    type          : Basic;
+    type          : Neon;
+    skybox        : ./textures/sky-old.xpm;
 }
 
 <player>{

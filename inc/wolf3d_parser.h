@@ -301,4 +301,5 @@ t_argument_list *search_for_argument_node(t_argument_list *argument_list, char *
 t_argument_list	*push_argument(t_argument_list *argument_list,
 				t_argument_list *new_element);
 void	calculate_map_props(t_game_object *game_object);
+void	ft_neon_render(t_game_object *game_object);
 			

@@ -15,8 +15,7 @@
 const t_render_recognition	g_render_dico[] = {
 	{"Basic", &ft_basic_render},
 	{"Textured", &ft_textured_render},
-	{"Dim", &ft_textured_render},
-	{"Neon", NULL},
+	{"Neon", &ft_neon_render},
 	{NULL, NULL}
 };
 
