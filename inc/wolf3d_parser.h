@@ -46,7 +46,7 @@
 #define SOUTH_COLOR "#F21170"
 #define EAST_COLOR "#FA9905"
 #define WEST_COLOR "#FF5200"
-#define SKY_COLOR "#87CEEB"
+#define SKY_COLOR "#0"
 
 #define	MAX_HP 100
 #define MIN_HP 1
@@ -55,6 +55,10 @@
 
 #define FILLER_COLOR 0x444444
 #define	FILLER_ICON '@'
+
+#define WIRE_EDGE_COLOR 0xfb9300
+#define WIRE_INNER_COLOR 0x343f56
+#define WIRE_VOID_COLOR 0
 
 typedef struct			s_coor
 {

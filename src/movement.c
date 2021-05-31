@@ -80,7 +80,8 @@ void	ft_movement(t_game_object *game_object)
 		game_object->player.orientation = ft_check_angle(
 				game_object->player.orientation);
 		game_object->player.movement = ft_scale_vector2D(
-				ft_angleToVector2D(game_object->player.orientation),
+				ft_angleToVector2D
+				(ft_check_angle(game_object->player.orientation)),
 				game_object->player.step);
 	}
 	if (get_movement_key(FOREWORD) == 1 || get_movement_key(BACKWARD) == 1)

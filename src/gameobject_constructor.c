@@ -55,7 +55,7 @@ void	load_render_data(t_game_object *game_object, char *agrument_block)
 				EAST_COLOR, game_object->parser.current_arguments));
 	game_object->render_data.west_wall = parse_render(get_argument("West",
 				WEST_COLOR, game_object->parser.current_arguments));
-	game_object->render_data.skybox.sky = parse_sky_render(get_argument("skybox",
+	game_object->render_data.skybox.sky = parse_sky_render(get_argument("Sky",
 				SKY_COLOR, game_object->parser.current_arguments),
 			game_object);
 	free_argument_list(game_object->parser.current_arguments);

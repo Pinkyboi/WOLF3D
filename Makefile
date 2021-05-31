@@ -13,8 +13,8 @@
 NAME = wolf3d
 
 CC =gcc
-FLAGS = -g -Wall -Wextra -Werror
-CFLAGS = 
+# CFLAGS = -g -Wall -Wextra -Werror
+FLAGS = 
 
 
 SRC_DIR =./src/
@@ -54,6 +54,8 @@ FILES_NAME =main.c\
 			ui_constructor.c\
 			mini_map_tools.c\
 			bresenham.c\
+			wireframe_render.c\
+			wireframe_tiles.c\
 
 OBJS = $(addprefix $(OBJ_DIR), $(FILES_NAME:.c=.o))
 SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))

@@ -50,10 +50,10 @@ int	hex_to_color(char *color)
 
 int	stock_hex(char *color, int *color_stock)
 {
-	int	color_int;
+	int	color_len;
 
-	color_int = 0;
-	if (color[0] == '#' && color[1])
+	color_len = ft_strlen(color);
+	if (color_len > 1 && color[0] == '#')
 	{
 		*color_stock = hex_to_color(&color[1]);
 		return (1);

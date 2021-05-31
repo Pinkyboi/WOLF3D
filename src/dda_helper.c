@@ -38,8 +38,6 @@ void	ft_get_right_step(t_d_coor ray, t_d_coor *rayStep)
 
 short	is_position_valid(t_game_object *game_object, t_coor grid_position)
 {
-	t_render_tools	render_tool;
-
 	if (grid_position.x < 0 || grid_position.y < 0)
 		return (-1);
 	if (grid_position.x >= game_object->map.map_dimentions.x

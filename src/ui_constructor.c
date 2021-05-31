@@ -29,7 +29,9 @@ void	calculate_map_props(t_game_object *game_object)
 	game_object->min_map.player_size
 		= (int)((double)game_object->min_map.block_size / 2.0);
 	game_object->min_map.center_position
-		= (t_d_coor){game_object->min_map.total_radius,
+		= (t_d_coor){game_object->min_map.total_radius
+		+ game_object->min_map.ring_size,
 		game_object->render_data.window_resolution.y
-		- game_object->min_map.total_radius};
+		- game_object->min_map.total_radius
+		- game_object->min_map.ring_size};
 }

@@ -118,6 +118,7 @@ void		ft_ray_shooter(t_game_object *game_object);
 
 void		ft_textured_render(t_game_object *game_object);
 void		ft_basic_render(t_game_object *game_object);
+void		ft_wireframe_render(t_game_object *game_object);
 void	tile_render(t_game_object *game_object, t_coor range, char type);
 
 void	ft_clear_mlx(t_game_object *game_object);
@@ -141,3 +142,10 @@ void	ft_bresenham(t_game_object *game_object, int color,
 double	ft_size_vector2D(t_d_coor vector2D);
 void	ft_print_fov(t_game_object *game_object, t_d_coor center,
 	int ray_number, int size);
+int	get_wire_color(t_d_coor hit_index, t_game_object *game_object);
+void	ft_draw_wire_line(t_coor edges,
+	t_game_object *game_object, double shade);
+int	ft_wire_x_color(t_game_object *game_object, double y_index);
+int	get_wire_tile_position(t_game_object *game_object,
+		t_d_coor tile_arg);
+void	wire_tile(t_game_object *game_object, t_coor range);

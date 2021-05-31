@@ -57,10 +57,8 @@ void	mini_map_blocks(t_game_object *game_object, int radius, t_d_coor center)
 
 void	print_mini_map(t_game_object *game_object, t_d_coor center)
 {
-	t_d_coor	index;
 	double		radius;
 	t_d_coor	player_center;
-	t_d_coor	max_index;
 
 	radius = game_object->min_map.total_radius;
 	player_center = (t_d_coor){game_object->player.grid_position.x,

@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-int	texture_pixel(t_game_object *game_object, t_render data, double shade)
+int	texture_pixel(t_render data, double shade)
 {
 	int			color;
 	t_d_coor	coordinates;
@@ -25,7 +25,7 @@ int	texture_pixel(t_game_object *game_object, t_render data, double shade)
 	return (color);
 }
 
-int	color_pixel(t_game_object *game_object, t_render data, double shade)
+int	color_pixel(t_render data, double shade)
 {
 	int	color;
 
@@ -77,10 +77,9 @@ int	get_tile_position(t_game_object *game_object,
 			texture_ratio.x *= block->render.render_data.texture.texture_width;
 			texture_ratio.y *= block->render.render_data.texture.texture_height;
 			block->render.render_data.texture.coordinates = texture_ratio;
-			return (texture_pixel(game_object,
-					block->render.render_data, shade));
+			return (texture_pixel(block->render.render_data, shade));
 		}
-		return (color_pixel(game_object, block->render.render_data, shade));
+		return (color_pixel(block->render.render_data, shade));
 	}	
 	return (-1);
 }
