@@ -17,20 +17,24 @@ void	ft_basic_render(t_game_object *game_object)
 	if (game_object->ray_data.hit_type == 'H')
 	{
 		if (game_object->ray_data.current_ray.y > 0)
-			game_object->render_data.south_wall.render_function(game_object,
-				game_object->render_data.south_wall.render_data);
+			game_object->render_data.basic_render.
+				south_wall.render_function(game_object,
+				game_object->render_data.basic_render.south_wall.render_data);
 		else
-			game_object->render_data.north_wall.render_function(game_object,
-				game_object->render_data.north_wall.render_data);
+			game_object->render_data.basic_render.
+				north_wall.render_function(game_object,
+				game_object->render_data.basic_render.north_wall.render_data);
 	}
 	else
 	{
 		if (game_object->ray_data.current_ray.x > 0)
-			game_object->render_data.east_wall.render_function(game_object,
-				game_object->render_data.east_wall.render_data);
+			game_object->render_data.basic_render.
+				east_wall.render_function(game_object,
+				game_object->render_data.basic_render.east_wall.render_data);
 		else
-			game_object->render_data.west_wall.render_function(game_object,
-				game_object->render_data.west_wall.render_data);
+			game_object->render_data.basic_render.west_wall.
+				render_function(game_object,
+				game_object->render_data.basic_render.west_wall.render_data);
 	}
 }
 

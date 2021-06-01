@@ -46,7 +46,7 @@
 #define SOUTH_COLOR "#F21170"
 #define EAST_COLOR "#FA9905"
 #define WEST_COLOR "#FF5200"
-#define SKY_COLOR "#0"
+#define SKY_COLOR "#87CEEB"
 
 #define	MAX_HP 100
 #define MIN_HP 1
@@ -56,9 +56,9 @@
 #define FILLER_COLOR 0x444444
 #define	FILLER_ICON '@'
 
-#define WIRE_EDGE_COLOR 0xfb9300
-#define WIRE_INNER_COLOR 0x343f56
-#define WIRE_VOID_COLOR 0
+#define WIRE_EDGE_COLOR "#fb9300"
+#define WIRE_INNER_COLOR "#343f56"
+#define WIRE_MAIN_COLOR "#000000"
 
 typedef struct			s_coor
 {
@@ -188,15 +188,28 @@ typedef struct			s_skybox
 	double				tex_per_rad;
 }						t_skybox;
 
+typedef struct			s_basic_render
+{
+	t_render_tools		north_wall;
+	t_render_tools		south_wall;
+	t_render_tools		east_wall;
+	t_render_tools		west_wall;
+}						t_basic_render;
+
+typedef struct			s_wire_render
+{
+	int					edge_color;
+	int					inner_color;
+	int					void_color;
+}						t_wire_render;
+
 typedef	struct			s_render_data
 {
 	t_game_rendering	*render_function;
 	t_view				view_data;
 	t_coor				window_resolution;
-	t_render_tools		north_wall;
-	t_render_tools		south_wall;
-	t_render_tools		east_wall;
-	t_render_tools		west_wall;
+	t_basic_render		basic_render;
+	t_wire_render		wire_render;
 	t_skybox			skybox;
 	t_mlx				mlx;
 }						t_render_data;
@@ -306,4 +319,6 @@ t_argument_list	*push_argument(t_argument_list *argument_list,
 				t_argument_list *new_element);
 void	calculate_map_props(t_game_object *game_object);
 void	ft_neon_render(t_game_object *game_object);
+char	*get_argument(char *argument_name, char *default_value,
+	t_argument_list *argument_list);
 			

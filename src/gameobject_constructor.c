@@ -23,44 +23,6 @@ char	*get_argument(char *argument_name, char *default_value,
 	return (default_value);
 }
 
-void	load_screen_data(t_game_object *game_object)
-{
-	t_coor	resolution;
-
-	resolution = parse_resolution(get_argument("resolution", "1000 x 1000",
-				game_object->parser.current_arguments));
-	game_object->render_data.window_resolution = resolution;
-	game_object->render_data.view_data.view_plane_distance = resolution.x;
-	game_object->render_data.view_data.half_view_plane = resolution.y / 2;
-	game_object->render_data.view_data.half_view_plane_save
-		= game_object->render_data.view_data.half_view_plane;
-	game_object->render_data.view_data.view_shift = 0;
-	game_object->render_data.view_data.vertical_tilt = 0;
-	calculate_map_props(game_object);
-}
-
-void	load_render_data(t_game_object *game_object, char *agrument_block)
-{
-	game_object->parser.current_arguments = create_argument_list(agrument_block,
-			NULL, ENV_TAG);
-	game_object->render_data.render_function = parse_render_type(
-			get_argument("type", "Basic",
-				game_object->parser.current_arguments));
-	load_screen_data(game_object);
-	game_object->render_data.north_wall = parse_render(get_argument("North",
-				NORTH_COLOR, game_object->parser.current_arguments));
-	game_object->render_data.south_wall = parse_render(get_argument("South",
-				SOUTH_COLOR, game_object->parser.current_arguments));
-	game_object->render_data.east_wall = parse_render(get_argument("East",
-				EAST_COLOR, game_object->parser.current_arguments));
-	game_object->render_data.west_wall = parse_render(get_argument("West",
-				WEST_COLOR, game_object->parser.current_arguments));
-	game_object->render_data.skybox.sky = parse_sky_render(get_argument("Sky",
-				SKY_COLOR, game_object->parser.current_arguments),
-			game_object);
-	free_argument_list(game_object->parser.current_arguments);
-}
-
 void	default_player_arg(t_game_object *game_object)
 {
 	game_object->player.orientation = 0;
@@ -78,7 +40,7 @@ void	load_player_data(t_game_object *game_object, char *agrument_block)
 	game_object->parser.current_arguments = create_argument_list(
 			agrument_block, NULL, PLAYER_TAG);
 	default_player_arg(game_object);
-	position = parse_coordinate(get_argument("position", "(0,0)",
+	position = parse_coordinate(get_argument("Position", "(0,0)",
 				game_object->parser.current_arguments));
 	game_object->player.grid_position
 		= (t_coor){position.x + 1, position.y + 1};
@@ -86,13 +48,13 @@ void	load_player_data(t_game_object *game_object, char *agrument_block)
 		+ game_object->player.grid_position.x;
 	game_object->player.world_position.y = .5
 		+ game_object->player.grid_position.y;
-	game_object->player.hp = parse_counters(get_argument("health",
+	game_object->player.hp = parse_counters(get_argument("Health",
 				"100", game_object->parser.current_arguments), MIN_HP, MAX_HP);
-	game_object->player.stamina = parse_counters(get_argument("stamina", "100",
+	game_object->player.stamina = parse_counters(get_argument("Stamina", "100",
 				game_object->parser.current_arguments),
 			MIN_STAMINA, MAX_STAMINA);
 	game_object->player.view_distance
-		= parse_counters(get_argument("view_distance", "0",
+		= parse_counters(get_argument("View_distance", "0",
 				game_object->parser.current_arguments), 0, INT32_MAX);
 	free_argument_list(game_object->parser.current_arguments);
 }

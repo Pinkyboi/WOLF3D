@@ -1,12 +1,15 @@
 <render>{
-    resolution    : 800 x 800;
-    type          : Neon;
+    Resolution    : 800 x 800;
+    Type          : Wireframe;
+    Main_color : #fcf8e8;
+    Inner_color : #d4e2d4;
+    Edge_color : #df7861;
 }
 
 <player>{
-    health        : 100;
-    stamina       : 69;
-    position      : (1, 3);
+    Health        : 100;
+    Stamina       : 69;
+    Position      : (1, 3);
 }
 <env>{
     (1,wall)    : ./textures/wood.xpm;

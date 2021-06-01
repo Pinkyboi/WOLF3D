@@ -16,13 +16,13 @@
 #define NEON_INNER_COLOR 0x343f56
 #define NEON_VOID_COLOR 0
 
-void	ft_neon_render(t_game_object *game_object)
+void	ft_wireframe_render(t_game_object *game_object)
 {
 	t_block_list	*current_block;
 
 	current_block = game_object->current_block;
 	if (game_object->current_block)
-		ft_wireframe_render(game_object);
+		ft_wireframe_draw(game_object);
 }
 
 void	ft_textured_render(t_game_object *game_object)

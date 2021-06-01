@@ -16,19 +16,19 @@ int	get_wire_color(t_d_coor hit_index, t_game_object *game_object)
 {
 	if ((hit_index.x >= 0 && hit_index.x <= 0.02)
 		|| (hit_index.x >= 0.98 && hit_index.x <= 1))
-		return (WIRE_EDGE_COLOR);
+		return (game_object->render_data.wire_render.edge_color);
 	if ((hit_index.y >= 0 && hit_index.y <= 0.02)
 		|| (hit_index.y >= 0.98 && hit_index.y <= 1))
-		return (WIRE_EDGE_COLOR);
+		return (game_object->render_data.wire_render.edge_color);
 	if ((hit_index.y >= 0.25 - 0.004 && hit_index.y <= 0.25 + 0.004)
 		|| (hit_index.y >= 0.5 - 0.004 && hit_index.y <= 0.5 + 0.004)
 		|| (hit_index.y >= 0.75 - 0.004 && hit_index.y <= 0.75 + 0.004))
-		return (WIRE_INNER_COLOR);
+		return (game_object->render_data.wire_render.inner_color);
 	if ((hit_index.x >= 0.25 - 0.004 && hit_index.x <= 0.25 + 0.004)
 		|| (hit_index.x >= 0.5 - 0.004 && hit_index.x <= 0.5 + 0.004)
 		|| (hit_index.x >= 0.75 - 0.004 && hit_index.x <= 0.75 + 0.004))
-		return (WIRE_INNER_COLOR);
-	return (WIRE_VOID_COLOR);
+		return (game_object->render_data.wire_render.inner_color);
+	return (game_object->render_data.wire_render.void_color);
 }
 
 int	ft_wire_x_color(t_game_object *game_object, double y_index)
@@ -66,7 +66,7 @@ void	ft_draw_wire_line(t_coor edges,
 	}
 }
 
-void	ft_wireframe_render(t_game_object *game_object)
+void	ft_wireframe_draw(t_game_object *game_object)
 {
 	int		start;
 	int		end;

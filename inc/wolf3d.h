@@ -119,6 +119,7 @@ void		ft_ray_shooter(t_game_object *game_object);
 void		ft_textured_render(t_game_object *game_object);
 void		ft_basic_render(t_game_object *game_object);
 void		ft_wireframe_render(t_game_object *game_object);
+void	ft_wireframe_draw(t_game_object *game_object);
 void	tile_render(t_game_object *game_object, t_coor range, char type);
 
 void	ft_clear_mlx(t_game_object *game_object);
