@@ -54,7 +54,7 @@ void	texture_sky(t_game_object *game_object, t_render data)
 	}
 }
 
-void	get_skybox_infos(t_game_object *game_object,
+void	ft_get_skybox_infos(t_game_object *game_object,
 	t_render_tools	render_tools)
 {
 	double	plane_distance;
@@ -75,16 +75,17 @@ void	get_skybox_infos(t_game_object *game_object,
 		/ (double)game_object->render_data.window_resolution.x;
 }
 
-t_render_tools	parse_sky_render(char *render_argument,
+t_render_tools	ft_parse_sky_render(char *render_argument,
 	t_game_object *game_object)
 {
 	t_render_tools	render_tools;
 
-	if (stock_hex(render_argument, &render_tools.render_data.color))
+	if (ft_stock_hex(render_argument, &render_tools.render_data.color))
 		render_tools.render_function = &color_sky;
-	else if (load_texture(render_argument, &render_tools.render_data.texture))
+	else if (ft_load_texture(render_argument,
+			&render_tools.render_data.texture))
 	{
-		get_skybox_infos(game_object, render_tools);
+		ft_get_skybox_infos(game_object, render_tools);
 		render_tools.render_function = &texture_sky;
 	}
 	return (render_tools);

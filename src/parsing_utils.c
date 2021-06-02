@@ -12,18 +12,18 @@
 
 #include "wolf3d.h"
 
-void	error_print(char *error, char *position)
+void	ft_err_print(char *error, char *position)
 {
 	ft_putendl_fd(ft_strjoin(error, position), 1);
 	exit(-1);
 }
 
-char	*trim(char *string, char *filter)
+char	*ft_trim(char *string, char *filter)
 {
 	int		head;
 	int		end;
 	int		string_size;
-	char	*trimmed_string;
+	char	*ft_trimmed_string;
 
 	head = 0;
 	while (string[head])
@@ -40,12 +40,12 @@ char	*trim(char *string, char *filter)
 		end--;
 	}
 	string_size = end - head + 1;
-	trimmed_string = ft_strnclone(&string[head], string_size);
+	ft_trimmed_string = ft_strnclone(&string[head], string_size);
 	free(string);
-	return (trimmed_string);
+	return (ft_trimmed_string);
 }
 
-int	mini_brackets(char *string, char *bracket)
+int	ft_mini_brackets(char *string, char *bracket)
 {
 	int	open_braket;
 	int	pair_number;

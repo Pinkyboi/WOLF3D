@@ -54,7 +54,7 @@ void	ft_draw_hard_line(t_coor edge, int color,
 	}	
 }
 
-void	color_wall(t_game_object *game_object, t_render data)
+void	ft_color_wall(t_game_object *game_object, t_render data)
 {
 	double	wall_size;
 	double	shade;
@@ -72,8 +72,8 @@ void	color_wall(t_game_object *game_object, t_render data)
 	if (game_object->player.view_distance > 0)
 		shade = ft_clip_min_max(0, 1, game_object->player.view_distance
 				/ game_object->ray_data.straight_distance);
-	tile_render(game_object, (t_coor){0, start}, 'C');
-	tile_render(game_object,
+	ft_tile_render(game_object, (t_coor){0, start}, 'C');
+	ft_tile_render(game_object,
 		(t_coor){end, game_object->render_data.window_resolution.y}, 'F');
 	ft_draw_hard_line((t_coor){start, end}, data.color, game_object, shade);
 }

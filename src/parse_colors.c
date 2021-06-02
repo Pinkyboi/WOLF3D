@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-int	hex_to_int(char *number)
+int	ft_hex_to_int(char *number)
 {
 	int	rank;
 	int	final_number;
@@ -35,7 +35,7 @@ int	hex_to_int(char *number)
 	return (final_number);
 }
 
-int	hex_to_color(char *color)
+int	ft_hex_to_color(char *color)
 {
 	int	i;
 
@@ -43,19 +43,19 @@ int	hex_to_color(char *color)
 	while (color[++i])
 	{
 		if (i >= 6 || !ft_strchr(HEX_FILTER, ft_tolower(color[i])))
-			error_print("wrong color format in:", color);
+			ft_err_print("wrong color format in:", color);
 	}
-	return (hex_to_int(color));
+	return (ft_hex_to_int(color));
 }
 
-int	stock_hex(char *color, int *color_stock)
+int	ft_stock_hex(char *color, int *color_stock)
 {
 	int	color_len;
 
 	color_len = ft_strlen(color);
 	if (color_len > 1 && color[0] == '#')
 	{
-		*color_stock = hex_to_color(&color[1]);
+		*color_stock = ft_hex_to_color(&color[1]);
 		return (1);
 	}
 	return (0);

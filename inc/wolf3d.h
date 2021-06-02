@@ -10,17 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d_parser.h"
-
-# define FT_SQR(X) ((X) * (X))
-# define FT_RAD(X) (((X) * M_PI) / 180)
+#ifndef WOLF3D_H
+# define WOLF3D_H
+# include "wolf3d_parser.h"
 
 # define MAX_DIST 100
-
 # define PI_2 6.2831853072
-# define PLAYER_FOV FT_RAD(60)
-
-
+# define PLAYER_FOV 1.0472
 # define EXIT 53
 # define FOREWORD 13
 # define BACKWARD 1
@@ -32,121 +28,112 @@
 # define KEY_T 17
 # define SAVE 36
 # define SHIFT 257
+# define BLOCK_SIZE 32
+# define MAP_RING_COLOR 0x202020
+# define MAP_VOID_COLOR 0
+# define MAP_BLOCK_COLOR 0xFFFFFF
+# define MAP_PLAYER_COLOR 0xFF0000
 
-#define RENDER game_object->render_data
-#define	BLOCK_SIZE 32
-
-#define T_DISTANCE tile_arg.x
-#define T_ANGLE tile_arg.y
-
-#define WALL_SIZE wall_arg.x
-#define WALL_SHADE wall_arg.y
-
-
-#define MAP_RING_COLOR 0x202020
-#define MAP_VOID_COLOR 0
-#define MAP_BLOCK_COLOR 0xFFFFFF
-#define MAP_PLAYER_COLOR 0xFF0000
-
-typedef struct			s_color
+typedef struct s_color
 {
 	int r;
 	int g;
 	int b;
 }						t_color;
 
-typedef struct			s_is_pressed
+typedef struct s_is_pressed
 {
 	int					key;
 	short				state;
 }						t_is_pressed;
 
-double	ft_clip_min(int min, double value);
-double	ft_clip_max(int max, double value);
-double	ft_clip_min_max(int min, int max, double value);
+double		ft_clip_min(int min, double value);
+double		ft_clip_max(int max, double value);
+double		ft_clip_min_max(int min, int max, double value);
 
-int		t_rgb_to_int(t_color color);
-int		ft_scale_color_int(int color, double scalar);
+int			ft_rgb_to_int(t_color color);
 
-t_color	ft_scale_color(t_color color, double scalar);
+t_color		ft_scale_color(t_color color, double scalar);
 t_color		ft_int_to_rgb(int color);
 
-
-double  	ft_ray_size(t_game_object *gamet_game_object, t_d_coor ray_intersection, double angle);
-t_d_coor    ft_add_vector2D(t_d_coor vector2D, t_d_coor second_vector2D);
-t_d_coor    ft_sub_vector2D(t_d_coor vector2D, t_d_coor second_vector2D);
-t_d_coor    ft_scale_vector2D(t_d_coor vector2D, double scale);
-t_d_coor    ft_normalise_vector2D(t_d_coor vector);
+double		ft_ray_size(t_game_object *gamet_game_object,
+				t_d_coor ray_intersection, double angle);
+t_d_coor	ft_add_vector2D(t_d_coor vector2D, t_d_coor second_vector2D);
+t_d_coor	ft_sub_vector2D(t_d_coor vector2D, t_d_coor second_vector2D);
+t_d_coor	ft_scale_vector2D(t_d_coor vector2D, double scale);
+t_d_coor	ft_normalise_vector2D(t_d_coor vector);
 
 t_coor		ft_get_sign(t_d_coor coor);
 void		ft_get_right_step(t_d_coor ray, t_d_coor *rayStep);
-short		is_block_solid(t_game_object *game_object, t_coor grid_position);
-short	is_position_valid(t_game_object *game_object, t_coor grid_position);
+short		ft_is_block_solid(t_game_object *game_object, t_coor grid_position);
+short		ft_is_position_valid(t_game_object *game_object,
+				t_coor grid_position);
 
 double		ft_check_angle(double angle);
 t_d_coor	ft_angleToVector2D(double alpha);
 
+void		ft_define_check_step(t_game_object *game_object);
+void		ft_dda(t_game_object *game_object, t_d_coor *rayStep,
+				t_d_coor *rayDistance, t_coor *gridStep);
+void		ft_setup_dda(t_game_object *game_object, t_d_coor *rayStep,
+				t_d_coor *rayDistance, t_coor *gridStep);
+t_coor		ft_get_sign(t_d_coor coor);
+void		ft_get_right_step(t_d_coor ray, t_d_coor *rayStep);
 
-void	ft_define_check_step(t_game_object *game_object);
-void	ft_dda(t_game_object *game_object, t_d_coor *rayStep,
-	t_d_coor *rayDistance, t_coor *gridStep);
-void	ft_setup_dda(t_game_object *game_object, t_d_coor *rayStep,
-	t_d_coor *rayDistance, t_coor *gridStep);
-t_coor	ft_get_sign(t_d_coor coor);
-void	ft_get_right_step(t_d_coor ray, t_d_coor *rayStep);
-short	is_block_solid(t_game_object *game_object, t_coor grid_position);
-
-
-int			ft_key_stroke(int key,t_game_object *game_object);
+int			ft_key_stroke(int key, t_game_object *game_object);
 int			ft_exit(t_game_object *game_object);
 
 void		ft_ray_shooter(t_game_object *game_object);
-void 		ft_movement(t_game_object *game_object);
+void		ft_movement(t_game_object *game_object);
 void		ft_run(t_game_object *game_object);
 
-void 		ft_check_walls(t_game_object *game_object);
+void		ft_check_walls(t_game_object *game_object);
 
-void	ft_draw_hard_line(t_coor edge, int color,
-	t_game_object *game_object, double shade);
+void		ft_draw_hard_line(t_coor edge, int color,
+				t_game_object *game_object, double shade);
 
-void		color_wall(t_game_object *game_object, t_render data);
-void		texture_wall(t_game_object *game_object, t_render data);
+void		ft_color_wall(t_game_object *game_object, t_render data);
+void		ft_texture_wall(t_game_object *game_object, t_render data);
 
-void		ft_put_pixel(t_game_object *game_object, t_coor position, int color);
+void		ft_put_pixel(t_game_object *game_object,
+				t_coor position, int color);
 
 void		ft_ray_shooter(t_game_object *game_object);
 
 void		ft_textured_render(t_game_object *game_object);
 void		ft_basic_render(t_game_object *game_object);
 void		ft_wireframe_render(t_game_object *game_object);
-void	ft_wireframe_draw(t_game_object *game_object);
-void	tile_render(t_game_object *game_object, t_coor range, char type);
+void		ft_wireframe_draw(t_game_object *game_object);
+void		ft_tile_render(t_game_object *game_object, t_coor range, char type);
+void		ft_clear_mlx(t_game_object *game_object);
 
-void	ft_clear_mlx(t_game_object *game_object);
-int		ft_exit(t_game_object *game_object);
 void		ft_head_tilt(t_game_object *game_object);
 
-short	any_key_pressed(void);
-int	key_release(int key);
-short	get_movement_key(int key);
-void	change_key_state(int key, short state);
+short		ft_any_key_pressed(void);
+int			ft_key_release(int key);
+short		ft_get_movement_key(int key);
+void		ft_change_key_state(int key, short state);
 
-int	frame_loop(void *arg);
-void draw_disk(t_game_object *game_object, int radius, int color, t_d_coor center);
-void print_mini_map(t_game_object *game_object, t_d_coor center);
+int			ft_frame_loop(void *arg);
+void		ft_draw_disk(t_game_object *game_object, int radius,
+				int color, t_d_coor center);
+void		ft_print_mini_map(t_game_object *game_object, t_d_coor center);
 
-t_color	ft_scale_color(t_color color, double scalar);
-t_color	ft_add_colors(t_color first, t_color second);
-int	ft_rgb_to_int(t_color color);
-void	ft_bresenham(t_game_object *game_object, int color,
-	t_coor start, t_coor end);
-double	ft_size_vector2D(t_d_coor vector2D);
-void	ft_print_fov(t_game_object *game_object, t_d_coor center,
-	int ray_number, int size);
-int	get_wire_color(t_d_coor hit_index, t_game_object *game_object);
-void	ft_draw_wire_line(t_coor edges,
-	t_game_object *game_object, double shade);
-int	ft_wire_x_color(t_game_object *game_object, double y_index);
-int	get_wire_tile_position(t_game_object *game_object,
-		t_d_coor tile_arg);
-void	wire_tile(t_game_object *game_object, t_coor range);
+t_color		ft_scale_color(t_color color, double scalar);
+t_color		ft_add_colors(t_color first, t_color second);
+int			ft_rgb_to_int(t_color color);
+void		ft_bresenham(t_game_object *game_object, int color,
+				t_coor start, t_coor end);
+double		ft_size_vector2D(t_d_coor vector2D);
+void		ft_print_fov(t_game_object *game_object, t_d_coor center,
+				int ray_number, int size);
+int			get_wire_color(t_d_coor hit_index, t_game_object *game_object);
+void		ft_draw_wire_line(t_coor edges,
+				t_game_object *game_object, double shade);
+int			ft_wire_x_color(t_game_object *game_object, double y_index);
+int			ft_exit(t_game_object *game_object);
+void		ft_wire_tile(t_game_object *game_object, t_coor range);
+
+double		ft_sqr(double number);
+
+#endif

@@ -49,7 +49,7 @@ t_d_coor	ft_normalise_vector2D(t_d_coor vector)
 {
 	double	norm;
 
-	norm = sqrtf(FT_SQR(vector.x) + FT_SQR(vector.y));
+	norm = sqrtf(ft_sqr(vector.x) + ft_sqr(vector.y));
 	vector.x /= norm;
 	vector.y /= norm;
 	return (vector);

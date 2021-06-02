@@ -86,7 +86,7 @@ void	ft_wireframe_draw(t_game_object *game_object)
 				/ game_object->ray_data.straight_distance);
 	ft_draw_wire_line((t_coor){start, end},
 		game_object, shade);
-	wire_tile(game_object, (t_coor){0, start});
-	wire_tile(game_object, (t_coor){end,
+	ft_wire_tile(game_object, (t_coor){0, start});
+	ft_wire_tile(game_object, (t_coor){end,
 		game_object->render_data.window_resolution.y});
 }

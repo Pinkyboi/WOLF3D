@@ -12,20 +12,21 @@
 
 #include "wolf3d.h"
 
-t_argument_list	*create_agument_node(char *argument_name, char *argument_value)
+t_argument_list	*ft_create_agument_node(char *argument_name,
+	char *argument_value)
 {
 	t_argument_list	*node;
 
 	node = malloc(sizeof(t_argument_list));
 	if (!node)
-		error_print("Internal error during :", "memory allocation");
+		ft_err_print("Internal error during :", "memory allocation");
 	node->argument_name = argument_name;
 	node->argument_value = argument_value;
 	node->next = NULL;
 	return (node);
 }
 
-void	free_argument_list(t_argument_list *argument_list)
+void	ft_free_argument_list(t_argument_list *argument_list)
 {
 	t_argument_list	*current_arugment;
 
@@ -37,7 +38,7 @@ void	free_argument_list(t_argument_list *argument_list)
 	}
 }
 
-t_argument_list	*create_argument_list(char *argument_block,
+t_argument_list	*ft_create_argument_list(char *argument_block,
 	t_argument_list *argument_list, char *tag)
 {
 	char			**argument_lines;
@@ -48,15 +49,15 @@ t_argument_list	*create_argument_list(char *argument_block,
 	i = -1;
 	while (argument_lines[++i])
 	{
-		line = parse_argument_blocks(argument_lines[i], tag);
-		argument_list = push_argument(argument_list,
-				create_agument_node(ft_strdup(line[0]), ft_strdup(line[1])));
-		free_array(line);
+		line = ft_parse_block_arg(argument_lines[i], tag);
+		argument_list = ft_push_argument(argument_list,
+				ft_create_agument_node(ft_strdup(line[0]), ft_strdup(line[1])));
+		ft_free_array(line);
 	}
 	return (argument_list);
 }
 
-t_argument_list	*search_for_argument_node(t_argument_list *argument_list,
+t_argument_list	*ft_find_argument_node(t_argument_list *argument_list,
 		char *argument_name)
 {
 	t_argument_list	*list_clone;
@@ -71,7 +72,7 @@ t_argument_list	*search_for_argument_node(t_argument_list *argument_list,
 	return (NULL);
 }
 
-t_argument_list	*push_argument(t_argument_list *argument_list,
+t_argument_list	*ft_push_argument(t_argument_list *argument_list,
 				t_argument_list *new_element)
 {
 	t_argument_list	*head_save;

@@ -15,12 +15,13 @@
 void	select_tile(t_tile *map_tile, t_block_list *block_list, char *line)
 {
 	if (*line == '(')
-		insert_tuple_block_infos(map_tile, block_list, parse_block_tuple(line));
+		ft_insert_tuple_block_infos(map_tile, block_list,
+			ft_parse_block_tuple(line));
 	else
-		insert_argument_block_infos(map_tile, block_list, line);
+		ft_insert_argument_block_infos(map_tile, block_list, line);
 }
 
-t_coor	map_max_dimentions(char **map)
+t_coor	ft_map_max_dim(char **map)
 {
 	int		height;
 	int		width;
@@ -32,15 +33,15 @@ t_coor	map_max_dimentions(char **map)
 	while (map[++height])
 	{
 		line = ft_strsplit(map[height], ' ');
-		width = row_len(line);
+		width = ft_row_len(line);
 		if (width > biggest_width)
 			biggest_width = width;
-		free_array(line);
+		ft_free_array(line);
 	}
 	return ((t_coor){biggest_width + 2, height + 2});
 }
 
-t_tile	**create_raw_map(t_tile **map, t_block_list *block_list,
+t_tile	**ft_create_raw_map(t_tile **map, t_block_list *block_list,
 	t_coor dimentions)
 {
 	int				i;
@@ -50,14 +51,14 @@ t_tile	**create_raw_map(t_tile **map, t_block_list *block_list,
 	i = -1;
 	map = (t_tile **)malloc(sizeof(t_tile *) * dimentions.y);
 	if (!map)
-		error_print("internal error during :", "memory allocation");
-	filler_block = search_for_block_node(block_list, FILLER_ICON);
+		ft_err_print("internal error during :", "memory allocation");
+	filler_block = ft_find_block_node(block_list, FILLER_ICON);
 	while (++i < dimentions.y)
 	{
 		j = -1;
 		map[i] = (t_tile *)malloc(sizeof(t_tile) * dimentions.x);
 		if (!map[i])
-			error_print("internal error during :", "memory allocation");
+			ft_err_print("internal error during :", "memory allocation");
 		while (++j < dimentions.x)
 		{
 			map[i][j] = (t_tile){NULL, NULL, NULL};
@@ -69,7 +70,7 @@ t_tile	**create_raw_map(t_tile **map, t_block_list *block_list,
 	return (map);
 }
 
-t_tile 	**create_map(char **map, t_block_list *block_list)
+t_tile 	**ft_create_map(char **map, t_block_list *block_list)
 {
 	t_coor	max_dimentions;
 	t_coor	index;
@@ -77,8 +78,8 @@ t_tile 	**create_map(char **map, t_block_list *block_list)
 	char	**line;
 
 	final_map = NULL;
-	max_dimentions = map_max_dimentions(map);
-	final_map = create_raw_map(final_map, block_list,
+	max_dimentions = ft_map_max_dim(map);
+	final_map = ft_create_raw_map(final_map, block_list,
 			max_dimentions);
 	index.y = -1;
 	while (++index.y < max_dimentions.y - 2)
@@ -88,18 +89,18 @@ t_tile 	**create_map(char **map, t_block_list *block_list)
 		while (line[++index.x])
 			select_tile(&final_map[index.y + 1][index.x + 1],
 				block_list, line[index.x]);
-		free_array(line);
+		ft_free_array(line);
 	}
 	return (final_map);
 }
 
-void	load_map_data(t_game_object *game_object, char *agrument_block)
+void	ft_load_map_data(t_game_object *game_object, char *agrument_block)
 {
 	char	**raw_map;
 
 	raw_map = ft_strsplit(agrument_block, '\n');
-	game_object->map.map_dimentions = map_max_dimentions(raw_map);
-	game_object->map.map_grid = create_map(raw_map,
+	game_object->map.map_dimentions = ft_map_max_dim(raw_map);
+	game_object->map.map_grid = ft_create_map(raw_map,
 			game_object->parser.block_list);
-	free_array(raw_map);
+	ft_free_array(raw_map);
 }

@@ -12,12 +12,7 @@
 
 #include "wolf3d.h"
 
-double	ft_size_vector2D(t_d_coor vector2D)
-{
-	return (sqrt(FT_SQR(vector2D.x) + FT_SQR(vector2D.y)));
-}
-
-void	draw_disk(t_game_object *game_object, int radius,
+void	ft_draw_disk(t_game_object *game_object, int radius,
 	int color, t_d_coor center)
 {
 	t_d_coor	index;

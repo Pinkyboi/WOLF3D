@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-void	calculate_map_props(t_game_object *game_object)
+void	ft_calculate_map_props(t_game_object *game_object)
 {
 	double	radius;
 

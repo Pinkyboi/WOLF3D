@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-void	free_array(char **array)
+void	ft_free_array(char **array)
 {
 	int	i;
 
@@ -21,7 +21,7 @@ void	free_array(char **array)
 		free(array[i]);
 }
 
-int	row_len(char **array)
+int	ft_row_len(char **array)
 {
 	int	i;
 

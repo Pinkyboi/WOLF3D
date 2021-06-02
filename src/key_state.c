@@ -24,7 +24,7 @@ t_is_pressed	g_pressed_buttons[] =
 	{-1, 0}
 };
 
-void	change_key_state(int key, short state)
+void	ft_change_key_state(int key, short state)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ void	change_key_state(int key, short state)
 			g_pressed_buttons[i].state = state;
 }
 
-short	get_movement_key(int key)
+short	ft_get_movement_key(int key)
 {
 	int	i;
 
@@ -45,7 +45,7 @@ short	get_movement_key(int key)
 	return (-1);
 }
 
-short	any_key_pressed(void)
+short	ft_any_key_pressed(void)
 {
 	int	i;
 

@@ -18,7 +18,7 @@ void	ft_check_next_position(t_game_object *game_object,
 	t_coor		grid_position;
 
 	grid_position = (t_coor){world_position.x, world_position.y};
-	if (!is_position_valid(game_object, edge))
+	if (!ft_is_position_valid(game_object, edge))
 	{
 		game_object->player.world_position = world_position;
 		game_object->player.grid_position = grid_position;
@@ -30,7 +30,7 @@ void	ft_check_walls(t_game_object *game_object)
 	t_d_coor	world_position;
 	t_d_coor	edge;
 
-	if (get_movement_key(FOREWORD) == 1)
+	if (ft_get_movement_key(FOREWORD) == 1)
 	{
 		world_position = ft_add_vector2D(game_object->player.world_position,
 				game_object->player.movement);
@@ -39,7 +39,7 @@ void	ft_check_walls(t_game_object *game_object)
 		ft_check_next_position(game_object,
 			(t_coor){edge.x, edge.y}, world_position);
 	}
-	if (get_movement_key(BACKWARD) == 1)
+	if (ft_get_movement_key(BACKWARD) == 1)
 	{
 		world_position = ft_sub_vector2D(game_object->player.world_position,
 				game_object->player.movement);
@@ -55,13 +55,13 @@ void	ft_head_tilt(t_game_object *game_object)
 	t_view	*view;
 
 	view = &game_object->render_data.view_data;
-	if (get_movement_key(UP) == 1 && view->vertical_tilt < M_1_PI - 0.05)
+	if (ft_get_movement_key(UP) == 1 && view->vertical_tilt < M_1_PI - 0.05)
 	{
 		view->vertical_tilt += 0.05;
 		view->view_shift = tan(view->vertical_tilt) * view->view_plane_distance;
 		view->half_view_plane = view->half_view_plane_save + view->view_shift;
 	}
-	if (get_movement_key(DOWN) == 1 && view->vertical_tilt > -M_1_PI + 0.05)
+	if (ft_get_movement_key(DOWN) == 1 && view->vertical_tilt > -M_1_PI + 0.05)
 	{
 		view->vertical_tilt -= 0.05;
 		view->view_shift = tan(view->vertical_tilt) * view->view_plane_distance;
@@ -71,11 +71,11 @@ void	ft_head_tilt(t_game_object *game_object)
 
 void	ft_movement(t_game_object *game_object)
 {
-	if (get_movement_key(LEFT) == 1 || get_movement_key(RIGHT) == 1)
+	if (ft_get_movement_key(LEFT) == 1 || ft_get_movement_key(RIGHT) == 1)
 	{
-		if (get_movement_key(LEFT) == 1)
+		if (ft_get_movement_key(LEFT) == 1)
 			game_object->player.orientation -= 0.08;
-		if (get_movement_key(RIGHT) == 1)
+		if (ft_get_movement_key(RIGHT) == 1)
 			game_object->player.orientation += 0.08;
 		game_object->player.orientation = ft_check_angle(
 				game_object->player.orientation);
@@ -84,13 +84,14 @@ void	ft_movement(t_game_object *game_object)
 				(ft_check_angle(game_object->player.orientation)),
 				game_object->player.step);
 	}
-	if (get_movement_key(FOREWORD) == 1 || get_movement_key(BACKWARD) == 1)
+	if (ft_get_movement_key(FOREWORD) == 1
+		|| ft_get_movement_key(BACKWARD) == 1)
 		ft_check_walls(game_object);
 }
 
 void	ft_run(t_game_object *game_object)
 {
-	if (get_movement_key(SHIFT) == 1
+	if (ft_get_movement_key(SHIFT) == 1
 		&& !game_object->player.is_running)
 	{
 		game_object->player.step += 0.6;
@@ -99,7 +100,7 @@ void	ft_run(t_game_object *game_object)
 				game_object->player.step);
 		game_object->player.is_running = 1;
 	}
-	if (get_movement_key(SHIFT) == 0
+	if (ft_get_movement_key(SHIFT) == 0
 		&& game_object->player.is_running)
 	{
 		game_object->player.step -= 0.6;

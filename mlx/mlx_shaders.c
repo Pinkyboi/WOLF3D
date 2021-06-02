@@ -36,7 +36,7 @@ int mlx_shaders_pixel(glsl_info_t *glsl)
 		  " texcoord = vec2(position[0]+1.0, 1.0 - position[1]) / 2.0;"
 		  "}");
   length = strlen(source);
-  glShaderSource(glsl->pixel_vshader, 1, (const GLchar**)&source, &length);
+  glShaderSource(glsl->pixel_vshader, 1, (const GLchar **)&source, &length);
   glCompileShader(glsl->pixel_vshader);
   free(source);
 
@@ -56,7 +56,7 @@ int mlx_shaders_pixel(glsl_info_t *glsl)
 		  " gl_FragColor = texture2D(texture, texcoord);"
 		  "}");
   length = strlen(source);
-  glShaderSource(glsl->pixel_fshader, 1, (const GLchar**)&source, &length);
+  glShaderSource(glsl->pixel_fshader, 1, (const GLchar **)&source, &length);
   glCompileShader(glsl->pixel_fshader);
   free(source);
 
@@ -106,7 +106,7 @@ int mlx_shaders_image(glsl_info_t *glsl)
 		  " gl_Position = vec4( pos, 0.0, 1.0);"
 		  "}");
   length = strlen(source);
-  glShaderSource(glsl->image_vshader, 1, (const GLchar**)&source, &length);
+  glShaderSource(glsl->image_vshader, 1, (const GLchar **)&source, &length);
   glCompileShader(glsl->image_vshader);
   free(source);
 
@@ -126,7 +126,7 @@ int mlx_shaders_image(glsl_info_t *glsl)
 		  " gl_FragColor = texture2D(texture, texcoord);"
 		  "}");
   length = strlen(source);
-  glShaderSource(glsl->image_fshader, 1, (const GLchar**)&source, &length);
+  glShaderSource(glsl->image_fshader, 1, (const GLchar **)&source, &length);
   glCompileShader(glsl->image_fshader);
   free(source);
 
@@ -183,7 +183,7 @@ int mlx_shaders_font(glsl_info_t *glsl)
 		  " gl_Position = vec4( pos, 0.0, 1.0);"
 		  "}");
   length = strlen(source);
-  glShaderSource(glsl->font_vshader, 1, (const GLchar**)&source, &length);
+  glShaderSource(glsl->font_vshader, 1, (const GLchar **)&source, &length);
   glCompileShader(glsl->font_vshader);
   free(source);
 
@@ -204,7 +204,7 @@ int mlx_shaders_font(glsl_info_t *glsl)
 		  " gl_FragColor = color * texture2D(texture, texcoord);"
 		  "}");
   length = strlen(source);
-  glShaderSource(glsl->font_fshader, 1, (const GLchar**)&source, &length);
+  glShaderSource(glsl->font_fshader, 1, (const GLchar **)&source, &length);
   glCompileShader(glsl->font_fshader);
   free(source);
 

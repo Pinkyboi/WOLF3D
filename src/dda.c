@@ -56,7 +56,7 @@ void	ft_dda(t_game_object *game_object, t_d_coor *rayStep,
 			game_object->ray_data.hit_type = 'H';
 			rayDistance->y += rayStep->y;
 		}
-		if (is_block_solid(game_object, ray_grid_position))
+		if (ft_is_block_solid(game_object, ray_grid_position))
 			break ;
 	}
 }

@@ -12,6 +12,16 @@
 
 #include "wolf3d.h"
 
+double	ft_sqr(double number)
+{
+	return (number * number);
+}
+
+double	ft_degree_to_rad(double number)
+{
+	return ((number * M_PI) / 180);
+}
+
 double	ft_check_angle(double angle)
 {
 	if (angle < 0)
@@ -24,4 +34,9 @@ double	ft_check_angle(double angle)
 t_d_coor	ft_angleToVector2D(double alpha)
 {
 	return (ft_normalise_vector2D((t_d_coor){cos(alpha), sin(alpha)}));
+}
+
+double	ft_size_vector2D(t_d_coor vector2D)
+{
+	return (sqrt(ft_sqr(vector2D.x) + ft_sqr(vector2D.y)));
 }

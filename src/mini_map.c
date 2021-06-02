@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-void	check_for_blocks(t_game_object *game_object,
+void	ft_check_for_blocks(t_game_object *game_object,
 	t_d_coor player_center, t_d_coor center, t_d_coor index)
 {
 	t_d_coor	position;
@@ -22,7 +22,7 @@ void	check_for_blocks(t_game_object *game_object,
 			/ game_object->min_map.block_size),
 		player_center.y + ((center.y - index.y)
 			/ game_object->min_map.block_size)};
-	if (is_position_valid(game_object, (t_coor){position.x, position.y}))
+	if (ft_is_position_valid(game_object, (t_coor){position.x, position.y}))
 	{
 		radial = ft_sub_vector2D((t_d_coor){index.x,
 				index.y}, center);
@@ -32,7 +32,8 @@ void	check_for_blocks(t_game_object *game_object,
 	}
 }
 
-void	mini_map_blocks(t_game_object *game_object, int radius, t_d_coor center)
+void	ft_mini_map_blocks(t_game_object *game_object,
+			int radius, t_d_coor center)
 {
 	t_d_coor	index;
 	t_d_coor	player_center;
@@ -47,7 +48,7 @@ void	mini_map_blocks(t_game_object *game_object, int radius, t_d_coor center)
 		index.x = center.x - radius;
 		while (index.x <= max_index.x)
 		{
-			check_for_blocks(game_object,
+			ft_check_for_blocks(game_object,
 				player_center, center, index);
 			index.x++;
 		}
@@ -55,7 +56,7 @@ void	mini_map_blocks(t_game_object *game_object, int radius, t_d_coor center)
 	}
 }
 
-void	print_mini_map(t_game_object *game_object, t_d_coor center)
+void	ft_print_mini_map(t_game_object *game_object, t_d_coor center)
 {
 	double		radius;
 	t_d_coor	player_center;
@@ -63,10 +64,12 @@ void	print_mini_map(t_game_object *game_object, t_d_coor center)
 	radius = game_object->min_map.total_radius;
 	player_center = (t_d_coor){game_object->player.grid_position.x,
 		game_object->player.grid_position.y};
-	draw_disk(game_object, radius, MAP_RING_COLOR, center);
-	draw_disk(game_object, game_object->min_map.radius, MAP_VOID_COLOR, center);
+	ft_draw_disk(game_object, radius, MAP_RING_COLOR, center);
+	ft_draw_disk(game_object, game_object->min_map.radius,
+		MAP_VOID_COLOR, center);
 	ft_print_fov(game_object, center, 30, game_object->min_map.block_size);
-	draw_disk(game_object, game_object->min_map.player_size,
+	ft_draw_disk(game_object, game_object->min_map.player_size,
 		MAP_PLAYER_COLOR, center);
-	mini_map_blocks(game_object, game_object->min_map.radius, center);
+	ft_mini_map_blocks(game_object,
+		game_object->min_map.radius, center);
 }

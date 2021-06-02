@@ -29,17 +29,17 @@ int	ft_exit(t_game_object *game_object)
 	exit(0);
 }
 
-int	key_release(int key)
+int	ft_key_release(int key)
 {
-	if (get_movement_key(key) == 1)
-		change_key_state(key, 0);
+	if (ft_get_movement_key(key) == 1)
+		ft_change_key_state(key, 0);
 	return (0);
 }
 
 int	ft_key_stroke(int key, t_game_object *game_object)
 {
-	if (get_movement_key(key) == 0)
-		change_key_state(key, 1);
+	if (ft_get_movement_key(key) == 0)
+		ft_change_key_state(key, 1);
 	if (key == EXIT)
 		ft_exit(game_object);
 	return (0);

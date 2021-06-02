@@ -13,13 +13,13 @@
 NAME = wolf3d
 
 CC =gcc
-# CFLAGS = -g -Wall -Wextra -Werror
-FLAGS = 
+CFLAGS = -g -Wall -Wextra -Werror
 
 
 SRC_DIR =./src/
 OBJ_DIR =./obj/
 LIBFT_DIR =./libft
+LIBFT_H = $(LIBFT_DIR)/inc
 INC_DIR =./inc/
 
 FILES_NAME =main.c\
@@ -62,7 +62,7 @@ OBJS = $(addprefix $(OBJ_DIR), $(FILES_NAME:.c=.o))
 SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))
 HEADER_FILE = wolf3d.h
 
-INCLUDES = -I $(INC_DIR) -I $(LIBFT_DIR) -I ./mlx
+INCLUDES = -I $(INC_DIR) -I $(LIBFT_H) -I ./mlx
 LIBRARIES = -L $(LIBFT_DIR) -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)

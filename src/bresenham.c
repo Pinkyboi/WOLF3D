@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-void	calulate_errors(t_coor *error, t_coor *step,
+void	ft_calulate_errors(t_coor *error, t_coor *step,
 	t_coor *sec_step, t_coor *start)
 {
 	error->y = 2 * error->x;
@@ -47,6 +47,6 @@ void	ft_bresenham(t_game_object *game_object, int color,
 		ft_put_pixel(game_object, start, color);
 		if (start.x == end.x && start.y == end.y)
 			break ;
-		calulate_errors(&error, &step, &sec_step, &start);
+		ft_calulate_errors(&error, &step, &sec_step, &start);
 	}
 }

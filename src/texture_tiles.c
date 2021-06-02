@@ -40,7 +40,7 @@ t_block_list	*get_tile_data(t_coor tile_coor,
 	t_block_list	*render_tool;
 
 	render_tool = NULL;
-	if (!is_position_valid(game_object, tile_coor))
+	if (!ft_is_position_valid(game_object, tile_coor))
 	{
 		if (type == 'C')
 		{
@@ -55,6 +55,11 @@ t_block_list	*get_tile_data(t_coor tile_coor,
 	return (render_tool);
 }
 
+/**
+ * tile_arg.x : tile distance from the player.
+ * tile_arg.y : angle between the player and the tile.
+**/
+
 int	get_tile_position(t_game_object *game_object,
 		t_d_coor tile_arg, char type, double shade)
 {
@@ -63,14 +68,14 @@ int	get_tile_position(t_game_object *game_object,
 	t_block_list	*block;
 
 	texture_ratio.y = game_object->player.world_position.y
-		+ (T_DISTANCE * sin(T_ANGLE));
+		+ (tile_arg.x * sin(tile_arg.y));
 	texture_ratio.x = game_object->player.world_position.x
-		+ (T_DISTANCE * cos(T_ANGLE));
+		+ (tile_arg.x * cos(tile_arg.y));
 	tile_coor = (t_coor){(int)texture_ratio.x, (int)texture_ratio.y};
 	block = get_tile_data(tile_coor, game_object, type);
 	if (block)
 	{
-		if (block->render.render_function == &texture_wall)
+		if (block->render.render_function == &ft_texture_wall)
 		{
 			texture_ratio.x -= tile_coor.x;
 			texture_ratio.y -= tile_coor.y;
@@ -84,7 +89,7 @@ int	get_tile_position(t_game_object *game_object,
 	return (-1);
 }
 
-void	tile_render(t_game_object *game_object, t_coor range, char type)
+void	ft_tile_render(t_game_object *game_object, t_coor range, char type)
 {
 	double	wall_ratio;
 	double	angle;

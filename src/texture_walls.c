@@ -57,7 +57,7 @@ void	ft_draw_texture_line(t_coor edges,
 	}
 }
 
-void	texture_wall(t_game_object *game_object, t_render data)
+void	ft_texture_wall(t_game_object *game_object, t_render data)
 {
 	int		start;
 	int		end;
@@ -75,8 +75,8 @@ void	texture_wall(t_game_object *game_object, t_render data)
 	if (game_object->player.view_distance > 0)
 		shade = ft_clip_min_max(0, 1, game_object->player.view_distance
 				/ game_object->ray_data.straight_distance);
-	tile_render(game_object, (t_coor){0, start}, 'C');
-	tile_render(game_object, (t_coor){end,
+	ft_tile_render(game_object, (t_coor){0, start}, 'C');
+	ft_tile_render(game_object, (t_coor){end,
 		game_object->render_data.window_resolution.y}, 'F');
 	ft_draw_texture_line((t_coor){start, end},
 		game_object, data, shade);

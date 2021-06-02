@@ -1,9 +1,10 @@
 <render>{
     Resolution    : 800 x 800;
-    Type          : Wireframe;
-    Main_color : #fcf8e8;
+    Type          : Textured;
+    Main_color : #0;
     Inner_color : #d4e2d4;
     Edge_color : #df7861;
+    Sky : ./textures/skycrop.xpm;
 }
 
 <player>{
