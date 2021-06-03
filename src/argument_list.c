@@ -17,9 +17,7 @@ t_argument_list	*ft_create_agument_node(char *argument_name,
 {
 	t_argument_list	*node;
 
-	node = malloc(sizeof(t_argument_list));
-	if (!node)
-		ft_err_print("Internal error during :", "memory allocation");
+	node = ft_safe_malloc(sizeof(t_argument_list));
 	node->argument_name = argument_name;
 	node->argument_value = argument_value;
 	node->next = NULL;

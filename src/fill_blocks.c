@@ -17,9 +17,7 @@ t_block_list	*ft_create_block_node(char type, char icon,
 {
 	t_block_list	*node;
 
-	node = malloc(sizeof(t_block_list));
-	if (!node)
-		ft_err_print("internal error during :", "memory allocation");
+	node = ft_safe_malloc(sizeof(t_block_list));
 	node->type = type;
 	node->block_icon = icon;
 	node->render.render_data = render_data;

@@ -57,6 +57,7 @@ FILES_NAME =main.c\
 			wireframe_render.c\
 			wireframe_tiles.c\
 			render_constructor.c\
+			sprite_constructor.c\
 
 OBJS = $(addprefix $(OBJ_DIR), $(FILES_NAME:.c=.o))
 SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))
@@ -68,7 +69,7 @@ LIBRARIES = -L $(LIBFT_DIR) -lft -L./mlx -lmlx -framework OpenGL -framework AppK
 all: $(NAME)
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT_DIR)
-	$(CC) $(INCLUDES) $(LIBRARIES) $(OBJS) -o $@
+	@$(CC) $(INCLUDES) $(LIBRARIES) $(OBJS) -o $@
 $(OBJS) : $(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR) $(INCLUDES)
 $(OBJ_DIR) :

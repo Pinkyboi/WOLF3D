@@ -29,4 +29,3 @@ char	*ft_strcat(char *dst, const char *src)
 	dst[j + i] = '\0';
 	return (dst);
 }
-

@@ -12,6 +12,13 @@
     Stamina       : 69;
     Position      : (1, 3);
 }
+
+<sprite>{
+    Side_number : 1;
+    Sprite_texture : ./textures/skycrop.xpm;
+    Position      : (1, 3);
+}
+
 <env>{
     (1,wall)    : ./textures/wood.xpm;
     (2,floor)    : ./textures/wood.xpm;

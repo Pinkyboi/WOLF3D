@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-char	*read_file(int fd)
+char	*ft_read_file(int fd)
 {
 	int		read_index;
 	char	buffer[42069 + 1];

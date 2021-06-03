@@ -30,7 +30,7 @@ int	get_ft_wire_tile_color(t_game_object *game_object,
 	tile_coor = (t_coor){(int)texture_ratio.x, (int)texture_ratio.y};
 	texture_ratio.x -= tile_coor.x;
 	texture_ratio.y -= tile_coor.y;
-	return (get_wire_color(texture_ratio, game_object));
+	return (ft_get_wire_color(texture_ratio, game_object));
 }
 
 void	ft_wire_tile(t_game_object *game_object, t_coor range)

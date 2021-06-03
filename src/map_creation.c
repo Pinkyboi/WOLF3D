@@ -49,9 +49,7 @@ t_tile	**ft_create_raw_map(t_tile **map, t_block_list *block_list,
 	t_block_list	*filler_block;
 
 	i = -1;
-	map = (t_tile **)malloc(sizeof(t_tile *) * dimentions.y);
-	if (!map)
-		ft_err_print("internal error during :", "memory allocation");
+	map = ft_safe_malloc(sizeof(t_tile *) * dimentions.y);
 	filler_block = ft_find_block_node(block_list, FILLER_ICON);
 	while (++i < dimentions.y)
 	{

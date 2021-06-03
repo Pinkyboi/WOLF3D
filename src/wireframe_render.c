@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-int	get_wire_color(t_d_coor hit_index, t_game_object *game_object)
+int	ft_get_wire_color(t_d_coor hit_index, t_game_object *game_object)
 {
 	if ((hit_index.x >= 0 && hit_index.x <= 0.02)
 		|| (hit_index.x >= 0.98 && hit_index.x <= 1))
@@ -43,7 +43,7 @@ int	ft_wire_x_color(t_game_object *game_object, double y_index)
 	if (game_object->ray_data.hit_type == 'V')
 		wall_index = end.y;
 	wall_index -= (int)wall_index;
-	return (get_wire_color((t_d_coor){wall_index, y_index}, game_object));
+	return (ft_get_wire_color((t_d_coor){wall_index, y_index}, game_object));
 }
 
 void	ft_draw_wire_line(t_coor edges,

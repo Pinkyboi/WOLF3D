@@ -57,17 +57,27 @@ int	ft_frame_loop(void *arg)
 	return (0);
 }
 
+void	*ft_safe_malloc(size_t size)
+{
+	void	*allocated_memory;
+
+	allocated_memory = malloc(size);
+	if (!allocated_memory)
+		ft_err_print("internal error during :", "memory allocation");
+	return (allocated_memory);
+}
+
 int	main(int argc, char **argv)
 {
 	int				fd;
 	t_game_object	*game_object;
 	char			*data;
 
-	game_object = malloc(sizeof(t_game_object));
+	game_object = ft_safe_malloc(sizeof(t_game_object));
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0 || argc != 2)
 		ft_err_print("FATAL ERROR : ", "invalid save file argument");
-	data = read_file(fd);
+	data = ft_read_file(fd);
 	ft_load_game_elements(data, game_object);
 	if (ft_is_position_valid(game_object, game_object->player.grid_position))
 		ft_err_print("FATAL ERROR : ",

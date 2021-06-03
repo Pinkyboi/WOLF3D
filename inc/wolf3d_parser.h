@@ -43,6 +43,7 @@
 # define MONSTER_TAG "<monster>"
 # define ENV_TAG "<env>"
 # define MAP_TAG "<map>"
+# define SPITE_TAG "<sprite>"
 # define END_TOKEN "endl"
 
 # define NORTH_COLOR "#72147E"
@@ -51,13 +52,13 @@
 # define WEST_COLOR "#FF5200"
 # define SKY_COLOR "#87CEEB"
 
-# define	MAX_HP 100
+# define MAX_HP 100
 # define MIN_HP 1
 # define MAX_STAMINA 100
 # define MIN_STAMINA 1
 
 # define FILLER_COLOR 0x444444
-# define	FILLER_ICON '@'
+# define FILLER_ICON '@'
 
 # define WIRE_EDGE_COLOR "#fb9300"
 # define WIRE_INNER_COLOR "#343f56"
@@ -83,8 +84,8 @@ typedef struct s_tag_element
 
 typedef struct s_texture
 {
-	int					*texture_data;
 	t_d_coor			coordinates;
+	int					*texture_data;
 	int					texture_width;
 	int					texture_height;
 }						t_texture;
@@ -154,15 +155,15 @@ typedef struct s_player
 {
 	t_coor				grid_position;
 	t_d_coor			world_position;
+	t_d_coor			movement;
 	short				hp;
 	short				stamina;
-	int					*player_appearance;
-	double				orientation;
-	t_d_coor			movement;
 	short				is_running;
+	int					*player_appearance;
 	double				step;
 	double				height;
 	double				view_distance;
+	double				orientation;
 }						t_player;
 
 typedef void					t_game_rendering(t_game_object *game_object);
@@ -175,8 +176,8 @@ typedef struct s_render_recognition
 
 typedef struct s_view
 {
-	int					view_plane_distance;
 	double				vertical_tilt;
+	int					view_plane_distance;
 	int					view_shift;
 	int					half_view_plane;
 	int					half_view_plane_save;
@@ -227,9 +228,9 @@ typedef struct s_ray_data
 {
 	double				hit_distance;
 	double				straight_distance;
+	double				angle;
 	char				hit_type;
 	t_d_coor			current_ray;
-	double				angle;
 }						t_ray_data;
 
 typedef struct s_mini_map
@@ -242,11 +243,20 @@ typedef struct s_mini_map
 	int					player_size;
 }						t_mini_map;
 
+typedef struct s_sprite_list
+{
+	short					side_number;
+	t_texture				texture;
+	t_coor					position;
+	struct s_sprite_list	*next;
+}							t_sprite_list;
+
 struct s_game_object
 {
 	t_wolf3d_parser		parser;
 	t_render_data		render_data;
 	t_map				map;
+	t_sprite_list		*sprite_list;
 	t_player			player;
 	t_ray_data			ray_data;
 	t_mini_map			min_map;
@@ -270,17 +280,16 @@ int					ft_hex_to_int(char *number);
 int					ft_hex_to_color(char *color);
 int					ft_stock_hex(char *color, int *color_stock);
 int					ft_mini_brackets(char *string, char *bracket);
+int					ft_parse_counters(char *counter, int min, int max);
+int					ft_load_texture(char *path, t_texture *texture_data);
 
 char				*ft_trim(char *string, char *filter);
 char				*ft_strnclone(char *string, int size);
-char				*read_file(int fd);
-
-int					ft_parse_counters(char *counter, int min, int max);
+char				*ft_read_file(int fd);
+char				*ft_get_argument(char *argument_name, char *default_value,
+						t_argument_list *argument_list);
 char				**ft_parse_block_tuple(char *tuple);
 char				**ft_parse_block_arg(char *block_infos, char *tag);
-t_coor				ft_parse_resolution(char *resolution_expression);
-t_coor				ft_parse_coordinate(char *tuple);
-t_game_rendering	*ft_parse_render_type(char *render_type);
 
 void				ft_err_print(char *error, char *position);
 void				ft_check_number(char *string);
@@ -299,10 +308,17 @@ void				ft_load_player_data(t_game_object *game_object,
 						char *agrument_block);
 void				ft_load_render_data(t_game_object *game_object,
 						char *agrument_block);
-int					ft_load_texture(char *path, t_texture *texture_data);
-
+void				ft_load_sprite_data(t_game_object *game_object,
+						char *agrument_block);
+void				ft_calculate_map_props(t_game_object *game_object);
+void				ft_free_argument_list(t_argument_list *argument_list);
 void				ft_safe_trim(char *line, char *filter);
+void				*ft_safe_malloc(size_t size);
 
+t_game_rendering	*ft_parse_render_type(char *render_type);
+
+t_coor				ft_parse_resolution(char *resolution_expression);
+t_coor				ft_parse_coordinate(char *tuple);
 t_coor				ft_map_max_dim(char **map);
 
 t_render_tools		ft_parse_render(char *render_argument);
@@ -327,9 +343,4 @@ t_argument_list		*ft_find_argument_node(t_argument_list *argument_list,
 						char *argument_name);
 t_argument_list		*ft_push_argument(t_argument_list *argument_list,
 						t_argument_list *new_element);
-void				ft_calculate_map_props(t_game_object *game_object);
-void				ft_free_argument_list(t_argument_list *argument_list);
-char				*ft_get_argument(char *argument_name, char *default_value,
-						t_argument_list *argument_list);
-
 #endif
