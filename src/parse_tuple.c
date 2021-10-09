@@ -38,4 +38,5 @@ void	ft_insert_tuple_block_infos(t_tile *map_tile, t_block_list
 	while (args[++i])
 		ft_insert_argument_block_infos(map_tile,
 			block_list, args[i]);
+	ft_free_array(args);
 }

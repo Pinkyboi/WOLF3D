@@ -17,6 +17,7 @@ char	*ft_read_file(int fd)
 	int		read_index;
 	char	buffer[42069 + 1];
 	char	*content;
+	char	*content_save;
 
 	content = malloc(1);
 	if (content == NULL)
@@ -29,7 +30,9 @@ char	*ft_read_file(int fd)
 			exit(-1);
 		if (!read_index)
 			break ;
+		content_save = content;
 		content = ft_strjoin(content, buffer);
+		free(content_save);
 	}
 	close(fd);
 	return (content);

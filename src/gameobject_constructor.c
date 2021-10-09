@@ -33,12 +33,12 @@ void	ft_default_player_arg(t_game_object *game_object)
 	game_object->player.height = (double)BLOCK_SIZE / 2.0;
 }
 
-void	ft_load_player_data(t_game_object *game_object, char *agrument_block)
+void	ft_load_player_data(t_game_object *game_object, char *argument_block)
 {
 	t_coor	position;
 
 	game_object->parser.current_arguments = ft_create_argument_list(
-			agrument_block, NULL, PLAYER_TAG);
+			argument_block, NULL, PLAYER_TAG);
 	ft_default_player_arg(game_object);
 	position = ft_parse_coordinate(ft_get_argument("Position", "(0,0)",
 				game_object->parser.current_arguments));
@@ -58,4 +58,5 @@ void	ft_load_player_data(t_game_object *game_object, char *agrument_block)
 		= ft_parse_counters(ft_get_argument("View_distance", "0",
 				game_object->parser.current_arguments), 0, INT32_MAX);
 	ft_free_argument_list(game_object->parser.current_arguments);
+	free(argument_block);;
 }

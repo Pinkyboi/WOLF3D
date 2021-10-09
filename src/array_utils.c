@@ -19,6 +19,7 @@ void	ft_free_array(char **array)
 	i = -1;
 	while (array[++i])
 		free(array[i]);
+	free(array);
 }
 
 int	ft_row_len(char **array)

@@ -63,6 +63,7 @@ t_coor	ft_parse_coordinate(char *tuple)
 		ft_check_number(tuple_values[i]);
 	coordinate.x = ft_clip_min(0, ft_atoi(tuple_values[0]));
 	coordinate.y = ft_clip_min(0, ft_atoi(tuple_values[1]));
+	ft_free_array(tuple_values);
 	return (coordinate);
 }
 

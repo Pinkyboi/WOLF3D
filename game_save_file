@@ -1,10 +1,10 @@
 <render>{
-    Resolution    : 800 x 800;
+    Resolution    : 700 x 700;
     Type          : Textured;
     Main_color : #0;
     Inner_color : #d4e2d4;
     Edge_color : #df7861;
-    Sky : ./textures/skycrop.xpm;
+    Sky : #FF00FF;
 }
 
 <player>{
@@ -13,11 +13,6 @@
     Position      : (1, 3);
 }
 
-<sprite>{
-    Side_number : 1;
-    Sprite_texture : ./textures/skycrop.xpm;
-    Position      : (1, 3);
-}
 
 <env>{
     (1,wall)    : ./textures/wood.xpm;

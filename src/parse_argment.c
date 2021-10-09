@@ -31,6 +31,7 @@ t_coor	ft_parse_resolution(char *resolution_expression)
 	}
 	resolution.x = ft_clip_min(0, ft_atoi(arguments[0]));
 	resolution.y = ft_clip_min(0, ft_atoi(arguments[1]));
+	ft_free_array(arguments);
 	return (resolution);
 }
 

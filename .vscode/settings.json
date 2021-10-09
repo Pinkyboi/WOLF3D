@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "__tuple": "c",
+        "tuple": "c",
+        "array": "c",
+        "iterator": "c",
+        "string": "c",
+        "string_view": "c",
+        "vector": "c"
+    }
+}

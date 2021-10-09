@@ -41,10 +41,10 @@ t_sprite_list	*ft_create_sprite_node(t_game_object *game_object)
 	return (node);
 }
 
-void	ft_load_sprite_data(t_game_object *game_object, char *agrument_block)
+void	ft_load_sprite_data(t_game_object *game_object, char *argument_block)
 {
 	game_object->parser.current_arguments = ft_create_argument_list(
-			agrument_block, NULL, PLAYER_TAG);
+			argument_block, NULL, PLAYER_TAG);
 	ft_push_sprite(game_object->sprite_list,
 		ft_create_sprite_node(game_object));
 	ft_free_argument_list(game_object->parser.current_arguments);

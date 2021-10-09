@@ -266,7 +266,7 @@ struct s_game_object
 
 typedef void					t_block_parsing_function(
 									t_game_object *game_object,
-									char *agrument_block);
+									char *argument_block);
 
 typedef struct s_tag_recognition
 {
@@ -299,17 +299,17 @@ void				ft_insert_argument_block_infos(t_tile *map_tile,
 void				ft_insert_tuple_block_infos(t_tile *map_tile,
 						t_block_list *block_list, char **args);
 void				ft_load_env_block_data(t_game_object *game_object,
-						char *agrument_block);
+						char *argument_block);
 void				ft_load_game_elements(char *string,
 						t_game_object *game_object);
 void				ft_load_map_data(t_game_object *game_object,
-						char *agrument_block);
+						char *argument_block);
 void				ft_load_player_data(t_game_object *game_object,
-						char *agrument_block);
+						char *argument_block);
 void				ft_load_render_data(t_game_object *game_object,
-						char *agrument_block);
+						char *argument_block);
 void				ft_load_sprite_data(t_game_object *game_object,
-						char *agrument_block);
+						char *argument_block);
 void				ft_calculate_map_props(t_game_object *game_object);
 void				ft_free_argument_list(t_argument_list *argument_list);
 void				ft_safe_trim(char *line, char *filter);

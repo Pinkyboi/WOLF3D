@@ -38,6 +38,8 @@ int	ft_load_texture(char *path, t_texture *texture_data)
 		ft_err_print("error in texture path: ", path);
 	texture_data->texture_data = (int *)mlx_get_data_addr(mlx.mlx_img.img_ptr,
 			&mlx.mlx_img.bpp, &mlx.mlx_img.size_l, &mlx.mlx_img.endian);
+	free(mlx.mlx_ptr);
+	free(mlx.mlx_img.img_ptr);
 	return (1);
 }
 
@@ -80,21 +82,23 @@ void	parse_block(char **data, t_block_list *block_list)
 	block_list = ft_push_block(block_list, ft_create_block_node(block_type,
 				block_icon, render_tools.render_data,
 				render_tools.render_function));
+	ft_free_array(tuple);
 }
 
-void	ft_load_env_block_data(t_game_object *game_object, char *agrument_block)
+void	ft_load_env_block_data(t_game_object *game_object, char *argument_block)
 {
 	int		i;
 	char	**current_argument;
 	char	**arguments_data;
 
 	i = -1;
-	arguments_data = ft_strsplit(agrument_block, ARGUMENT_DELIMITER);
+	arguments_data = ft_strsplit(argument_block, ARGUMENT_DELIMITER);
 	while (arguments_data[++i])
 	{
 		current_argument = ft_parse_block_arg(arguments_data[i], "<env>");
 		parse_block(current_argument, game_object->parser.block_list);
 		ft_free_array(current_argument);
-		free(arguments_data[i]);
 	}
+	ft_free_array(arguments_data);
+	free(argument_block);
 }

@@ -17,7 +17,7 @@ const t_tag_recognition	g_tag_dico[] = {
 	{PLAYER_TAG, &ft_load_player_data},
 	{ENV_TAG, &ft_load_env_block_data},
 	{MAP_TAG, &ft_load_map_data},
-	{SPITE_TAG, &ft_load_sprite_data},
+	// {SPITE_TAG, &ft_load_sprite_data},
 	{NULL, NULL}
 };
 
@@ -56,6 +56,7 @@ int	braket_content(int index, char *string, char *tag,
 		ft_err_print("Wrong braket number in: ", tag);
 	g_tag_dico[index].parsing_function(game_object, ft_trim(content,
 				WHITE_SPACE_AND_CURLY_BRACKETS));
+	// free(content);
 	return (i);
 }
 
@@ -96,11 +97,14 @@ int	extract_content(char *string, t_game_object *game_object)
 	return (jump + j);
 }
 
+
+
 void	ft_load_game_elements(char *string, t_game_object *game_object)
 {
 	int		i;
 
 	i = -1;
+
 	game_object->parser.block_list = ft_push_block(NULL,
 			ft_create_block_node('w', FILLER_ICON,
 				(t_render){.color = FILLER_COLOR}, &ft_color_wall));
@@ -113,6 +117,6 @@ void	ft_load_game_elements(char *string, t_game_object *game_object)
 			i += extract_content(&string[i], game_object);
 		else
 			ft_err_print("FATAL ERROR : ", "unknown trailing character");
-	}	
-	free(string);
+	}
+	
 }

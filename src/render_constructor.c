@@ -69,10 +69,10 @@ void	ft_load_wireframe_render(t_game_object *game_object,
 				WIRE_INNER_COLOR, game_object->parser.current_arguments));
 }
 
-void	ft_load_render_data(t_game_object *game_object, char *agrument_block)
+void	ft_load_render_data(t_game_object *game_object, char *argument_block)
 {
 	game_object->parser.current_arguments = ft_create_argument_list(
-			agrument_block,
+			argument_block,
 			NULL, ENV_TAG);
 	game_object->render_data.render_function = ft_parse_render_type(
 			ft_get_argument("Type", "Basic",
@@ -85,4 +85,5 @@ void	ft_load_render_data(t_game_object *game_object, char *agrument_block)
 				SKY_COLOR, game_object->parser.current_arguments),
 			game_object);
 	ft_free_argument_list(game_object->parser.current_arguments);
+	free(argument_block);
 }

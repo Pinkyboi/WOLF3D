@@ -92,13 +92,14 @@ t_tile 	**ft_create_map(char **map, t_block_list *block_list)
 	return (final_map);
 }
 
-void	ft_load_map_data(t_game_object *game_object, char *agrument_block)
+void	ft_load_map_data(t_game_object *game_object, char *argument_block)
 {
 	char	**raw_map;
 
-	raw_map = ft_strsplit(agrument_block, '\n');
+	raw_map = ft_strsplit(argument_block, '\n');
 	game_object->map.map_dimentions = ft_map_max_dim(raw_map);
 	game_object->map.map_grid = ft_create_map(raw_map,
 			game_object->parser.block_list);
 	ft_free_array(raw_map);
+	free(argument_block);
 }

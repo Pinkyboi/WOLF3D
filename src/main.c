@@ -79,6 +79,7 @@ int	main(int argc, char **argv)
 		ft_err_print("FATAL ERROR : ", "invalid save file argument");
 	data = ft_read_file(fd);
 	ft_load_game_elements(data, game_object);
+	free(data);
 	if (ft_is_position_valid(game_object, game_object->player.grid_position))
 		ft_err_print("FATAL ERROR : ",
 			"the player is on a block or out of the map boundaries");

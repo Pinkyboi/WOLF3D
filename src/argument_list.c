@@ -32,6 +32,8 @@ void	ft_free_argument_list(t_argument_list *argument_list)
 	{
 		current_arugment = argument_list;
 		argument_list = argument_list->next;
+		free(current_arugment->argument_name);
+		free(current_arugment->argument_value);
 		free(current_arugment);
 	}
 }
@@ -52,6 +54,7 @@ t_argument_list	*ft_create_argument_list(char *argument_block,
 				ft_create_agument_node(ft_strdup(line[0]), ft_strdup(line[1])));
 		ft_free_array(line);
 	}
+	ft_free_array(argument_lines);
 	return (argument_list);
 }
 
