@@ -12,9 +12,6 @@
 
 #include "wolf3d.h"
 
-#define NEON_EDGE_COLOR 0xfb9300
-#define NEON_INNER_COLOR 0x343f56
-#define NEON_VOID_COLOR 0
 
 void	ft_wireframe_render(t_game_object *game_object)
 {
@@ -49,18 +46,20 @@ void	ft_get_wall_distance(t_game_object *game_object, double first_angle)
 	game_object->ray_data.angle = first_angle;
 }
 
-void	ft_ray_shooter(t_game_object *game_object)
+void	*ft_ray_loop(void *arg)
 {
 	double		step;
 	double		first_angle;
+	t_game_object	*game_object;
 
+	game_object = arg;
 	step = PLAYER_FOV / game_object->render_data.window_resolution.x;
 	first_angle = game_object->player.orientation - (PLAYER_FOV / 2);
 	game_object->drawing_index.x = -1;
 	game_object->render_data.skybox.sky.render_function(game_object,
 		game_object->render_data.skybox.sky.render_data);
 	while (++game_object->drawing_index.x
-		< game_object->render_data.window_resolution.x)
+		< game_object->drawing_width_end)
 	{
 		game_object->ray_data.hit_distance = 0;
 		game_object->current_block = NULL;
@@ -70,4 +69,24 @@ void	ft_ray_shooter(t_game_object *game_object)
 		game_object->render_data.render_function(game_object);
 		first_angle += step;
 	}
+	return(NULL);
+}
+
+void					ft_ray_shooter(t_game_object *game_object)
+{
+	pthread_t	thread[1];
+	t_game_object		game_object_cpy[1];
+	int			i;
+
+	i = -1;
+	while (++i < 1)
+	{
+		game_object_cpy[i] = *game_object;
+		game_object_cpy[i].drawing_index.x = (game_object->render_data.window_resolution.x / 1) * i;
+		game_object_cpy[i].drawing_width_end = (game_object->render_data.window_resolution.x / 1) * (i + 1);
+		pthread_create(&thread[i], NULL, ft_ray_loop, &game_object_cpy[i]);
+	}
+	while (i--)
+		pthread_join(thread[i], NULL);
+	// return (0);
 }

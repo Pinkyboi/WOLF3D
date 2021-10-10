@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <pthread.h>
 
 # define ALPHA "qwertyuiopasdfghjklzxcvbnm"
 # define ALPHA_NUM "0123456789qwertyuiopasdfghjklzxcvbnm"
@@ -63,6 +64,8 @@
 # define WIRE_EDGE_COLOR "#fb9300"
 # define WIRE_INNER_COLOR "#343f56"
 # define WIRE_MAIN_COLOR "#000000"
+
+# define NUM_THREAD 4
 
 typedef struct s_coor
 {
@@ -261,6 +264,7 @@ struct s_game_object
 	t_ray_data			ray_data;
 	t_mini_map			min_map;
 	t_coor				drawing_index;
+	int					drawing_width_end;
 	t_block_list		*current_block;
 };
 
