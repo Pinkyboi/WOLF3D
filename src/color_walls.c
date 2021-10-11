@@ -66,7 +66,7 @@ void	ft_color_wall(t_game_object *game_object, t_render data)
 	start = (game_object->render_data.view_data.half_view_plane
 			- (wall_size / 2));
 	end = start + wall_size;
-	shade = 1;
+	shade = 0.9;
 	if (game_object->ray_data.hit_type == 'V')
 		shade = 0.8;
 	if (game_object->player.view_distance > 0)

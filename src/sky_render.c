@@ -17,8 +17,8 @@ void	color_sky(t_game_object *game_object, t_render data)
 	int	i;
 	int	j;
 
-	i = -1;
-	while (++i <= game_object->render_data.window_resolution.x)
+	i = game_object->drawing_index.x - 1;
+	while (++i <= game_object->drawing_width_end)
 	{
 		j = -1;
 		while (++j < game_object->render_data.view_data.half_view_plane)
@@ -34,9 +34,10 @@ void	texture_sky(t_game_object *game_object, t_render data)
 	t_d_coor	texture_index;
 	double		current_angle;
 
-	step.x = -1;
+	step.x = game_object->drawing_index.x - 1;
 	current_angle = game_object->player.orientation - (PLAYER_FOV / 2);
-	while (++step.x <= game_object->render_data.window_resolution.x)
+	current_angle += PLAYER_FOV / game_object->render_data.window_resolution.x * game_object->drawing_index.x;
+	while (++step.x <= game_object->drawing_width_end)
 	{
 		step.y = game_object->render_data.view_data.half_view_plane;
 		texture_index.y = data.texture.texture_height;

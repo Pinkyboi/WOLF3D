@@ -44,7 +44,6 @@
 # define MONSTER_TAG "<monster>"
 # define ENV_TAG "<env>"
 # define MAP_TAG "<map>"
-# define SPITE_TAG "<sprite>"
 # define END_TOKEN "endl"
 
 # define NORTH_COLOR "#72147E"
@@ -246,20 +245,11 @@ typedef struct s_mini_map
 	int					player_size;
 }						t_mini_map;
 
-typedef struct s_sprite_list
-{
-	short					side_number;
-	t_texture				texture;
-	t_coor					position;
-	struct s_sprite_list	*next;
-}							t_sprite_list;
-
 struct s_game_object
 {
 	t_wolf3d_parser		parser;
 	t_render_data		render_data;
 	t_map				map;
-	t_sprite_list		*sprite_list;
 	t_player			player;
 	t_ray_data			ray_data;
 	t_mini_map			min_map;

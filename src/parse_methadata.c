@@ -17,7 +17,6 @@ const t_tag_recognition	g_tag_dico[] = {
 	{PLAYER_TAG, &ft_load_player_data},
 	{ENV_TAG, &ft_load_env_block_data},
 	{MAP_TAG, &ft_load_map_data},
-	// {SPITE_TAG, &ft_load_sprite_data},
 	{NULL, NULL}
 };
 
@@ -108,7 +107,6 @@ void	ft_load_game_elements(char *string, t_game_object *game_object)
 	game_object->parser.block_list = ft_push_block(NULL,
 			ft_create_block_node('w', FILLER_ICON,
 				(t_render){.color = FILLER_COLOR}, &ft_color_wall));
-	game_object->sprite_list = NULL;
 	while (string[++i])
 	{
 		if (ft_strchr(WHITE_SPACES, string[i]))

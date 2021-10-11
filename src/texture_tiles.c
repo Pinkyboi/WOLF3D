@@ -97,7 +97,9 @@ void	ft_tile_render(t_game_object *game_object, t_coor range, char type)
 	double	shade;
 	int		color;
 
-	while (range.x <= range.y)
+	range.x = ft_clip_min(0, range.x);
+	range.y = ft_clip_max(game_object->render_data.window_resolution.y, range.y);
+	while (range.x < range.y)
 	{
 		wall_ratio = abs(range.x
 				- game_object->render_data.view_data.half_view_plane);
