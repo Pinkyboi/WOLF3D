@@ -57,30 +57,29 @@ t_render_tools	ft_parse_render(char *render_argument)
 
 void	parse_block(char **data, t_block_list *block_list)
 {
-	char			block_type;
-	char			block_icon;
+	char			block_info[2];
 	char			**tuple;
 	t_render_tools	render_tools;
 
 	tuple = ft_parse_block_tuple(data[0]);
-	block_icon = '1';
-	block_type = 'w';
+	block_info[0] = '1';
+	block_info[1] = 'w';
 	if (ft_strlen(tuple[0]) == 1 && ft_isalnum(*tuple[0]))
 	{
 		if (*tuple[0] == '0')
 			ft_err_print("This block symbol is reserved for void : ", tuple[1]);
-		block_icon = *tuple[0];
+		block_info[0] = *tuple[0];
 		if (!ft_strcmp(tuple[1], "wall") || !ft_strcmp(tuple[1], "floor")
 			|| !ft_strcmp(tuple[1], "ceiling"))
-			block_type = *tuple[1];
+			block_info[1] = *tuple[1];
 		else
 			ft_err_print("unknown block type in: ", tuple[1]);
 	}
 	else
 		ft_err_print("block symbole should be alphanumeric: ", tuple[0]);
 	render_tools = ft_parse_render(data[1]);
-	block_list = ft_push_block(block_list, ft_create_block_node(block_type,
-				block_icon, render_tools.render_data,
+	block_list = ft_push_block(block_list, ft_create_block_node(block_info[1],
+				block_info[0], render_tools.render_data,
 				render_tools.render_function));
 	ft_free_array(tuple);
 }

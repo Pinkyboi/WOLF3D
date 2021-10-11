@@ -12,7 +12,6 @@
 
 #include "wolf3d.h"
 
-
 void	ft_wireframe_render(t_game_object *game_object)
 {
 	t_block_list	*current_block;
@@ -48,8 +47,8 @@ void	ft_get_wall_distance(t_game_object *game_object, double first_angle)
 
 void	*ft_ray_loop(void *arg)
 {
-	double		step;
-	double		first_angle;
+	double			step;
+	double			first_angle;
 	t_game_object	*game_object;
 
 	game_object = arg;
@@ -65,44 +64,11 @@ void	*ft_ray_loop(void *arg)
 		game_object->ray_data.hit_distance = 0;
 		game_object->current_block = NULL;
 		first_angle = ft_check_angle(first_angle);
-		game_object->ray_data.current_ray = ft_angleToVector2D(first_angle);
+		game_object->ray_data.current_ray = ft_angle_to_2d_vector(first_angle);
 		ft_get_wall_distance(game_object, first_angle);
 		game_object->render_data.render_function(game_object);
 		first_angle += step;
 		game_object->drawing_index.x++;
 	}
-	return(NULL);
-}
-
-t_game_object*			ft_clone_game_object(t_game_object *game_object)
-{
-	t_game_object	*game_clone;
-
-	game_clone = malloc(sizeof(t_game_object));
-	game_clone->parser =  game_object->parser;
-	game_clone->render_data = game_object->render_data;
-	game_clone->map = game_object->map;
-	game_clone->player = game_object->player;
-	game_clone->ray_data = game_object->ray_data;
-	game_clone->min_map = game_object->min_map;
-	return game_clone;
-}
-
-void					ft_ray_shooter(t_game_object *game_object)
-{
-	pthread_t	thread[NUM_THREAD];
-	t_game_object		game_object_cpy[NUM_THREAD];
-	int			i;
-
-	i = -1;
-	while (++i < NUM_THREAD)
-	{
-		game_object_cpy[i] = *ft_clone_game_object(game_object);
-		game_object_cpy[i].drawing_index.x = (game_object->render_data.window_resolution.x / NUM_THREAD) * i;
-		game_object_cpy[i].drawing_width_end = (game_object->render_data.window_resolution.x / NUM_THREAD) * (i + 1);
-		pthread_create(&thread[i], NULL, ft_ray_loop, &game_object_cpy[i]);
-	}
-	while (i--)
-		pthread_join(thread[i], NULL);
-	// return (0);
+	return (NULL);
 }

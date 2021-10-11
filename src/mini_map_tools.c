@@ -18,14 +18,14 @@ void	ft_draw_disk(t_game_object *game_object, int radius,
 	t_d_coor	index;
 	t_d_coor	max_index;
 
-	index = ft_sub_vector2D(center, (t_d_coor){radius, radius});
-	max_index = ft_add_vector2D(index, (t_d_coor){radius, radius});
+	index = ft_sub_vector_2d(center, (t_d_coor){radius, radius});
+	max_index = ft_add_vector_2d(index, (t_d_coor){radius, radius});
 	while (index.y <= max_index.y + radius)
 	{
 		index.x = center.x - radius;
 		while (index.x <= max_index.x + radius)
 		{
-			if (ft_size_vector2D(ft_sub_vector2D(index, center)) <= radius)
+			if (ft_size_vector_2d(ft_sub_vector_2d(index, center)) <= radius)
 				ft_put_pixel(game_object, (t_coor){index.x, index.y}, color);
 			index.x++;
 		}
@@ -46,8 +46,8 @@ void	ft_print_fov(t_game_object *game_object, t_d_coor center,
 	anglar_step = (max_index - ray_index) / (double)ray_number;
 	while (ray_index <= max_index)
 	{
-		edge = ft_sub_vector2D(center,
-				ft_scale_vector2D(ft_angleToVector2D(ray_index), size));
+		edge = ft_sub_vector_2d(center,
+				ft_scale_vector_2d(ft_angle_to_2d_vector(ray_index), size));
 		ft_bresenham(game_object, MAP_PLAYER_COLOR,
 			(t_coor){center.x, center.y}, (t_coor){edge.x, edge.y});
 		ray_index += anglar_step;

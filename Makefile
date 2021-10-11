@@ -6,16 +6,14 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#              #
-#    Updated: 2021/05/10 03:17:14 by abenaiss         ###   ########.fr        #
+#    Updated: 2021/10/11 15:56:55 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
 
 CC =gcc
-# CFLAGS = -g -Wall -Wextra -Werror
-CFLAGS = -g
-
+CFLAGS = -g -Wall -Wextra -Werror
 
 SRC_DIR =./src/
 OBJ_DIR =./obj/
@@ -58,6 +56,7 @@ FILES_NAME =main.c\
 			wireframe_render.c\
 			wireframe_tiles.c\
 			render_constructor.c\
+			ray_shooter.c\
 
 OBJS = $(addprefix $(OBJ_DIR), $(FILES_NAME:.c=.o))
 SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))

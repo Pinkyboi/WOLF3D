@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/20 20:25:40 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/10/11 15:59:09 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,7 @@ void				ft_calculate_map_props(t_game_object *game_object);
 void				ft_free_argument_list(t_argument_list *argument_list);
 void				ft_safe_trim(char *line, char *filter);
 void				*ft_safe_malloc(size_t size);
-
+void				*ft_ray_loop(void *arg);
 t_game_rendering	*ft_parse_render_type(char *render_type);
 
 t_coor				ft_parse_resolution(char *resolution_expression);

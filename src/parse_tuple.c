@@ -29,8 +29,8 @@ char	**ft_parse_block_tuple(char *tuple)
 	return (splited_tuple);
 }
 
-void	ft_insert_tuple_block_infos(t_tile *map_tile, t_block_list
-	*block_list, char **args)
+void	ft_insert_tuple_block_infos(t_tile *map_tile,
+	t_block_list *block_list, char **args)
 {
 	int	i;
 

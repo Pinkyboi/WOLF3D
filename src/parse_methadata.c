@@ -54,8 +54,7 @@ int	braket_content(int index, char *string, char *tag,
 	if (ft_mini_brackets(content, "{}") != 1)
 		ft_err_print("Wrong braket number in: ", tag);
 	g_tag_dico[index].parsing_function(game_object, ft_trim(content,
-				WHITE_SPACE_AND_CURLY_BRACKETS));
-	// free(content);
+			WHITE_SPACE_AND_CURLY_BRACKETS));
 	return (i);
 }
 
@@ -96,14 +95,11 @@ int	extract_content(char *string, t_game_object *game_object)
 	return (jump + j);
 }
 
-
-
 void	ft_load_game_elements(char *string, t_game_object *game_object)
 {
 	int		i;
 
 	i = -1;
-
 	game_object->parser.block_list = ft_push_block(NULL,
 			ft_create_block_node('w', FILLER_ICON,
 				(t_render){.color = FILLER_COLOR}, &ft_color_wall));
@@ -116,5 +112,4 @@ void	ft_load_game_elements(char *string, t_game_object *game_object)
 		else
 			ft_err_print("FATAL ERROR : ", "unknown trailing character");
 	}
-	
 }

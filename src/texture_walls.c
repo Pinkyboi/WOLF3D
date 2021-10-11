@@ -12,14 +12,14 @@
 
 #include "wolf3d.h"
 
-int	ft_get_textureX_coor(t_game_object *game_object, t_texture texture)
+int	ft_get_texture_x_coor(t_game_object *game_object, t_texture texture)
 {
 	double		wall_index;
 	int			texture_index;
 	t_d_coor	end;
 
-	end = ft_add_vector2D(game_object->player.world_position,
-			ft_scale_vector2D(game_object->ray_data.current_ray,
+	end = ft_add_vector_2d(game_object->player.world_position,
+			ft_scale_vector_2d(game_object->ray_data.current_ray,
 				game_object->ray_data.hit_distance));
 	wall_index = end.x;
 	if (game_object->ray_data.hit_type == 'V')
@@ -44,7 +44,7 @@ void	ft_draw_texture_line(t_coor edges,
 
 	texture_index = 0;
 	step.y = (double)data.texture.texture_height / (edges.y - edges.x + 1);
-	step.x = ft_get_textureX_coor(game_object, data.texture);
+	step.x = ft_get_texture_x_coor(game_object, data.texture);
 	while (edges.x <= edges.y)
 	{
 		color = data.texture.texture_data[(int)((int)texture_index

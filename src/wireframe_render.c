@@ -36,8 +36,8 @@ int	ft_wire_x_color(t_game_object *game_object, double y_index)
 	double		wall_index;
 	t_d_coor	end;
 
-	end = ft_add_vector2D(game_object->player.world_position,
-			ft_scale_vector2D(game_object->ray_data.current_ray,
+	end = ft_add_vector_2d(game_object->player.world_position,
+			ft_scale_vector_2d(game_object->ray_data.current_ray,
 				game_object->ray_data.hit_distance));
 	wall_index = end.x;
 	if (game_object->ray_data.hit_type == 'V')

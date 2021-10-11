@@ -89,33 +89,35 @@ int	get_tile_position(t_game_object *game_object,
 	return (-1);
 }
 
+/*
+	** hit_info[0] = angle;
+	** hit_info[1] = distance;
+*/
 void	ft_tile_render(t_game_object *game_object, t_coor range, char type)
 {
-	double	wall_ratio;
-	double	angle;
-	double	distance;
+	double	hit_info[2];
 	double	shade;
 	int		color;
 
-	range.x = ft_clip_min(0, range.x);
-	range.y = ft_clip_max(game_object->render_data.window_resolution.y, range.y);
-	while (range.x < range.y)
+	range.x = ft_clip_min(0, range.x) - 1;
+	range.y
+		= ft_clip_max(game_object->render_data.window_resolution.y, range.y);
+	while (++range.x < range.y)
 	{
-		wall_ratio = abs(range.x
-				- game_object->render_data.view_data.half_view_plane);
-		angle = game_object->ray_data.angle;
-		distance = game_object->player.height / wall_ratio
+		hit_info[1] = game_object->ray_data.angle;
+		hit_info[0] = game_object->player.height / (abs(range.x
+					- game_object->render_data.view_data.half_view_plane))
 			* game_object->render_data.view_data.view_plane_distance
-			/ cos(game_object->player.orientation - angle) / (double)BLOCK_SIZE;
+			/ cos(game_object->player.orientation
+				- hit_info[1]) / (double)BLOCK_SIZE;
 		shade = 1;
 		if (game_object->player.view_distance > 0)
 			shade = ft_clip_min_max(0, 1, game_object->player.view_distance
-					/ (distance * (double)BLOCK_SIZE));
+					/ (hit_info[0] * (double)BLOCK_SIZE));
 		color = get_tile_position(game_object,
-				(t_d_coor){distance, angle}, type, shade);
+				(t_d_coor){hit_info[0], hit_info[1]}, type, shade);
 		if (color != -1)
 			ft_put_pixel(game_object,
 				(t_coor){game_object->drawing_index.x, range.x}, color);
-		range.x++;
 	}
 }

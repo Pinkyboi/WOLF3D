@@ -68,7 +68,7 @@ t_tile	**ft_create_raw_map(t_tile **map, t_block_list *block_list,
 	return (map);
 }
 
-t_tile 	**ft_create_map(char **map, t_block_list *block_list)
+t_tile	**ft_create_map(char **map, t_block_list *block_list)
 {
 	t_coor	max_dimentions;
 	t_coor	index;

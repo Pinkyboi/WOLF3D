@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 14:49:07 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/14 19:11:23 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/10/11 15:58:58 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@
 
 typedef struct s_color
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 }						t_color;
 
 typedef struct s_is_pressed
@@ -53,7 +53,7 @@ double		ft_clip_min_max(int min, int max, double value);
 double		ft_check_angle(double angle);
 double		ft_ray_size(t_game_object *gamet_game_object,
 				t_d_coor ray_intersection, double angle);
-double		ft_size_vector2D(t_d_coor vector2D);
+double		ft_size_vector_2d(t_d_coor vector2D);
 double		ft_sqr(double number);
 
 int			ft_rgb_to_int(t_color color);
@@ -69,11 +69,11 @@ t_color		ft_scale_color(t_color color, double scalar);
 t_color		ft_int_to_rgb(int color);
 t_color		ft_add_colors(t_color first, t_color second);
 
-t_d_coor	ft_add_vector2D(t_d_coor vector2D, t_d_coor second_vector2D);
-t_d_coor	ft_sub_vector2D(t_d_coor vector2D, t_d_coor second_vector2D);
-t_d_coor	ft_scale_vector2D(t_d_coor vector2D, double scale);
-t_d_coor	ft_normalise_vector2D(t_d_coor vector);
-t_d_coor	ft_angleToVector2D(double alpha);
+t_d_coor	ft_add_vector_2d(t_d_coor vector2D, t_d_coor second_vector2D);
+t_d_coor	ft_sub_vector_2d(t_d_coor vector2D, t_d_coor second_vector2D);
+t_d_coor	ft_scale_vector_2d(t_d_coor vector2D, double scale);
+t_d_coor	ft_normalise_vector_2d(t_d_coor vector);
+t_d_coor	ft_angle_to_2d_vector(double alpha);
 
 t_coor		ft_get_sign(t_d_coor coor);
 
@@ -84,11 +84,11 @@ short		ft_any_key_pressed(void);
 short		ft_get_movement_key(int key);
 
 void		ft_define_check_step(t_game_object *game_object);
-void		ft_dda(t_game_object *game_object, t_d_coor *rayStep,
+void		ft_dda(t_game_object *game_object, t_d_coor *ray_step,
 				t_d_coor *rayDistance, t_coor *gridStep);
-void		ft_setup_dda(t_game_object *game_object, t_d_coor *rayStep,
+void		ft_setup_dda(t_game_object *game_object, t_d_coor *ray_step,
 				t_d_coor *rayDistance, t_coor *gridStep);
-void		ft_get_right_step(t_d_coor ray, t_d_coor *rayStep);
+void		ft_get_right_step(t_d_coor ray, t_d_coor *ray_step);
 void		ft_ray_shooter(t_game_object *game_object);
 void		ft_movement(t_game_object *game_object);
 void		ft_run(t_game_object *game_object);

@@ -32,19 +32,19 @@ void	ft_check_walls(t_game_object *game_object)
 
 	if (ft_get_movement_key(FOREWORD) == 1)
 	{
-		world_position = ft_add_vector2D(game_object->player.world_position,
+		world_position = ft_add_vector_2d(game_object->player.world_position,
 				game_object->player.movement);
-		edge = ft_add_vector2D(game_object->player.world_position,
-				ft_scale_vector2D(game_object->player.movement, 1.4));
+		edge = ft_add_vector_2d(game_object->player.world_position,
+				ft_scale_vector_2d(game_object->player.movement, 1.4));
 		ft_check_next_position(game_object,
 			(t_coor){edge.x, edge.y}, world_position);
 	}
 	if (ft_get_movement_key(BACKWARD) == 1)
 	{
-		world_position = ft_sub_vector2D(game_object->player.world_position,
+		world_position = ft_sub_vector_2d(game_object->player.world_position,
 				game_object->player.movement);
-		edge = ft_add_vector2D(game_object->player.world_position,
-				ft_scale_vector2D(game_object->player.movement, -1.4));
+		edge = ft_add_vector_2d(game_object->player.world_position,
+				ft_scale_vector_2d(game_object->player.movement, -1.4));
 		ft_check_next_position(game_object,
 			(t_coor){edge.x, edge.y}, world_position);
 	}
@@ -79,8 +79,8 @@ void	ft_movement(t_game_object *game_object)
 			game_object->player.orientation += 0.08;
 		game_object->player.orientation = ft_check_angle(
 				game_object->player.orientation);
-		game_object->player.movement = ft_scale_vector2D(
-				ft_angleToVector2D
+		game_object->player.movement = ft_scale_vector_2d(
+				ft_angle_to_2d_vector
 				(ft_check_angle(game_object->player.orientation)),
 				game_object->player.step);
 	}
@@ -95,8 +95,8 @@ void	ft_run(t_game_object *game_object)
 		&& !game_object->player.is_running)
 	{
 		game_object->player.step += 0.6;
-		game_object->player.movement = ft_scale_vector2D(
-				ft_angleToVector2D(game_object->player.orientation),
+		game_object->player.movement = ft_scale_vector_2d(
+				ft_angle_to_2d_vector(game_object->player.orientation),
 				game_object->player.step);
 		game_object->player.is_running = 1;
 	}
@@ -104,8 +104,8 @@ void	ft_run(t_game_object *game_object)
 		&& game_object->player.is_running)
 	{
 		game_object->player.step -= 0.6;
-		game_object->player.movement = ft_scale_vector2D(
-				ft_angleToVector2D(game_object->player.orientation),
+		game_object->player.movement = ft_scale_vector_2d(
+				ft_angle_to_2d_vector(game_object->player.orientation),
 				game_object->player.step);
 		game_object->player.is_running = 0;
 	}

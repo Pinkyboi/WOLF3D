@@ -24,28 +24,28 @@ double	ft_ray_size(t_game_object *gamet_game_object,
 	return (component.x + component.y);
 }
 
-t_d_coor	ft_add_vector2D(t_d_coor vector2D, t_d_coor second_vector2D)
+t_d_coor	ft_add_vector_2d(t_d_coor vector2D, t_d_coor second_vector2D)
 {
 	vector2D.x += second_vector2D.x;
 	vector2D.y += second_vector2D.y;
 	return (vector2D);
 }
 
-t_d_coor	ft_sub_vector2D(t_d_coor vector2D, t_d_coor second_vector2D)
+t_d_coor	ft_sub_vector_2d(t_d_coor vector2D, t_d_coor second_vector2D)
 {
 	vector2D.x -= second_vector2D.x;
 	vector2D.y -= second_vector2D.y;
 	return (vector2D);
 }
 
-t_d_coor	ft_scale_vector2D(t_d_coor vector2D, double scale)
+t_d_coor	ft_scale_vector_2d(t_d_coor vector2D, double scale)
 {
 	vector2D.x *= scale;
 	vector2D.y *= scale;
 	return (vector2D);
 }
 
-t_d_coor	ft_normalise_vector2D(t_d_coor vector)
+t_d_coor	ft_normalise_vector_2d(t_d_coor vector)
 {
 	double	norm;
 

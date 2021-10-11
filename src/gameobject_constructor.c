@@ -27,8 +27,8 @@ void	ft_default_player_arg(t_game_object *game_object)
 {
 	game_object->player.orientation = 0.01;
 	game_object->player.step = 0.4;
-	game_object->player.movement = ft_scale_vector2D(
-			ft_angleToVector2D(game_object->player.orientation),
+	game_object->player.movement = ft_scale_vector_2d(
+			ft_angle_to_2d_vector(game_object->player.orientation),
 			game_object->player.step);
 	game_object->player.height = (double)BLOCK_SIZE / 2.0;
 }
@@ -58,5 +58,5 @@ void	ft_load_player_data(t_game_object *game_object, char *argument_block)
 		= ft_parse_counters(ft_get_argument("View_distance", "0",
 				game_object->parser.current_arguments), 0, INT32_MAX);
 	ft_free_argument_list(game_object->parser.current_arguments);
-	free(argument_block);;
+	free(argument_block);
 }

@@ -31,12 +31,12 @@ double	ft_check_angle(double angle)
 	return (angle);
 }
 
-t_d_coor	ft_angleToVector2D(double alpha)
+t_d_coor	ft_angle_to_2d_vector(double alpha)
 {
-	return (ft_normalise_vector2D((t_d_coor){cos(alpha), sin(alpha)}));
+	return (ft_normalise_vector_2d((t_d_coor){cos(alpha), sin(alpha)}));
 }
 
-double	ft_size_vector2D(t_d_coor vector2D)
+double	ft_size_vector_2d(t_d_coor vector2D)
 {
 	return (sqrt(ft_sqr(vector2D.x) + ft_sqr(vector2D.y)));
 }

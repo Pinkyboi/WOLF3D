@@ -24,9 +24,9 @@ void	ft_check_for_blocks(t_game_object *game_object,
 			/ game_object->min_map.block_size)};
 	if (ft_is_position_valid(game_object, (t_coor){position.x, position.y}))
 	{
-		radial = ft_sub_vector2D((t_d_coor){index.x,
+		radial = ft_sub_vector_2d((t_d_coor){index.x,
 				index.y}, center);
-		if (ft_size_vector2D(radial) <= game_object->min_map.radius)
+		if (ft_size_vector_2d(radial) <= game_object->min_map.radius)
 			ft_put_pixel(game_object, (t_coor){index.x,
 				index.y}, MAP_BLOCK_COLOR);
 	}
@@ -42,7 +42,7 @@ void	ft_mini_map_blocks(t_game_object *game_object,
 	player_center = (t_d_coor){game_object->player.grid_position.x,
 		game_object->player.grid_position.y};
 	index = (t_d_coor){center.x - radius, center.y - radius};
-	max_index = ft_add_vector2D(index, (t_d_coor){2 * radius, 2 * radius});
+	max_index = ft_add_vector_2d(index, (t_d_coor){2 * radius, 2 * radius});
 	while (index.y <= max_index.y)
 	{
 		index.x = center.x - radius;
