@@ -6,25 +6,11 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:56:22 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/10/11 15:56:24 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/10/23 17:44:31 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-
-t_game_object	*ft_clone_game_object(t_game_object *game_object)
-{
-	t_game_object	*game_clone;
-
-	game_clone = malloc(sizeof(t_game_object));
-	game_clone->parser = game_object->parser;
-	game_clone->render_data = game_object->render_data;
-	game_clone->map = game_object->map;
-	game_clone->player = game_object->player;
-	game_clone->ray_data = game_object->ray_data;
-	game_clone->min_map = game_object->min_map;
-	return (game_clone);
-}
 
 void	ft_ray_shooter(t_game_object *game_object)
 {
@@ -33,9 +19,11 @@ void	ft_ray_shooter(t_game_object *game_object)
 	int				i;
 
 	i = -1;
+	game_object->render_data.skybox.sky.render_function(game_object,
+		game_object->render_data.skybox.sky.render_data);
 	while (++i < NUM_THREAD)
 	{
-		game_object_cpy[i] = *ft_clone_game_object(game_object);
+		game_object_cpy[i] = *game_object;
 		game_object_cpy[i].drawing_index.x
 			= (game_object->render_data.window_resolution.x / NUM_THREAD) * i;
 		game_object_cpy[i].drawing_width_end

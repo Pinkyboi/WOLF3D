@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sky_render.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 15:23:11 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/26 15:23:12 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/10/23 16:39:25 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,19 @@ void	texture_sky(t_game_object *game_object, t_render data)
 	t_d_coor	texture_index;
 	double		current_angle;
 
-	step.x = game_object->drawing_index.x - 1;
+	step.x = -1;
 	current_angle = game_object->player.orientation - (PLAYER_FOV / 2);
-	current_angle += PLAYER_FOV / game_object->render_data.window_resolution.x
-		* game_object->drawing_index.x;
-	while (++step.x <= game_object->drawing_width_end)
+	while (++step.x <= game_object->render_data.window_resolution.x)
 	{
-		step.y = game_object->render_data.view_data.half_view_plane + 1;
+		step.y = game_object->render_data.view_data.half_view_plane;
 		texture_index.y = data.texture.texture_height;
-		while (--step.y >= 0)
+		while (step.y >= 0)
 		{
 			color = data.texture.texture_data[(int)((int)texture_index.y
 					* data.texture.texture_width + (int)(texture_index.x))];
 			ft_put_pixel(game_object, step, color);
 			texture_index.y -= game_object->render_data.skybox.texture_step;
+			step.y--;
 		}
 		current_angle += game_object->render_data.skybox.win_per_rad;
 		texture_index.x = game_object->render_data.skybox.tex_per_rad

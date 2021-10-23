@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/20 20:27:18 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/10/23 17:28:18 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	ft_texture_wall(t_game_object *game_object, t_render data)
 	if (game_object->player.view_distance > 0)
 		shade = ft_clip_min_max(0, 1, game_object->player.view_distance
 				/ game_object->ray_data.straight_distance);
+	ft_draw_texture_line((t_coor){start, end},
+		game_object, data, shade);
 	ft_tile_render(game_object, (t_coor){0, start}, 'C');
 	ft_tile_render(game_object, (t_coor){end,
 		game_object->render_data.window_resolution.y}, 'F');
-	ft_draw_texture_line((t_coor){start, end},
-		game_object, data, shade);
 }

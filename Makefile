@@ -6,7 +6,7 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#              #
-#    Updated: 2021/10/11 15:56:55 by abenaiss         ###   ########.fr        #
+#    Updated: 2021/10/23 17:55:42 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,11 +63,11 @@ SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))
 HEADER_FILE = wolf3d.h
 
 INCLUDES = -I $(INC_DIR) -I $(LIBFT_H) -I ./mlx
-LIBRARIES = -L $(LIBFT_DIR) -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
+LIBRARIES = -L $(LIBFT_DIR) -lft -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
 $(NAME) : $(OBJS)
-	@make -C $(LIBFT_DIR)
+	@make -sC $(LIBFT_DIR)
 	@$(CC) $(INCLUDES) $(LIBRARIES) $(OBJS) -o $@
 $(OBJS) : $(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR) $(INCLUDES)

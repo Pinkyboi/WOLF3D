@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/17 12:12:45 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/10/23 16:42:47 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void	*ft_ray_loop(void *arg)
 	first_angle = game_object->player.orientation - (PLAYER_FOV / 2);
 	first_angle += game_object->drawing_index.x * step;
 	first_angle = ft_check_angle(first_angle);
-	game_object->render_data.skybox.sky.render_function(game_object,
-		game_object->render_data.skybox.sky.render_data);
 	while (game_object->drawing_index.x
 		<= game_object->drawing_width_end)
 	{
