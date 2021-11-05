@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/10/11 15:59:09 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/05 11:42:19 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@
 # define WIRE_INNER_COLOR "#343f56"
 # define WIRE_MAIN_COLOR "#000000"
 
-# define NUM_THREAD 4
+# define NUM_THREAD 1
 
 typedef struct s_coor
 {

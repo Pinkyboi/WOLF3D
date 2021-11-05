@@ -63,7 +63,7 @@ SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))
 HEADER_FILE = wolf3d.h
 
 INCLUDES = -I $(INC_DIR) -I $(LIBFT_H) -I ./mlx
-LIBRARIES = -L $(LIBFT_DIR) -lft -lmlx -framework OpenGL -framework AppKit
+LIBRARIES = -L $(LIBFT_DIR) -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
 $(NAME) : $(OBJS)

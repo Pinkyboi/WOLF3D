@@ -6,22 +6,30 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 14:30:21 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/10/23 17:56:00 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/05 11:43:59 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
 void	ft_check_next_position(t_game_object *game_object,
-		t_coor edge, t_d_coor world_position)
+		t_d_coor edge, t_d_coor world_position)
 {
 	t_coor		grid_position;
 
 	grid_position = (t_coor){world_position.x, world_position.y};
-	if (!ft_is_position_valid(game_object, edge))
+	if (!ft_is_position_valid(game_object, (t_coor){edge.x, edge.y}))
 	{
 		game_object->player.world_position = world_position;
-		game_object->player.grid_position = grid_position;
+		if(ft_is_position_valid(game_object, (t_coor){round(edge.x), edge.y}))
+			game_object->player.world_position.x = grid_position.x + 0.5;
+		if(ft_is_position_valid(game_object, (t_coor){edge.x, round(edge.y)}))
+			game_object->player.world_position.y = grid_position.y + 0.5;
+		if(ft_is_position_valid(game_object, (t_coor){round(edge.x - 1), edge.y}))
+			game_object->player.world_position.x = grid_position.x + 0.5;
+		if(ft_is_position_valid(game_object, (t_coor){edge.x, round(edge.y - 1)}))
+			game_object->player.world_position.y = grid_position.y + 0.5;
+		game_object->player.grid_position = (t_coor){game_object->player.world_position.x, game_object->player.world_position.y};
 	}
 }
 
@@ -37,7 +45,7 @@ void	ft_check_walls(t_game_object *game_object)
 		edge = ft_add_vector_2d(game_object->player.world_position,
 				ft_scale_vector_2d(game_object->player.movement, 1.4));
 		ft_check_next_position(game_object,
-			(t_coor){edge.x, edge.y}, world_position);
+			(t_d_coor){edge.x, edge.y}, world_position);
 	}
 	if (ft_get_movement_key(BACKWARD) == 1)
 	{
@@ -46,7 +54,7 @@ void	ft_check_walls(t_game_object *game_object)
 		edge = ft_add_vector_2d(game_object->player.world_position,
 				ft_scale_vector_2d(game_object->player.movement, -1.4));
 		ft_check_next_position(game_object,
-			(t_coor){edge.x, edge.y}, world_position);
+			(t_d_coor){edge.x, edge.y}, world_position);
 	}
 }
 
@@ -79,11 +87,11 @@ void	ft_movement(t_game_object *game_object)
 			game_object->player.orientation += 0.08;
 		game_object->player.orientation = ft_check_angle(
 				game_object->player.orientation);
-		game_object->player.movement = ft_normalise_vector_2d(
-				ft_scale_vector_2d(
+		game_object->player.movement = ft_scale_vector_2d(
+				ft_normalise_vector_2d(
 					ft_angle_to_2d_vector
-					(ft_check_angle(game_object->player.orientation)),
-					game_object->player.step));
+					(ft_check_angle(game_object->player.orientation))),
+					game_object->player.step);
 	}
 	if (ft_get_movement_key(FOREWORD) == 1
 		|| ft_get_movement_key(BACKWARD) == 1)
@@ -96,20 +104,12 @@ void	ft_run(t_game_object *game_object)
 		&& !game_object->player.is_running)
 	{
 		game_object->player.step += 0.6;
-		game_object->player.movement = ft_normalise_vector_2d(
-				ft_scale_vector_2d(
-					ft_angle_to_2d_vector(game_object->player.orientation),
-					game_object->player.step));
 		game_object->player.is_running = 1;
 	}
 	if (ft_get_movement_key(SHIFT) == 0
 		&& game_object->player.is_running)
 	{
 		game_object->player.step -= 0.6;
-		game_object->player.movement = ft_normalise_vector_2d(
-				ft_scale_vector_2d(
-					ft_angle_to_2d_vector(game_object->player.orientation),
-					game_object->player.step));
 		game_object->player.is_running = 0;
 	}
 }

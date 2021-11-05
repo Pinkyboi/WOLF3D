@@ -1,16 +1,17 @@
 <render>{
-    Resolution    : 1080 x 720;
-    Type          : Textured;
-    Main_color : #0;
-    Inner_color : #d4e2d4;
-    Edge_color : #df7861;
+    Resolution    :     1080    
+     x 720;
+    Type          :     Textured;
+    Main_color :    #FFFFFF;
+    Inner_color : #000000;
+    Edge_color : #FFFFFF;
     Sky : ./textures/skycrop.xpm;
 }
 
 <player>{
     Health        : 100;
     Stamina       : 69;
-    Position      : (1, 3);
+    Position      : (1, 1);
 }
 
 <env>{

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 14:49:07 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/10/11 15:58:58 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/04 15:02:22 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define WOLF3D_H
 # include "wolf3d_parser.h"
 
-# define MAX_DIST 100
+# define MAX_DIST 600
 # define PI_2 6.2831853072
 # define PLAYER_FOV 1.0472
 # define EXIT 53
