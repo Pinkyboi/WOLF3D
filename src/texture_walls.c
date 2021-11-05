@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/05 11:41:18 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/05 11:49:46 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	ft_draw_texture_line(t_coor edges,
 	texture_index = 0;
 	step.y = (double)data.texture.texture_height / (edges.y - edges.x + 1);
 	step.x = ft_get_texture_x_coor(game_object, data.texture);
-	edges.y = ft_clip_min_max(0, game_object->render_data.window_resolution.y, edges.y);
+	edges.y = ft_clip_min_max(0,
+		game_object->render_data.window_resolution.y, edges.y);
 	while (edges.x <= edges.y)
 	{
 		color = data.texture.texture_data[(int)((int)texture_index
