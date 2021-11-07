@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 14:30:21 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/05 12:37:38 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/07 18:18:56 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	ft_check_next_position(t_game_object *game_object,
 			game_object->player.world_position.x = grid_position.x + 0.5;
 		if(ft_is_position_valid(game_object, (t_coor){edge.x, round(edge.y - 1)}))
 			game_object->player.world_position.y = grid_position.y + 0.5;
-		game_object->player.grid_position = (t_coor){game_object->player.world_position.x, game_object->player.world_position.y};
+		game_object->player.grid_position = (t_coor){game_object->player.world_position.x,
+					game_object->player.world_position.y};
 	}
 }
 

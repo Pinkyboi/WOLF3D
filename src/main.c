@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/04 15:06:48 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/07 18:32:13 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,6 @@ void	ft_init_win(t_game_object *game_object)
 	mlx_hook(mlx.mlx_win, 3, 2L, &ft_key_release, game_object);
 	mlx_loop_hook(mlx.mlx_ptr, &ft_frame_loop, game_object);
 	mlx_loop(game_object->render_data.mlx.mlx_ptr);
-}
-
-int	ft_frame_loop(void *arg)
-{
-	t_game_object	*game_object;
-
-	game_object = arg;
-	if (ft_any_key_pressed() == 1)
-	{
-		ft_clear_mlx(game_object);
-		ft_run(game_object);
-		ft_movement(game_object);
-		ft_head_tilt(game_object);
-		ft_ray_shooter(game_object);
-		ft_print_mini_map(game_object, game_object->min_map.center_position);
-		mlx_put_image_to_window(game_object->render_data.mlx.mlx_ptr,
-			game_object->render_data.mlx.mlx_win,
-			game_object->render_data.mlx.mlx_img.img_ptr, 0, 0);
-	}
-	return (0);
 }
 
 void	*ft_safe_malloc(size_t size)
