@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/15 01:33:14 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/07 18:38:38 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_hex_to_color(char *color)
 	while (color[++i])
 	{
 		if (i >= 6 || !ft_strchr(HEX_FILTER, ft_tolower(color[i])))
-			ft_err_print("wrong color format in:", color);
+			ft_err_print("Wrong color format in:", color);
 	}
 	return (ft_hex_to_int(color));
 }

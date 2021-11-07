@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/25 21:36:54 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/07 18:38:38 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ void	ft_insert_argument_block_infos(t_tile *map_tile,
 	t_block_list	*test_node;
 
 	if (ft_strlen(argument) != 1)
-		ft_err_print("wrong argument for block icon in: ", argument);
+		ft_err_print("Wrong argument for block icon in: ", argument);
 	if (*argument == '0')
 		return ;
 	test_node = ft_find_block_node(block_list, *argument);
 	if (!test_node)
-		ft_err_print("wrong argument for block icon in: ", argument);
+		ft_err_print("Wrong argument for block icon in: ", argument);
 	if (test_node->type == 'w')
 		map_tile->wall = test_node;
 	if (test_node->type == 'f')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tuple.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:54:23 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/29 11:54:26 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/07 18:38:38 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**ft_parse_block_tuple(char *tuple)
 	char	**splited_tuple;
 
 	if (ft_mini_brackets(tuple, LEGAL_BRACKETS) != 1)
-		ft_err_print("wrong tuple format in:", tuple);
+		ft_err_print("Wrong tuple format in:", tuple);
 	splited_tuple = ft_strsplit(tuple, ',');
 	argument_number = -1;
 	while (splited_tuple[++argument_number])

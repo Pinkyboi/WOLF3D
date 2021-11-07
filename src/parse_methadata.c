@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 14:33:51 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/25 21:50:19 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/07 18:39:32 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	get_parsing_function(char *tag)
 	while (g_tag_dico[++i].tag_name)
 		if (!ft_strcmp(g_tag_dico[i].tag_name, tag))
 			return (i);
-	ft_err_print("unknown tag : ", tag);
+	ft_err_print("Unknown tag : ", tag);
 	return (-1);
 }
 
@@ -90,7 +90,7 @@ int	extract_content(char *string, t_game_object *game_object)
 	if (string[j] == '{')
 		jump = braket_content(index, &string[j], current_tag, game_object);
 	else
-		ft_err_print("missing braket in : ", current_tag);
+		ft_err_print("Missing braket in : ", current_tag);
 	free(current_tag);
 	return (jump + j);
 }

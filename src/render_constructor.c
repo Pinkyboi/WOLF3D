@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_constructor.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 19:05:25 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/06/01 19:05:27 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/07 18:38:38 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	parse_color(char *render_argument)
 	int	color;
 
 	if (!ft_stock_hex(render_argument, &color))
-		ft_err_print("wrong color format in:", render_argument);
+		ft_err_print("Wrong color format in:", render_argument);
 	return (color);
 }
 

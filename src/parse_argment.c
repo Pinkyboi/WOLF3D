@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_argment.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 15:43:53 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/22 15:43:54 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/07 18:38:38 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_coor	ft_parse_resolution(char *resolution_expression)
 	arguments = ft_strsplit(resolution_expression, 'x');
 	argument_number = ft_row_len(arguments);
 	if (argument_number != 2)
-		ft_err_print("wrong resolution format in:", resolution_expression);
+		ft_err_print("Wrong resolution format in:", resolution_expression);
 	i = -1;
 	while (arguments[++i])
 	{

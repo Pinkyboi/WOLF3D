@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:28:33 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/07 21:13:13 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/07 18:40:12 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_load_texture(char *path, t_texture *texture_data)
 			path, &(texture_data->texture_width),
 			&(texture_data->texture_height));
 	if (!mlx.mlx_img.img_ptr)
-		ft_err_print("error in texture path: ", path);
+		ft_err_print("Error in texture path: ", path);
 	texture_data->texture_data = (int *)mlx_get_data_addr(mlx.mlx_img.img_ptr,
 			&mlx.mlx_img.bpp, &mlx.mlx_img.size_l, &mlx.mlx_img.endian);
 	free(mlx.mlx_ptr);
@@ -73,10 +73,10 @@ void	parse_block(char **data, t_block_list *block_list)
 			|| !ft_strcmp(tuple[1], "ceiling"))
 			block_info[1] = *tuple[1];
 		else
-			ft_err_print("unknown block type in: ", tuple[1]);
+			ft_err_print("Unknown block type in: ", tuple[1]);
 	}
 	else
-		ft_err_print("block symbole should be alphanumeric: ", tuple[0]);
+		ft_err_print("Block symbole should be alphanumeric: ", tuple[0]);
 	render_tools = ft_parse_render(data[1]);
 	block_list = ft_push_block(block_list, ft_create_block_node(block_info[1],
 				block_info[0], render_tools.render_data,

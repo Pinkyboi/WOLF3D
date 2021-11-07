@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/07 18:32:13 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/07 18:39:57 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	*ft_safe_malloc(size_t size)
 
 	allocated_memory = malloc(size);
 	if (!allocated_memory)
-		ft_err_print("internal error during :", "memory allocation");
+		ft_err_print("Internal error during :", "memory allocation");
 	return (allocated_memory);
 }
 

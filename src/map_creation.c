@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 15:50:27 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/10 11:15:10 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/07 18:39:12 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_tile	**ft_create_raw_map(t_tile **map, t_block_list *block_list,
 		j = -1;
 		map[i] = (t_tile *)malloc(sizeof(t_tile) * dimentions.x);
 		if (!map[i])
-			ft_err_print("internal error during :", "memory allocation");
+			ft_err_print("Internal error during :", "memory allocation");
 		while (++j < dimentions.x)
 		{
 			map[i][j] = (t_tile){NULL, NULL, NULL};
