@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/07 18:38:38 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:53:05 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_hex_to_int(char *number)
 	rank = ft_strlen(number) - 1;
 	final_number = 0;
 	i = -1;
-	while (number[++i])
+	while (number && number[++i])
 	{
 		j = 0;
 		if (!ft_strchr(HEX_FILTER, ft_tolower(number[i])))
@@ -40,7 +40,7 @@ int	ft_hex_to_color(char *color)
 	int	i;
 
 	i = -1;
-	while (color[++i])
+	while (color && color[++i])
 	{
 		if (i >= 6 || !ft_strchr(HEX_FILTER, ft_tolower(color[i])))
 			ft_err_print("Wrong color format in:", color);

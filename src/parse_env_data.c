@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:28:33 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/07 18:40:12 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:53:20 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_load_env_block_data(t_game_object *game_object, char *argument_block)
 
 	i = -1;
 	arguments_data = ft_strsplit(argument_block, ARGUMENT_DELIMITER);
-	while (arguments_data[++i])
+	while (arguments_data && arguments_data[++i])
 	{
 		current_argument = ft_parse_block_arg(arguments_data[i], "<env>");
 		parse_block(current_argument, game_object->parser.block_list);

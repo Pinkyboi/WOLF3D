@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 15:43:53 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/07 18:38:38 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 19:05:02 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ t_coor	ft_parse_resolution(char *resolution_expression)
 	if (argument_number != 2)
 		ft_err_print("Wrong resolution format in:", resolution_expression);
 	i = -1;
-	while (arguments[++i])
+	while (arguments && arguments[++i])
 	{
 		ft_safe_trim(arguments[i], WHITE_SPACES);
 		ft_check_number(arguments[i]);
 	}
-	resolution.x = ft_clip_min(0, ft_atoi(arguments[0]));
-	resolution.y = ft_clip_min(0, ft_atoi(arguments[1]));
+	resolution.x = ft_clip_min_max(400, 3840, ft_atoi(arguments[0]));
+	resolution.y = ft_clip_min_max(400, 2160, ft_atoi(arguments[1]));
 	ft_free_array(arguments);
 	return (resolution);
 }
@@ -52,7 +52,7 @@ char	**ft_parse_block_arg(char *block_infos, char *tag)
 
 	arg_num = -1;
 	block_terms = ft_strsplit(block_infos, ':');
-	while (block_terms[++arg_num])
+	while (block_terms && block_terms[++arg_num])
 		ft_safe_trim(block_terms[arg_num], WHITE_SPACES);
 	if (arg_num != 2)
 		ft_err_print("Wrong argument format in: ", tag);

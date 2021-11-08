@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/07 18:38:38 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:56:10 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	ft_check_number(char *string)
 	int	i;
 
 	i = -1;
+	if (!string)
+		ft_err_print("ERROR: ", "empty argument");
 	while (string[++i])
 		if (!ft_ft_isdigit(string[i]))
 			ft_err_print("Wrong argument for number in: ", string);

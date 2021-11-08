@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 11:54:23 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/07 18:38:38 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:54:18 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**ft_parse_block_tuple(char *tuple)
 		ft_err_print("Wrong tuple format in:", tuple);
 	splited_tuple = ft_strsplit(tuple, ',');
 	argument_number = -1;
-	while (splited_tuple[++argument_number])
+	while (splited_tuple && splited_tuple[++argument_number])
 		ft_safe_trim(splited_tuple[argument_number],
 			WHITE_SPACE_AND_LEGAL_BRACKETS);
 	if (argument_number != 2)
@@ -35,7 +35,7 @@ void	ft_insert_tuple_block_infos(t_tile *map_tile,
 	int	i;
 
 	i = -1;
-	while (args[++i])
+	while (args && args[++i])
 		ft_insert_argument_block_infos(map_tile,
 			block_list, args[i]);
 	ft_free_array(args);

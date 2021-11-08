@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   argument_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 13:52:51 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/02 13:52:52 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:50:10 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_argument_list	*ft_create_argument_list(char *argument_block,
 
 	argument_lines = ft_strsplit(argument_block, ARGUMENT_DELIMITER);
 	i = -1;
-	while (argument_lines[++i])
+	while (argument_lines && argument_lines[++i])
 	{
 		line = ft_parse_block_arg(argument_lines[i], tag);
 		argument_list = ft_push_argument(argument_list,

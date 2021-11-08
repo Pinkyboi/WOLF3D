@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 14:49:07 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/08 14:26:48 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:37:29 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ double		ft_clip_min(int min, double value);
 double		ft_clip_max(int max, double value);
 double		ft_clip_min_max(int min, int max, double value);
 double		ft_clip_max_d(double max, double value);
+double		ft_clip_min_d(double min, double value);
 double		ft_check_angle(double angle);
 double		ft_ray_size(t_game_object *gamet_game_object,
 				t_d_coor ray_intersection, double angle);

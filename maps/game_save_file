@@ -1,21 +1,7 @@
 <render>{
-    Resolution    :     1080    
-     x 720;
-    Type          :     Textured;
-    Main_color :    #FFFFFF;
-    Inner_color : #000000;
-    Edge_color : #FFFFFF;
-    Sky : ./textures/skycrop.xpm;
 }
-
-<player>{
-    Health        : 100;
-    Stamina       : 69;
-    Position      : (1, 1);
-}
-
 <env>{
-    (1,wall)    : ./textures/wood.xpm;
+    ( 1 , wall )    : ./textures/wood.xpm;
     (2,floor)    : ./textures/wood.xpm;
     (3,ceiling)    : ./textures/wood.xpm;
     (5, wall) : #FFD700;
@@ -23,33 +9,12 @@
     (4, wall)    : #EDD382;
 }
 
+<player>{
+    Position : (8,0);
+}
+
 <map>{
-    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 b b b b b b b b b b b b b b
-    1 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
-    1 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
-    1 (2,3) (2,3) (2,3) 2 2 2 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
-    1 (2,3) (2,3) (2,3) 2 2 2 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
-    1 (2,3) (2,3) (2,3) 2 2 2 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
-    1 (2,3) (2,3) (2,3) 2 2 2 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
-    1 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
-    1 (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) (2,3) 1 b b b b b b b b b b b b b b
-    1 1 1 1 1 1 (2,3) (2,3) (2,3) 1 1 1 1 b 1 1 1 b b b b b b b b b b b b b b
-    1 b b b b (5,3) b b b (5,3) b b b b b 1 b b b b b b 1 b b b b b b b b b b b b b b
-    1 b b b b b b b b b b b b b b 1 b b b b b b 1 b b b b b b b b b b b b b b
-    1 b b b b b b b b b b b b b b 1 1 1 1 1 b b 1 1 1 1 1 1 1 1 1 1 1 1 1
-    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
-    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
-    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
-    1 b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b 1
-    1 b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b 1
-    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
-    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
-    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
-    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
-    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
-    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
-    1 b b b b b b b b b b b b b b 1 b b b 1 b b b b b b b b b b b b b b 1
-    1 b b b b b b b b b b b b b b 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
-    1 b b b b b b b b b b b b b b 1
-    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+    0 0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 0 
 }

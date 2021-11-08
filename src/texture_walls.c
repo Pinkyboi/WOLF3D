@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/05 12:32:23 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 19:00:12 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,17 @@ void	ft_draw_texture_line(t_coor edges,
 	double		texture_index;
 	int			color;
 
-	
 	step.y = (double)data.texture.texture_height / (edges.y - edges.x + 1);
 	step.x = ft_get_texture_x_coor(game_object, data.texture);
 	min_edge = ft_clip_min_max(0,
-		game_object->render_data.window_resolution.y, edges.x);
+			game_object->render_data.window_resolution.y, edges.x);
 	texture_index = 0;
-	if(edges.x < 0)
+	if (edges.x < 0)
 		texture_index = (min_edge - edges.x) * step.y;
 	edges.y = ft_clip_min_max(0,
-		game_object->render_data.window_resolution.y, edges.y);
-	edges.x = min_edge;
-	while (edges.x <= edges.y)
+			game_object->render_data.window_resolution.y, edges.y);
+	edges.x = min_edge - 1;
+	while (++edges.x <= edges.y)
 	{
 		color = data.texture.texture_data[(int)((int)texture_index
 				* data.texture.texture_width + (int)(step.x))];
@@ -62,7 +61,6 @@ void	ft_draw_texture_line(t_coor edges,
 		ft_put_pixel(game_object,
 			(t_coor){game_object->drawing_index.x, edges.x}, color);
 		texture_index += step.y;
-		edges.x++;
 	}
 }
 

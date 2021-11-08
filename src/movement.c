@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 14:30:21 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/08 15:43:28 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 19:06:22 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,19 @@ void	ft_check_next_position(t_game_object *game_object,
 	if (!ft_is_position_valid(game_object, (t_coor){edge.x, edge.y}))
 	{
 		game_object->player.world_position = world_position;
-		if(ft_is_position_valid(game_object, (t_coor){round(edge.x), edge.y}))
+		if (ft_is_position_valid(game_object, (t_coor){round(edge.x), edge.y}))
 			game_object->player.world_position.x = grid_position.x + 0.5;
-		if(ft_is_position_valid(game_object, (t_coor){edge.x, round(edge.y)}))
+		if (ft_is_position_valid(game_object, (t_coor){edge.x, round(edge.y)}))
 			game_object->player.world_position.y = grid_position.y + 0.5;
-		if(ft_is_position_valid(game_object, (t_coor){round(edge.x - 1), edge.y}))
+		if (ft_is_position_valid(game_object,
+				(t_coor){round(edge.x - 1), edge.y}))
 			game_object->player.world_position.x = grid_position.x + 0.5;
-		if(ft_is_position_valid(game_object, (t_coor){edge.x, round(edge.y - 1)}))
+		if (ft_is_position_valid(game_object,
+				(t_coor){edge.x, round(edge.y - 1)}))
 			game_object->player.world_position.y = grid_position.y + 0.5;
-		game_object->player.grid_position = (t_coor){game_object->player.world_position.x,
-					game_object->player.world_position.y};
+		game_object->player.grid_position = (t_coor)
+		{game_object->player.world_position.x,
+			game_object->player.world_position.y};
 	}
 }
 
@@ -92,7 +95,7 @@ void	ft_movement(t_game_object *game_object)
 				ft_normalise_vector_2d(
 					ft_angle_to_2d_vector
 					(ft_check_angle(game_object->player.orientation))),
-					game_object->player.step);
+				game_object->player.step);
 	}
 	if (ft_get_movement_key(FOREWORD) == 1
 		|| ft_get_movement_key(BACKWARD) == 1)

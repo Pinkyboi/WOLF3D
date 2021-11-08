@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 14:25:01 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/04/29 14:25:40 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:54:41 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_trim(char *string, char *filter)
 	char	*ft_trimmed_string;
 
 	head = 0;
-	while (string[head])
+	while (string && string[head])
 	{
 		if (!ft_strchr(filter, string[head]))
 			break ;
@@ -54,7 +54,7 @@ int	ft_mini_brackets(char *string, char *bracket)
 	i = -1;
 	open_braket = 0;
 	pair_number = 0;
-	while (string[++i])
+	while (string && string[++i])
 	{
 		if (string[i] == bracket[0])
 			open_braket += 1;

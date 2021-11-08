@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 14:33:51 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/08 15:53:05 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:53:49 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	braket_content(int index, char *string, char *tag,
 
 	i = -1;
 	open_braket = 0;
-	while (string[++i])
+	while (string && string[++i])
 	{
 		if (string[i] == '{')
 			open_braket++;
@@ -79,7 +79,7 @@ int	extract_content(char *string, t_game_object *game_object)
 
 	j = 0;
 	jump = 0;
-	while (string[++j] && string[j] != '>')
+	while (string && string[++j] && string[j] != '>')
 		if (ft_strchr("<{}:;-", string[j]))
 			ft_err_print("FATAL ERROR : ", "unclosed tag");
 	current_tag = ft_strnclone(string, j + 1);
@@ -103,7 +103,9 @@ void	ft_load_game_elements(char *string, t_game_object *game_object)
 	game_object->parser.block_list = ft_push_block(NULL,
 			ft_create_block_node('w', FILLER_ICON,
 				(t_render){.color = FILLER_COLOR}, &ft_color_wall));
-	while (string[++i])
+	ft_load_render_data(game_object, NULL);
+	ft_load_player_data(game_object, NULL);
+	while (string && string[++i])
 	{
 		if (ft_strchr(WHITE_SPACES, string[i]))
 			continue ;

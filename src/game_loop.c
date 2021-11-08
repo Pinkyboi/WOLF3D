@@ -6,25 +6,25 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 18:32:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/08 15:46:15 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 19:03:29 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-static unsigned long oldTime;
-static unsigned long Time;
+static unsigned long	g_old_time;
+static unsigned long	g_time;
 
-static void ft_framerate_limitor(t_game_object *game_object)
+static void	ft_framerate_limitor(t_game_object *game_object)
 {
-	double frameTime;
+	double	frame_time;
 
-	oldTime = Time;
-    Time = clock();
-    frameTime = (double)(Time - oldTime) / (double)CLOCKS_PER_SEC;
-    game_object->player.step = frameTime * 3.0;
-	game_object->player.tilt_step = ft_clip_max_d(0.05, frameTime * 0.4);
-	game_object->player.rot_step = ft_clip_max_d(0.08, frameTime * 0.4);
+	g_old_time = g_time;
+	g_time = clock();
+	frame_time = (double)(g_time - g_old_time) / (double)CLOCKS_PER_SEC;
+	game_object->player.step = frame_time * 3.0;
+	game_object->player.tilt_step = ft_clip_max_d(0.05, frame_time * 0.4);
+	game_object->player.rot_step = ft_clip_max_d(0.08, frame_time * 0.4);
 }
 
 int	ft_frame_loop(void *arg)
