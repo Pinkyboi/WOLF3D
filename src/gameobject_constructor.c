@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 13:35:15 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/05 01:16:46 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 14:17:41 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_default_player_arg(t_game_object *game_object)
 {
 	game_object->player.orientation = 0.01;
 	game_object->player.step = 0.4;
+	game_object->player.tilt_step = 0.05;
 	game_object->player.movement = ft_normalise_vector_2d(
 			ft_scale_vector_2d(
 			ft_angle_to_2d_vector(game_object->player.orientation),

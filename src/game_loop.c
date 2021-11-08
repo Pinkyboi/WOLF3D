@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 18:32:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/07 18:32:39 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 15:46:15 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ static unsigned long Time;
 
 static void ft_framerate_limitor(t_game_object *game_object)
 {
+	double frameTime;
+
 	oldTime = Time;
     Time = clock();
-    double frameTime = (double)(Time - oldTime) / (double)CLOCKS_PER_SEC;
+    frameTime = (double)(Time - oldTime) / (double)CLOCKS_PER_SEC;
     game_object->player.step = frameTime * 3.0;
+	game_object->player.tilt_step = ft_clip_max_d(0.05, frameTime * 0.4);
+	game_object->player.rot_step = ft_clip_max_d(0.08, frameTime * 0.4);
 }
 
 int	ft_frame_loop(void *arg)

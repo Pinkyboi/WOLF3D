@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/07 17:49:07 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 15:44:10 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,8 @@ typedef struct s_player
 	short				is_running;
 	int					*player_appearance;
 	double				step;
+	double				tilt_step;
+	double				rot_step;
 	double				height;
 	double				view_distance;
 	double				orientation;

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 14:30:21 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/07 18:18:56 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 15:43:28 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ void	ft_head_tilt(t_game_object *game_object)
 	view = &game_object->render_data.view_data;
 	if (ft_get_movement_key(UP) == 1 && view->vertical_tilt < M_1_PI - 0.05)
 	{
-		view->vertical_tilt += 0.05;
+		view->vertical_tilt += game_object->player.tilt_step;
 		view->view_shift = tan(view->vertical_tilt) * view->view_plane_distance;
 		view->half_view_plane = view->half_view_plane_save + view->view_shift;
 	}
 	if (ft_get_movement_key(DOWN) == 1 && view->vertical_tilt > -M_1_PI + 0.05)
 	{
-		view->vertical_tilt -= 0.05;
+		view->vertical_tilt -= game_object->player.tilt_step;
 		view->view_shift = tan(view->vertical_tilt) * view->view_plane_distance;
 		view->half_view_plane = view->half_view_plane_save + view->view_shift;
 	}
@@ -83,9 +83,9 @@ void	ft_movement(t_game_object *game_object)
 	if (ft_get_movement_key(LEFT) == 1 || ft_get_movement_key(RIGHT) == 1)
 	{
 		if (ft_get_movement_key(LEFT) == 1)
-			game_object->player.orientation -= 0.08;
+			game_object->player.orientation -= game_object->player.rot_step;
 		if (ft_get_movement_key(RIGHT) == 1)
-			game_object->player.orientation += 0.08;
+			game_object->player.orientation += game_object->player.rot_step;
 		game_object->player.orientation = ft_check_angle(
 				game_object->player.orientation);
 		game_object->player.movement = ft_scale_vector_2d(
