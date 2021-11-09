@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 18:32:17 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/08 19:03:29 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/09 13:45:51 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@ static void	ft_framerate_limitor(t_game_object *game_object)
 	g_time = clock();
 	frame_time = (double)(g_time - g_old_time) / (double)CLOCKS_PER_SEC;
 	game_object->player.step = frame_time * 3.0;
-	game_object->player.tilt_step = ft_clip_max_d(0.05, frame_time * 0.4);
-	game_object->player.rot_step = ft_clip_max_d(0.08, frame_time * 0.4);
+	game_object->player.tilt_step = ft_clip_max_d(0.05, frame_time * 0.8);
+	game_object->player.rot_step = ft_clip_max_d(0.08, frame_time * 0.8);
+	game_object->player.movement = ft_scale_vector_2d(
+			ft_normalise_vector_2d(
+				ft_angle_to_2d_vector(game_object->player.orientation)),
+			game_object->player.step);
 }
 
 int	ft_frame_loop(void *arg)
@@ -35,7 +39,8 @@ int	ft_frame_loop(void *arg)
 	if (ft_any_key_pressed() == 1)
 	{
 		ft_clear_mlx(game_object);
-		ft_framerate_limitor(game_object);
+		if (game_object->render_data.adapt_fps)
+			ft_framerate_limitor(game_object);
 		ft_run(game_object);
 		ft_movement(game_object);
 		ft_head_tilt(game_object);

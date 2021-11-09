@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 19:05:25 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/07 18:38:38 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/09 13:44:45 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ void	ft_load_wireframe_render(t_game_object *game_object,
 				WIRE_INNER_COLOR, game_object->parser.current_arguments));
 }
 
+#define YES "Yes"
+#define NO "No"
+
 void	ft_load_render_data(t_game_object *game_object, char *argument_block)
 {
 	game_object->parser.current_arguments = ft_create_argument_list(
@@ -84,6 +87,15 @@ void	ft_load_render_data(t_game_object *game_object, char *argument_block)
 			ft_get_argument("Sky",
 				SKY_COLOR, game_object->parser.current_arguments),
 			game_object);
+	if (!ft_strcmp(ft_get_argument("Adapt_fps", NO,
+				game_object->parser.current_arguments), YES))
+		game_object->render_data.adapt_fps = 1;
+	else if (!ft_strcmp(ft_get_argument("Adapt_fps", NO,
+				game_object->parser.current_arguments), NO))
+		game_object->render_data.adapt_fps = 0;
+	else
+		ft_err_print("The only valid argument for Adapt_fps are: ",
+			"(Yes, No)");
 	ft_free_argument_list(game_object->parser.current_arguments);
 	free(argument_block);
 }

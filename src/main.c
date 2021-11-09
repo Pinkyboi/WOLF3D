@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/08 18:56:40 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/08 21:18:19 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	main(int argc, char **argv)
 	data = ft_read_file(fd);
 	ft_load_game_elements(data, game_object);
 	free(data);
+	if (!game_object->map.map_grid)
+		ft_err_print("FATAL ERROR : ", "map unfound");
 	if (ft_is_position_valid(game_object, game_object->player.grid_position))
 		ft_err_print("FATAL ERROR : ",
 			"the player is on a block or out of the map boundaries");
