@@ -6,14 +6,15 @@
 #    By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#              #
-#    Updated: 2021/11/07 18:32:52 by abenaiss         ###   ########.fr        #
+#    Updated: 2021/11/14 19:04:27 by abenaiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
 
-CC =gcc
-CFLAGS = -g -Wall -Wextra -Werror
+CC = gcc
+# CFLAGS =  -Wall -Wextra -Werror
+CFLAGS = 
 
 SRC_DIR =./src/
 OBJ_DIR =./obj/
@@ -58,10 +59,11 @@ FILES_NAME =main.c\
 			render_constructor.c\
 			ray_shooter.c\
 			game_loop.c\
+			put_get_pixel.c\
 
 OBJS = $(addprefix $(OBJ_DIR), $(FILES_NAME:.c=.o))
 SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))
-HEADER_FILE = wolf3d.h
+HEADER_FILE = $(addprefix $(INC_DIR), wolf3d.h wolf3d_parser.h)
 
 INCLUDES = -I $(INC_DIR) -I $(LIBFT_H) -I ./mlx
 LIBRARIES = -L $(LIBFT_DIR) -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
@@ -70,7 +72,7 @@ all: $(NAME)
 $(NAME) : $(OBJS)
 	@make -sC $(LIBFT_DIR)
 	@$(CC) $(INCLUDES) $(LIBRARIES) $(OBJS) -o $@
-$(OBJS) : $(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
+$(OBJS) : $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER_FILE) | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR) $(INCLUDES)
 $(OBJ_DIR) :
 	@mkdir $(OBJ_DIR)

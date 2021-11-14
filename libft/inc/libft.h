@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenaiss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 14:03:22 by abenaiss          #+#    #+#             */
-/*   Updated: 2018/10/19 14:04:54 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/09 18:01:24 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char			*ft_strnstr(const char *haystack,
 					const char *needle, size_t len);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
+int				ft_count(const char *str, char c);
 int				ft_atoi(const char *str);
 int				ft_isalpha(int c);
 int				ft_ft_isdigit(int c);

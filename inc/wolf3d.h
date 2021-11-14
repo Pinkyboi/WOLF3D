@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 14:49:07 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/08 20:41:00 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/10 09:53:35 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void		ft_color_wall(t_game_object *game_object, t_render data);
 void		ft_texture_wall(t_game_object *game_object, t_render data);
 void		ft_put_pixel(t_game_object *game_object,
 				t_coor position, int color);
+int			ft_get_pixel(t_texture *texture, t_coor position);
 void		ft_ray_shooter(t_game_object *game_object);
 void		ft_textured_render(t_game_object *game_object);
 void		ft_basic_render(t_game_object *game_object);

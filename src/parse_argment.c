@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 15:43:53 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/08 19:05:02 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:29:40 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	**ft_parse_block_arg(char *block_infos, char *tag)
 	int		arg_num;
 
 	arg_num = -1;
+	if (ft_count(block_infos, ':') != 1)
+		ft_err_print("Wrong argument format in: ", tag);
 	block_terms = ft_strsplit(block_infos, ':');
 	while (block_terms && block_terms[++arg_num])
 		ft_safe_trim(block_terms[arg_num], WHITE_SPACES);

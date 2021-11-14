@@ -6,23 +6,18 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/08 21:19:36 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/14 19:14:23 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF3D_PARSER_H
 # define WOLF3D_PARSER_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
 # include "libft.h"
 # include "mlx.h"
+# include <stdlib.h>
 # include <math.h>
 # include <limits.h>
-# include <errno.h>
-# include <sys/types.h>
-# include <sys/stat.h>
 # include <fcntl.h>
 # include <pthread.h>
 
@@ -50,7 +45,7 @@
 # define SOUTH_COLOR "#F21170"
 # define EAST_COLOR "#FA9905"
 # define WEST_COLOR "#FF5200"
-# define SKY_COLOR "#87CEEB"
+# define SKY_COLOR "#0"
 
 # define MAX_HP 100
 # define MIN_HP 1
@@ -161,7 +156,6 @@ typedef struct s_player
 	short				hp;
 	short				stamina;
 	short				is_running;
-	int					*player_appearance;
 	double				step;
 	double				tilt_step;
 	double				rot_step;

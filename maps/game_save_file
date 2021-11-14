@@ -1,12 +1,8 @@
 <render>{
-    Resolution    :     1080    
-     x 720;
+    Resolution    :     1080 x 720;
     Type          :     Textured;
-    Main_color :    #FFFFFF;
-    Adapt_fps : No;
-    Inner_color : #000000;
-    Edge_color : #FFFFFF;
     Sky : ./textures/skycrop.xpm;
+    Adapt_fps     : Yes;
 }
 
 <player>{

@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:44:34 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/05/20 20:42:53 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/10 11:12:21 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int	texture_pixel(t_render data, double shade)
 	t_d_coor	coordinates;
 
 	coordinates = data.texture.coordinates;
-	color = data.texture.texture_data[(int)((int)coordinates.y
-			* data.texture.texture_width + (int)(coordinates.x))];
+	color = ft_get_pixel(&data.texture, (t_coor){coordinates.x, coordinates.y});
 	color = ft_scale_color_int(color, 0.7);
 	color = ft_scale_color_int(color, shade);
 	return (color);

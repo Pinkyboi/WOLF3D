@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 15:23:11 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/10/23 16:39:25 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/14 19:18:08 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	color_sky(t_game_object *game_object, t_render data)
 	int	i;
 	int	j;
 
-	i = game_object->drawing_index.x - 1;
-	while (++i <= game_object->drawing_width_end)
+	i = - 1;
+	while (++i <= game_object->render_data.window_resolution.x)
 	{
 		j = -1;
 		while (++j < game_object->render_data.view_data.half_view_plane)

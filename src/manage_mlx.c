@@ -6,22 +6,11 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 14:30:21 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/08 20:41:22 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/10 09:52:16 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-
-void	ft_put_pixel(t_game_object *game_object, t_coor position, int color)
-{
-	t_coor	resolution;
-
-	resolution = game_object->render_data.window_resolution;
-	if (position.x >= 0 && position.x < resolution.x
-		&& position.y >= 0 && position.y < resolution.y)
-		game_object->render_data.mlx.mlx_img.img_data[
-			(int)(position.y * resolution.x + position.x)] = color;
-}
 
 int	ft_exit(t_game_object *game_object)
 {

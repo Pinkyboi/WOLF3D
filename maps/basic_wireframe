@@ -1,0 +1,32 @@
+<render>{
+    Resolution    :     1080 x 720;
+    Type          :     Wireframe;
+    Main_color : #B983FF;
+    Edge_color : #94B3FD;
+    Inner_color : #99FEFF;
+}
+
+<player>{
+    Health        : 100;
+    Stamina       : 69;
+    Position      : (1, 1);
+    View_distance : 20;
+}
+
+<env>{
+    (1,wall)    : ./textures/brick.xpm;
+    (2,floor)    : ./textures/brick.xpm;
+}
+
+<map>{
+    0 1 1 1 1 1 1 1 1 1 1 1 1 0
+    0 0 0 0 0 1 0 1 0 0 0 0 0 0 
+    0 0 0 0 0 1 0 1 0 0 0 0 0 0
+    0 0 0 0 0 1 0 1 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0  
+    0 0 0 0 0 1 0 1 0 0 0 0 0 0  
+    0 0 0 0 0 1 0 1 0 0 0 0 0 0  
+    0 0 0 0 0 1 0 1 0 0 0 0 0 0
+    0 1 1 1 1 1 1 1 1 1 1 1 1 0  
+}

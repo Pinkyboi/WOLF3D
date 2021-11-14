@@ -1,7 +1,7 @@
 NAME = libft.a
 
 CC =gcc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS =  -Wall -Wextra -Werror
 OBJ_DIR = ./obj/
 SRC_DIR = ./src/
 INC_DIR = ./inc/
@@ -69,15 +69,18 @@ FILES_NAME =ft_atoi.c\
 			ft_strtrim.c\
 			ft_tolower.c\
 			ft_toupper.c\
+			ft_count.c\
 
 OBJS = $(addprefix $(OBJ_DIR), $(FILES_NAME:.c=.o))
 SRCS = $(addprefix $(SRC_DIR),$(FILES_NAME))
+
+HEADER_FILE = $(addprefix $(INC_DIR), libft.h)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@ar cr $(NAME) $(OBJS)
-$(OBJS) : $(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
+$(OBJS) : $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER_FILE) | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)
 $(OBJ_DIR) :
 	@mkdir $(OBJ_DIR)

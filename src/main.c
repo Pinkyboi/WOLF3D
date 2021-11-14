@@ -6,7 +6,7 @@
 /*   By: abenaiss <abenaiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:52:05 by abenaiss          #+#    #+#             */
-/*   Updated: 2021/11/08 21:18:19 by abenaiss         ###   ########.fr       */
+/*   Updated: 2021/11/14 19:02:07 by abenaiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 	game_object = ft_safe_malloc(sizeof(t_game_object));
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0 || argc != 2)
-		ft_err_print("FATAL ERROR : ", "invalid save file argument");
+		ft_err_print("FATAL ERROR : ", "invalid argument");
 	data = ft_read_file(fd);
 	ft_load_game_elements(data, game_object);
 	free(data);
